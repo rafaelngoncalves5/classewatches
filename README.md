@@ -16,3 +16,5 @@
 <br />
 
 ![requisitos funcionais](https://github.com/rafaelngoncalves5/loja-relogios/blob/master/docs/RFs.PNG?raw=true)
+
+Os requisitos foram trabalhados aqui no GitHub, e podem ser encontrados nas abas [projects](https://github.com/rafaelngoncalves5/loja-relogios/projects?query=is%3Aopen) e [issues](https://github.com/rafaelngoncalves5/loja-relogios/issues)
