@@ -1,5 +1,5 @@
 """
-WSGI config for lojarelogiosapp project.
+WSGI config for lojarelogios project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lojarelogiosapp.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lojarelogios.settings')
 
 application = get_wsgi_application()
