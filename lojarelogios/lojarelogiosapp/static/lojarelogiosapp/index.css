@@ -1,0 +1,232 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.btn-style1 {
+  color: #fbfbfb;
+  transition: 0.5s;
+  max-width: 28.8rem;
+  max-height: 9.3rem;
+  border-radius: 1rem;
+  padding: 2.1rem 5.6rem;
+  background-color: #1f2453;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-style1:hover {
+  background-color: #343c7d;
+  transition: 0.5s;
+}
+
+.btn-style2 {
+  color: #000000;
+  transition: 0.5s;
+  max-width: 28.8rem;
+  max-height: 9.3rem;
+  border: solid 2px #000000;
+  border-radius: 1rem;
+  padding: 2.1rem 5.6rem;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-style2:hover {
+  color: #fbfbfb;
+  transition: 0.6s;
+  border: solid 2px transparent;
+  background-color: #000000;
+}
+
+.products-header {
+  color: #fbfbfb;
+  padding: 1rem 2rem;
+  max-height: 12.8rem;
+  background-color: #333333;
+  font-weight: 400;
+  font-size: 3.2rem;
+  font-family: Cinzel;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.products-header .users-functions {
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.products-main {
+  padding: 6.4rem 9.6rem;
+}
+.products-main .main-title {
+  font-size: 6.4rem;
+  margin-bottom: 9.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.products-main .cards .card-product {
+  display: flex;
+  padding: 3.2rem;
+  margin-right: 0px;
+  max-width: 36rem;
+  border-radius: 15px;
+  flex-direction: column;
+  border: 2px solid #000000;
+}
+.products-main .cards .card-product .image {
+  height: 26rem;
+  max-width: 29.6rem;
+  border-radius: 56px;
+  overflow: hidden;
+}
+.products-main .cards .card-product .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: center;
+}
+.products-main .cards .card-product .card-buttons a {
+  margin-top: 3.2rem;
+  max-width: 29.6rem;
+  max-height: 5.6rem;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 2.4rem;
+  font-family: Cinzel;
+}
+.products-main .cards .card-product .card-buttons :nth-child(1) {
+  margin-top: 5.4rem;
+}
+
+.content {
+  width: 100%;
+  height: 100vh;
+}
+.content .fundo {
+  width: 100%;
+  height: 34vh;
+  background: url("images/bgimage.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.content .fundo .icon {
+  display: flex;
+  padding-top: 23rem;
+  justify-content: center;
+}
+.content .text {
+  width: 100%;
+  height: 66vh;
+  display: flex;
+  flex-direction: column;
+  padding: 18.1rem 19.7rem;
+}
+.content .text h1 {
+  font-weight: 800;
+  font-size: 6.4rem;
+  font-family: Cinzel;
+}
+.content .text p {
+  font-weight: 600;
+  font-size: 3.2rem;
+  font-family: Cinzel;
+}
+.content .text .btn-style1 {
+  margin-top: 3.2rem;
+}
+
+@media (max-width: 1440px) {
+  .content .fundo {
+    height: 34vh;
+  }
+  .content .fundo .icon {
+    padding-top: 11.75rem;
+  }
+  .content .fundo .icon img {
+    width: 17rem;
+  }
+  .content .text {
+    padding: 5.1rem 11.7rem;
+  }
+  .content .text h1 {
+    font-weight: 800;
+    font-size: 4.8rem;
+    font-family: Cinzel;
+  }
+  .content .text p {
+    font-weight: 600;
+    font-size: 2.4rem;
+    font-family: Cinzel;
+  }
+  .content .text .btn-style1 {
+    margin-top: 1.2rem;
+    max-width: 24.8rem;
+    max-height: 6.3rem;
+  }
+}
+@media (max-width: 790px) {
+  .content .fundo {
+    height: 28vh;
+  }
+  .content .fundo .icon {
+    padding-top: 7rem;
+  }
+  .content .fundo .icon img {
+    width: 14rem;
+  }
+  .content .text {
+    padding: 6.1rem 8.7rem;
+  }
+}
+@media (max-width: 584px) {
+  .content .fundo {
+    height: 27vh;
+  }
+  .content .fundo .icon {
+    padding-top: 6.5rem;
+  }
+  .content .text {
+    padding: 4.1rem 4.7rem;
+  }
+}
+@media (max-width: 505px) {
+  .content .fundo {
+    height: 27vh;
+  }
+  .content .fundo .icon {
+    padding-top: 6.5rem;
+  }
+  .content .fundo .icon img {
+    width: 14rem;
+  }
+  .content .text {
+    padding: 4.1rem 4.7rem;
+  }
+  .content .text h1 {
+    font-weight: 800;
+    font-size: 3.2rem;
+    font-family: Cinzel;
+  }
+  .content .text p {
+    font-weight: 600;
+    font-size: 1.6rem;
+    font-family: Cinzel;
+  }
+  .content .text .btn-style1 {
+    margin-top: 1.2rem;
+    max-width: 16.8rem;
+    max-height: 0.3rem;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */
