@@ -1,0 +1,42 @@
+@mixin display-style($display, $align-itens, $justify-content) {
+    display: $display;
+    align-items: $align-itens;
+    justify-content: $justify-content;
+}
+@mixin text-style($weight, $font-size, $font-family) {
+    font-weight: $weight;
+    font-size: $font-size;
+    font-family: $font-family;
+}
+.btn-style1 {
+    color: $white;
+    transition: 0.5s;
+    max-width: 28.8rem;
+    max-height: 9.3rem;
+    border-radius: 1rem;
+    padding: 2.1rem 5.6rem;
+    background-color: $blue-button;
+    @include display-style(flex, center, center);
+    &:hover {
+        background-color: $blue-button-hover;
+        transition: 0.5s;
+    }
+}
+.btn-style2 {
+    color: $black;
+    transition: 0.5s;
+    max-width: 28.8rem;
+    max-height: 9.3rem;
+    border: solid 2px $black;
+    border-radius: 1rem;
+    padding: 2.1rem 5.6rem;
+    background-color: transparent;
+    @include display-style(flex, center, center);
+    &:hover {
+        color: $white;
+        transition: 0.6s;
+        border: solid 2px transparent;
+
+        background-color: $black;
+    }
+}

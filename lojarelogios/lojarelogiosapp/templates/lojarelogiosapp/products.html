@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<title>{% block title %}Produtos{% endblock title %}</title>
+
+{% block content %}
+{% include 'navbar.html' %}
+<main class="products-main">
+    <div class="main-title">Products</div>
+    <div class="container-fluid">
+        <div class="cards">
+            <div class="row">
+                <div class="card-product col">
+                    <div class="image">
+                        <img src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}" alt="">
+                    </div>
+                    <div class="card-buttons">
+                        <a class="btn-style1" href="">See Products</a>
+                        <a class="btn-style2" href="">Add to cart</a>
+                    </div>
+                </div>
+                <div class="card-product col">
+                    <div class="image">
+                        <img src="{% static 'lojarelogiosapp/images/relogio2.jpg' %}" alt="">
+                    </div>
+                    <div class="card-buttons">
+                        <a class="btn-style1" href="">See Products</a>
+                        <a class="btn-style2" href="">Add to cart</a>
+                    </div>
+                </div>
+                <div class="card-product col">
+                    <div class="image">
+                        <img src="{% static 'lojarelogiosapp/images/relogio3.jpg' %}" alt="">
+                    </div>
+                    <div class="card-buttons">
+                        <a class="btn-style1" href="">See Products</a>
+                        <a class="btn-style2" href="">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card-product col">
+                    <div class="image">
+                        <img src="{% static 'lojarelogiosapp/images/relogio4.jpg' %}" alt="">
+                    </div>
+                    <div class="card-buttons">
+                        <a class="btn-style1" href="">See Products</a>
+                        <a class="btn-style2" href="">Add to cart</a>
+                    </div>
+                </div>
+                <div class="card-product col">
+                    <div class="image">
+                        <img src="{% static 'lojarelogiosapp/images/relogio5.jpg' %}" alt="">
+                    </div>
+                    <div class="card-buttons">
+                        <a class="btn-style1" href="">See Products</a>
+                        <a class="btn-style2" href="">Add to cart</a>
+                    </div>
+                </div>
+                <div class="card-product col">
+                    <div class="image">
+                        <img src="{% static 'lojarelogiosapp/images/relogio6.jpg' %}" alt="">
+                    </div>
+                    <div class="card-buttons">
+                        <a class="btn-style1" href="">See Products</a>
+                        <a class="btn-style2" href="">Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+{% endblock content %}
