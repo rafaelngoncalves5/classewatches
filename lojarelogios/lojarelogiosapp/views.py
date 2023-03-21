@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("ola mundo!")
+    return render(request, 'lojarelogiosapp/index.html')
+
+def products(request):
+    return render(request, 'lojarelogiosapp/products.html')
