@@ -10,9 +10,9 @@ class Produto(models.Model):
     quantidade = models.IntegerField(default=1)
 
     # Imagens
-    imagem_capa = models.FileField(upload_to='./uploads/lojarelogiosapp/images/', null=True)
-    imagem_2 = models.FileField(upload_to='./uploads/lojarelogiosapp/images/', null=True)
-    imagem_3 = models.FileField(upload_to='./uploads/lojarelogiosapp/images/', null=True)
+    imagem_capa = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
+    imagem_2 = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
+    imagem_3 = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
 
     def __str__(self):
         return self.titulo
