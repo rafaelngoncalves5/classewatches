@@ -1,9 +1,20 @@
-<header class="products-header">
+{% load static %}
+<header class="header">
     <div class="logo">
-        <a href="{% url 'index' %}">Logo</a>
+        <a href="{% url 'index' %}"
+            ><img
+                src="{% static 'lojarelogiosapp/images/icon-watch.svg' %}"
+                alt="Carrinho de compras"
+        /></a>
     </div>
     <div class="users-functions">
-        <p>User</p>
-        <p>Func</p>
+        <img
+            src="{% static 'lojarelogiosapp/images/icon-cart.svg' %}"
+            alt="Carrinho de compras"
+        />
+        <img
+            src="{% static 'lojarelogiosapp/images/icon-user.svg' %}"
+            alt="Perfil do Usuário"
+        />
     </div>
 </header>

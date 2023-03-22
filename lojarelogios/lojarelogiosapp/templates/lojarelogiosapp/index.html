@@ -1,13 +1,13 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <div id="root"></div>
 <main>
     <div class="content">
         <div class="fundo">
             <div class="icon">
-                <img src="{% static 'lojarelogiosapp/images/icone5.svg' %}" alt="Relógio" />
+                <img
+                    src="{% static 'lojarelogiosapp/images/icon-logo.svg' %}"
+                    alt="Relógio"
+                />
             </div>
         </div>
         <div class="text">
@@ -15,8 +15,7 @@
             <div class="paragraph">
                 <p>Localização: Rua alguma coisa</p>
                 <p>
-                    Horário de funcionamento: Segunda a Sexta de 9:00 às
-                    18:00
+                    Horário de funcionamento: Segunda a Sexta de 9:00 às 18:00
                 </p>
             </div>
             <a href="{% url 'products' %}" class="btn-style1">
