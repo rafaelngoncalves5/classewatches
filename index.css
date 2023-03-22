@@ -14,7 +14,6 @@ html {
   max-width: 28.8rem;
   max-height: 9.3rem;
   border-radius: 1rem;
-  text-decoration: none;
   padding: 2.1rem 5.6rem;
   background-color: #1f2453;
   display: flex;
@@ -31,10 +30,9 @@ html {
   transition: 0.5s;
   max-width: 28.8rem;
   max-height: 9.3rem;
-  border-radius: 1rem;
-  text-decoration: none;
-  padding: 2.1rem 5.6rem;
   border: solid 2px #000000;
+  border-radius: 1rem;
+  padding: 2.1rem 5.6rem;
   background-color: transparent;
   display: flex;
   align-items: center;
@@ -43,15 +41,14 @@ html {
 .btn-style2:hover {
   color: #fbfbfb;
   transition: 0.6s;
-  background-color: #000000;
   border: solid 2px transparent;
+  background-color: #000000;
 }
 
-.header {
-  width: 100%;
+.products-header {
   color: #fbfbfb;
-  position: fixed;
-  padding: 1rem 5rem;
+  padding: 1rem 2rem;
+  max-height: 12.8rem;
   background-color: #333333;
   font-weight: 400;
   font-size: 3.2rem;
@@ -60,31 +57,24 @@ html {
   align-items: center;
   justify-content: space-between;
 }
-.header .users-functions {
-  gap: 5rem;
+.products-header .users-functions {
+  gap: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.header .logo {
-  height: 5.4rem;
-}
-.header img {
-  cursor: pointer;
-  width: 50px;
 }
 
-.main {
-  padding: 10.2rem 9.6rem 6.4rem;
+.products-main {
+  padding: 6.4rem 9.6rem;
 }
-.main .main-title {
+.products-main .main-title {
   font-size: 6.4rem;
-  margin-bottom: 5.6rem;
+  margin-bottom: 9.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.main .cards .card-product {
+.products-main .cards .card-product {
   display: flex;
   padding: 3.2rem;
   margin-right: 0px;
@@ -93,19 +83,19 @@ html {
   flex-direction: column;
   border: 2px solid #000000;
 }
-.main .cards .card-product .image {
+.products-main .cards .card-product .image {
   height: 26rem;
   max-width: 29.6rem;
   border-radius: 56px;
   overflow: hidden;
 }
-.main .cards .card-product .image img {
+.products-main .cards .card-product .image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   position: center;
 }
-.main .cards .card-product .card-buttons a {
+.products-main .cards .card-product .card-buttons a {
   margin-top: 3.2rem;
   max-width: 29.6rem;
   max-height: 5.6rem;
@@ -114,7 +104,7 @@ html {
   font-size: 2.4rem;
   font-family: Cinzel;
 }
-.main .cards .card-product .card-buttons :nth-child(1) {
+.products-main .cards .card-product .card-buttons :nth-child(1) {
   margin-top: 5.4rem;
 }
 
@@ -122,25 +112,22 @@ html {
   width: 100%;
   height: 100vh;
 }
-.content .fundo {
+.content .background {
   width: 100%;
   height: 34vh;
   background: url("images/bgimage.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
-.content .fundo .icon {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  bottom: -10.7rem;
+.content .background .icon {
+  margin: 100% auto 0% auto;
 }
 .content .text {
   width: 100%;
   height: 66vh;
   display: flex;
   flex-direction: column;
-  padding: 19.1rem 19.7rem;
+  padding: 18.1rem 19.7rem;
 }
 .content .text h1 {
   font-weight: 800;
@@ -157,14 +144,17 @@ html {
 }
 
 @media (max-width: 1440px) {
-  .content .fundo {
+  .content .background {
     height: 34vh;
   }
-  .content .fundo .icon img {
+  .content .background .icon {
+    padding-top: 11.75rem;
+  }
+  .content .background .icon img {
     width: 17rem;
   }
   .content .text {
-    padding: 8.1rem 11.7rem;
+    padding: 5.1rem 11.7rem;
   }
   .content .text h1 {
     font-weight: 800;
@@ -183,39 +173,42 @@ html {
   }
 }
 @media (max-width: 790px) {
-  .content .fundo {
+  .content .background {
     height: 28vh;
   }
-  .content .fundo .icon {
-    bottom: -9.1rem;
+  .content .background .icon {
+    padding-top: 7rem;
   }
-  .content .fundo .icon img {
+  .content .background .icon img {
     width: 14rem;
   }
   .content .text {
-    padding: 7.1rem 8.7rem;
+    padding: 6.1rem 8.7rem;
   }
 }
 @media (max-width: 584px) {
-  .content .fundo {
+  .content .background {
     height: 27vh;
   }
-  .content .fundo .icon {
-    bottom: -11rem;
-  }
-  .content .fundo .icon img {
-    width: 10rem;
+  .content .background .icon {
+    padding-top: 6.5rem;
   }
   .content .text {
-    padding: 5.1rem 4.7rem;
+    padding: 4.1rem 4.7rem;
   }
 }
-@media (max-width: 470px) {
-  .content .fundo .icon {
-    bottom: -11rem;
+@media (max-width: 505px) {
+  .content .background {
+    height: 27vh;
+  }
+  .content .background .icon {
+    padding-top: 6.5rem;
+  }
+  .content .background .icon img {
+    width: 14rem;
   }
   .content .text {
-    padding: 6.1rem 4.7rem;
+    padding: 4.1rem 4.7rem;
   }
   .content .text h1 {
     font-weight: 800;

@@ -1,20 +1,28 @@
-.products-header {
+.header {
+    width: 100%;
     color: $white;
-    padding: 1rem 2rem;
-    max-height: 12.8rem;
+    position: fixed;
+    padding: 1rem 5rem;
     background-color: $less-black;
     @include text-style(400, $title-size-small, Cinzel);
     @include display-style(flex, center, space-between);
     .users-functions {
-        gap: 1rem;
+        gap: 5rem;
         @include display-style(flex, center, center);
     }
+    .logo {
+        height: 5.4rem;
+    }
+    img {
+        cursor: pointer;
+        width: 50px;
+    }
 }
-.products-main {
-    padding: 6.4rem 9.6rem;
+.main {
+    padding: 10.2rem 9.6rem 6.4rem;
     .main-title {
         font-size: $title-size-large;
-        margin-bottom: 9.6rem;
+        margin-bottom: 5.6rem;
         @include display-style(flex, center, center);
     }
     .cards {
