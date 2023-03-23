@@ -1,20 +1,21 @@
 {% load static %}
 <header class="header">
     <div class="logo">
-        <a href="{% url 'index' %}"
-            ><img
-                src="{% static 'lojarelogiosapp/images/icon-watch.svg' %}"
-                alt="Carrinho de compras"
-        /></a>
+        <a href="{% url 'lojarelogiosapp:index' %}"><img src="{% static 'lojarelogiosapp/images/icon-watch.svg' %}"
+                alt="Carrinho de compras" /></a>
     </div>
     <div class="users-functions">
-        <img
-            src="{% static 'lojarelogiosapp/images/icon-cart.svg' %}"
-            alt="Carrinho de compras"
-        />
-        <img
-            src="{% static 'lojarelogiosapp/images/icon-user.svg' %}"
-            alt="Perfil do Usuário"
-        />
+        <a href="">
+            <img src="{% static 'lojarelogiosapp/images/icon-cart.svg' %}" alt="Carrinho de compras" />
+        </a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'lojarelogiosapp:index_user' %}">
+            <img src="{% static 'lojarelogiosapp/images/icon-user.svg' %}" alt="Perfil do Usuário" />
+        </a>
+        {% else %}
+        <a href="{% url 'lojarelogiosapp:login' %}">
+            <img src="{% static 'lojarelogiosapp/images/icon-user.svg' %}" alt="Perfil do Usuário" />
+        </a>
+        {% endif %}
     </div>
 </header>
