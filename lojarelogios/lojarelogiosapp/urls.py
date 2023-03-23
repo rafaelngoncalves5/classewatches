@@ -5,6 +5,7 @@ app_name='lojarelogiosapp'
 urlpatterns = [
     path('', views.index, name='index'),
     path('products', views.products, name='products'),
+    path('user/', views.index_user, name='index_user'),
     path('user/register', views.register, name='register'),
     path('user/login', views.login, name='login'),
     path('user/logout', views.logout, name='logout'),

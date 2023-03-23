@@ -14,6 +14,9 @@ def products(request):
     return render(request, 'lojarelogiosapp/products.html', {'produtos': Produto.objects.all()})
 
 # Usuário
+def index_user(request):
+      return render(request, 'lojarelogiosapp/user/index.html', {'user': request.user})
+
 def register(request):
     if request.method == 'POST':
               primeiro_nome = request.POST['primeiro_nome']
@@ -31,10 +34,9 @@ def register(request):
                      new_user.save()
                      return redirect(reverse('lojarelogiosapp:index'))
 
-
               except IntegrityError:
                      # Tratar isso aqui na fase de testes
-                     return render(request, 'lojarelogiosapp/user/register.html', {'erro_msg': 'Erro de integridade, tente de novo com um usuário e/ou email diferente(s)!'})
+                     return render(request, 'lojarelogiosapp/user/register.html', {'erro_msg': 'Nome de usuário já cadastrado!'})
 
     return render(request, 'lojarelogiosapp/user/register.html')
 
@@ -42,4 +44,5 @@ def login(request):
     return render(request, 'lojarelogiosapp/user/login.html')
 
 def logout(request):
-    return render(request, 'lojarelogiosapp/user/register.html')
+    logout(request)
+    return redirect('lojarelogiosapp:products')

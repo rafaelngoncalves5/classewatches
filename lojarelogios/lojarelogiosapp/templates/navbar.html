@@ -9,7 +9,7 @@
             <img src="{% static 'lojarelogiosapp/images/icon-cart.svg' %}" alt="Carrinho de compras" />
         </a>
         {% if user.is_authenticated %}
-        <a href="{% url 'lojarelogiosapp:logout' %}">
+        <a href="{% url 'lojarelogiosapp:index_user' %}">
             <img src="{% static 'lojarelogiosapp/images/icon-user.svg' %}" alt="Perfil do Usuário" />
         </a>
         {% else %}
