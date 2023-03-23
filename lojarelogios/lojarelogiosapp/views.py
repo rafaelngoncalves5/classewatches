@@ -7,3 +7,8 @@ def index(request):
 
 def products(request):
     return render(request, 'lojarelogiosapp/products.html', {'produtos': Produto.objects.all()})
+
+
+# Usuário
+def register(request):
+    return render(request, 'lojarelogiosapp/user/register.html')
