@@ -34,7 +34,7 @@ def register(request):
 
               except IntegrityError:
                      # Tratar isso aqui na fase de testes
-                     pass
+                     return render(request, 'lojarelogiosapp/user/register.html', {'erro_msg': 'Erro de integridade, tente de novo com um usuário e/ou email diferente(s)!'})
 
     return render(request, 'lojarelogiosapp/user/register.html')
 
@@ -42,5 +42,4 @@ def login(request):
     return render(request, 'lojarelogiosapp/user/login.html')
 
 def logout(request):
-    logout(request)
-    return redirect('/')
+    return render(request, 'lojarelogiosapp/user/register.html')

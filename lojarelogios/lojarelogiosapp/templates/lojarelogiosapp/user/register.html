@@ -1,50 +1,61 @@
 {% extends 'base.html' %}
 <title>{% block title %}Loja de Relógios - Registre-se{% endblock title %}</title>
 {% block content %}
-<form method="post" action="{% url 'lojarelogiosapp:register' %}">
-    {% csrf_token %}
-    <div class="mb-3">
-        <label for="primeiro_nome" class="form-label">Primeiro Nome:</label>
-        <input value="primeiro_nome" type="text" class="form-control" id="primeiro_nome"
-            aria-describedby="primeiro_nome">
-        <div id="primeiro_nome" class="form-text">Seu primeiro nome</div>
-    </div>
+{% include 'navbar.html' %}
+<main>
+    <form method="post" action="{% url 'lojarelogiosapp:register' %}">
+        {% csrf_token %}
+        <div style="background-color: #1f2453;" class="container-fluid fs-2 p-5">
+            <div style="margin-top: 5em;" class="rounded bg-white shadow-sm mx-auto p-5 col-lg-6">
+                <h1 class="text-center main-title" style="font-size: xx-large;">Registre-se</h1>
+                <br />
+                <p class="text-danger text-center">{{ erro_msg }}</p>
+                <br />
+                <div class="mb-3">
+                    <label for="primeiro_nome" class="form-label">Primeiro Nome:</label>
+                    <input required minlength="3" maxlength="30" name="primeiro_nome" type="text" class="fs-2 p-3 form-control" id="primeiro_nome"
+                        aria-describedby="primeiro_nome">
+                </div>
 
-    <div class="mb-3">
-        <label for="ultimo_nome" class="form-label">Último Nome:</label>
-        <input value="ultimo_nome" type="text" class="form-control" id="ultimo_nome" aria-describedby="ultimo_nome">
-        <div id="ultimo_nome" class="form-text">Seu sobrenome</div>
-    </div>
+                <div class="mb-3">
+                    <label for="ultimo_nome" class="form-label">Último Nome:</label>
+                    <input required minlength="3" maxlength="30" name="ultimo_nome" type="text" class="fs-2 p-3 form-control" id="ultimo_nome"
+                        aria-describedby="ultimo_nome">
+                </div>
 
-    <div class="mb-3">
-        <label for="usuario" class="form-label">Usuário:</label>
-        <input value="usuario" type="text" class="form-control" id="usuario" aria-describedby="usuario">
-        <div id="usuario" class="form-text">Seu nome de usuário</div>
-    </div>
+                <div class="mb-3">
+                    <label for="usuario" class="form-label">Usuário:</label>
+                    <input required minlength="3" maxlength="30" name="usuario" type="text" class="fs-2 p-3 form-control" id="usuario" aria-describedby="usuario">
+                </div>
 
-    <div class="mb-3">
-        <label for="email" class="form-label">Email:</label>
-        <input value="email" type="text" class="form-control" id="email" aria-describedby="email">
-        <div id="email" class="form-text">Seu email</div>
-    </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input required maxlength="30" name="email" type="email" class="fs-2 p-3 form-control" id="email" aria-describedby="email">
+                </div>
 
-    <div class="mb-3">
-        <label for="senha" class="form-label">Senha:</label>
-        <input value="senha" type="text" class="form-control" id="senha" aria-describedby="senha">
-        <div id="senha" class="form-text">Sua senha</div>
-    </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Confirmar email:</label>
+                    <input required id="confirma-email" name="email" type="email" class="fs-2 p-3 form-control" aria-describedby="email">
+                </div>
 
-    <div class="mb-3">
-        <label for="confirma-senha" class="form-label">Confirmar senha:</label>
-        <input value="confirma-senha" type="text" class="form-control" id="confirma-senha"
-            aria-describedby="confirma-senha">
-        <div id="senha" class="form-text">Confirme sua senha</div>
-    </div>
+                <div class="mb-3">
+                    <label for="senha" class="form-label">Senha:</label>
+                    <input required minlength="8" name="senha" type="password" class="fs-2 p-3 form-control" id="senha" aria-describedby="senha">
+                </div>
 
-    <button disabled id="sbtn" type="submit" class="btn btn-primary">Registrar-se</button>
-</form>
+                <div class="mb-3">
+                    <label for="confirma-senha" class="form-label">Confirmar senha:</label>
+                    <input required name="confirma-senha" type="password" class="fs-2 p-3 form-control" id="confirma-senha"
+                        aria-describedby="confirma-senha">
+                </div>
+                <button disabled id="sbtn" type="submit" class="my-5 btn-style1 d-grid mx-auto">Registrar-se</button>
+
+            </div>
+        </div>
+    </form>
+</main>
 <script async>
-    var testeCondicional = () => confirmaSenha.value == senha.value ? sBtn.disabled = false : sBtn.disabled = true;
+    var testeCondicional = () => confirmaSenha.value == senha.value && confirmaEmail.value == email.value ? sBtn.disabled = false : sBtn.disabled = true;
     // Variável representando o input de senha
     var senha = document.getElementById('senha');
     senha.addEventListener('input', async () => testeCondicional());
@@ -55,5 +66,13 @@
 
     // Agora a gente pega o botão de submit
     var sBtn = document.getElementById('sbtn');
+
+    // ============== Parte de email ==============    
+    var email = document.getElementById('email');
+    email.addEventListener('input', async () => testeCondicional());
+
+    var confirmaEmail = document.getElementById('confirma-email');
+    confirmaEmail.addEventListener('input', async () => testeCondicional());
+
 </script>
 {% endblock content %}
