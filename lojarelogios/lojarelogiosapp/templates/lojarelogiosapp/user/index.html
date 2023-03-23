@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
+<title>{% block title %}Loja de Relógios - Olá {{ user.username }}{% endblock title %}</title>
 {% block content %}
-<div class="container-fluid fs-1 my-5">
-    <ul class="card row text-center list-group col-lg-6 col-sm-10 mx-auto">
+{% include 'navbar.html' %}
+<div class="container-fluid fs-1">
+    <br />
+    <br />
+    <br />
+    <br />
+    <ul class="card row text-center list-group col-lg-6 col-sm-10 mx-auto p-5">
         <h1>Olá {{ user.username }}</h1>
         <li class="list-group-item">Nome completo: {{ user.first_name }} {{ user.last_name }}</li>
         <li class="list-group-item">Email: {{ user.email }}</li>
         <li class="list-group-item">Cadastrado em: {{ user.date_joined }}</li>
     </ul>
 
-    <div class="d-grid gap-2 col-6 mx-auto my-5">
-        <a href="{% url 'lojarelogiosapp:logout' %}" type="button" class="btn btn-lg btn-danger">Sair</a>
-        <a onclick="history.back()" type="button" class="btn btn-lg btn-outline-dark">Voltar</a>
+    <div class="d-grid gap-2 col-lg-6 col-sm-10 mx-auto my-5">
+        <a href="{% url 'lojarelogiosapp:logout' %}" type="button" class="btn btn-link fs-1">Sair</a>
     </div>
 
 </div>

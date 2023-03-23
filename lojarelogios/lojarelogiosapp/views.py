@@ -4,20 +4,24 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from .models import Produto
 from django.contrib.auth.models import User
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
+from django.http import HttpResponseRedirect
 
 # Create your views here.
-def index(request):
-    return render(request, 'lojarelogiosapp/index.html')
+def index_view(request):
+    return render(request, 'lojarelogiosapp/index.html', {'user': request.user})
 
-def products(request):
+def products_view(request):
     return render(request, 'lojarelogiosapp/products.html', {'produtos': Produto.objects.all()})
 
 # Usuário
-def index_user(request):
-      return render(request, 'lojarelogiosapp/user/index.html', {'user': request.user})
+def index_user_view(request):
+      if request.user.is_authenticated:
+            return render(request, 'lojarelogiosapp/user/index.html', {'user': request.user})
+      else:
+            return HttpResponseRedirect(reverse('lojarelogiosapp:login'))
 
-def register(request):
+def register_view(request):
     if request.method == 'POST':
               primeiro_nome = request.POST['primeiro_nome']
               ultimo_nome = request.POST['ultimo_nome']
@@ -40,9 +44,23 @@ def register(request):
 
     return render(request, 'lojarelogiosapp/user/register.html')
 
-def login(request):
+def login_view(request):
+
+    if request.method == 'POST':
+          usuario = request.POST['usuario']
+          senha = request.POST['senha']
+          
+          user = authenticate(request, username=usuario, password=senha)
+
+          if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(reverse('lojarelogiosapp:products'))
+          else:
+                erro_msg = "Usuário e/ou senha incorretos!"
+                return render(request, 'lojarelogiosapp/user/login.html', {'erro_msg': erro_msg})
+
     return render(request, 'lojarelogiosapp/user/login.html')
 
-def logout(request):
+def logout_view(request):
     logout(request)
     return redirect('lojarelogiosapp:products')
