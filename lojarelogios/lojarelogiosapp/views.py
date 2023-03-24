@@ -12,7 +12,10 @@ def index_view(request):
     return render(request, 'lojarelogiosapp/index.html', {'user': request.user})
 
 def products_view(request):
-    return render(request, 'lojarelogiosapp/products.html', {'produtos': Produto.objects.all()})
+    return render(request, 'lojarelogiosapp/products/index.html', {'produtos': Produto.objects.all()})
+
+def details_view(request, id_produto):
+      return render(request, 'lojarelogiosapp/products/details.html')
 
 # Usuário
 def index_user_view(request):
