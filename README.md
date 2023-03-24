@@ -21,6 +21,8 @@ Projeto do tipo E-Commerce, fortemente centralizado na página de administraçã
 
 ![der](https://github.com/rafaelngoncalves5/loja-relogios/blob/master/docs/DER.jpg?raw=true)
 
+Feito com ajuda do [diagrams.net](https://www.diagrams.net/)
+
 ### O projeto seguiu os seguintes Requisitos Funcionais:
 
 <br />
