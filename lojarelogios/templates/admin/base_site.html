@@ -1,0 +1,23 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Loja de Relógios: Administração{% endblock %}
+
+{% block branding %}
+<style>
+    body {
+        background-color: white;
+        color: snow
+    }
+
+    div {
+        background-color: #1f2453;
+        color: snow;
+    }
+    nav {
+        background-color: #1f2453;
+    }
+</style>
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Loja de Relógios: Administração</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
