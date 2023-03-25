@@ -6,6 +6,7 @@ from .models import Produto, Carrinho
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index_view(request):
@@ -21,21 +22,27 @@ def details_view(request, id_produto):
       return render(request, 'lojarelogiosapp/products/details.html')
 
 def add_cart(request, id_produto):
-      product = Produto.objects.get(pk=id_produto)
-      cart = Carrinho.objects.get(pk=request.user.id)
+      if request.user.is_authenticated:
+            product = Produto.objects.get(pk=id_produto)
+            cart = Carrinho.objects.get(pk=request.user.id)
 
-      # Numa relação many-to-many, aqui nós adicionamos os produtos ao clickarmos, no carrinho do user
-      product.fk_carrinho.add(cart)
+            # Numa relação many-to-many, aqui nós adicionamos os produtos ao clickarmos, no carrinho do user
+            product.fk_carrinho.add(cart)
 
-      return HttpResponseRedirect(reverse('lojarelogiosapp:products'))
+            return HttpResponseRedirect(reverse('lojarelogiosapp:products'))
+      else:
+            return redirect('lojarelogiosapp:login')
 
 def remove_cart(request, id_produto):
-      product = Produto.objects.get(pk=id_produto)
-      cart = Carrinho.objects.get(pk=request.user.id)
+      if request.user.is_authenticated:
+            product = Produto.objects.get(pk=id_produto)
+            cart = Carrinho.objects.get(pk=request.user.id)
 
-      product.fk_carrinho.remove(cart)
+            product.fk_carrinho.remove(cart)
 
-      return HttpResponseRedirect(reverse('lojarelogiosapp:products'))
+            return HttpResponseRedirect(reverse('lojarelogiosapp:products'))
+      else:
+            return redirect('lojarelogiosapp:login')
 
 
 # Usuário
