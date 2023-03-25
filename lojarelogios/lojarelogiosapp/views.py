@@ -20,6 +20,15 @@ def products_view(request):
 def details_view(request, id_produto):
       return render(request, 'lojarelogiosapp/products/details.html')
 
+def add_cart(request, id_produto):
+      product = Produto.objects.get(pk=id_produto)
+      cart = Carrinho.objects.get(pk=request.user.id)
+
+      # Numa relação one-to-many, aqui nós adicionamos os produtos ao clickarmos, no carrinho do user
+      product.fk_carrinho.add(cart)
+
+      return HttpResponseRedirect(reverse('lojarelogiosapp:products'))
+
 # Usuário
 def index_user_view(request):
       if request.user.is_authenticated:

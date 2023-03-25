@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-buttons">
                     <a class="btn-style1" href="{% url 'lojarelogiosapp:details' produto.id_produto %}">See Products</a>
-                    <a class="btn-style2" href="">Add to cart</a>
+                    <a class="btn-style2" href="{% url 'lojarelogiosapp:add_cart' produto.id_produto %}">Add to cart</a>
                 </div>
             </div>
             {% endfor %}
