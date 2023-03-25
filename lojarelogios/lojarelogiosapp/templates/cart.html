@@ -5,18 +5,16 @@
 <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">
     <img src="{% static 'lojarelogiosapp/images/icon-cart.svg' %}" alt="Carrinho de compras" />
 </a>
-{% else %}
-<a href="{% url 'lojarelogiosapp:login' %}">
-    <img src="{% static 'lojarelogiosapp/images/icon-cart.svg' %}" alt="Carrinho de compras" />
-</a>
-{% endif %}
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-body">
-                ...
+                <p class="fs-2 text-dark">
+                    {{ carrinho }}
+                </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -25,3 +23,8 @@
         </div>
     </div>
 </div>
+{% else %}
+<a href="{% url 'lojarelogiosapp:login' %}">
+    <img src="{% static 'lojarelogiosapp/images/icon-cart.svg' %}" alt="Carrinho de compras" />
+</a>
+{% endif %}

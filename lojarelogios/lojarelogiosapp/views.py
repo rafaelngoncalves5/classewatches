@@ -2,7 +2,7 @@ from django.utils import timezone
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import Produto
+from .models import Produto, Carrinho
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect
@@ -12,7 +12,10 @@ def index_view(request):
     return render(request, 'lojarelogiosapp/index.html', {'user': request.user})
 
 def products_view(request):
-    return render(request, 'lojarelogiosapp/products/index.html', {'produtos': Produto.objects.all()})
+    if request.user.is_authenticated:
+          return render(request, 'lojarelogiosapp/products/index.html', {'produtos': Produto.objects.all(), 'carrinho': Carrinho.objects.get(pk=request.user.id)})
+    else:
+      return render(request, 'lojarelogiosapp/products/index.html', {'produtos': Produto.objects.all()})
 
 def details_view(request, id_produto):
       return render(request, 'lojarelogiosapp/products/details.html')
@@ -37,8 +40,10 @@ def register_view(request):
                      new_user.first_name = primeiro_nome
                      new_user.last_name = ultimo_nome
                      new_user.date_joined = timezone.now()
-                     #new_user.get_username
+                     # new_user.get_username
                      new_user.save()
+                     # Agora nós criamos um carrinho para esse usuário:
+                     new_cart = Carrinho.objects.create(fk_usuario_id=new_user)
                      return redirect(reverse('lojarelogiosapp:index'))
 
               except IntegrityError:

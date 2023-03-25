@@ -8,7 +8,7 @@ class Carrinho(models.Model):
     frete = models.FloatField(null=True, default=0.00)
 
     def __str__(self):
-        return "Carrinho do usuário " + self.fk_usuario
+        return "Carrinho do usuário " + str(self.fk_usuario)
 
 class Produto(models.Model):
     id_produto = models.AutoField(primary_key=True)
