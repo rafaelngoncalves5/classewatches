@@ -16,8 +16,10 @@
                     {{ carrinho }}
                 </p>
                 {% for produto in carrinho.produto_set.all %}
-                <ul class="row">
-                    <li class="text-dark">
+                <ul class="row list-group">
+                    <li class="text-dark list-group-item">
+                        <a class="float-end btn btn-danger" href="{% url 'lojarelogiosapp:remove_cart' produto.id_produto %}">X</a>
+
                         Meu carrinho contém {{ produto }}
                     </li>
                 </ul>

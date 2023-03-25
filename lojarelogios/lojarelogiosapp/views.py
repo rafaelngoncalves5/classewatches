@@ -24,10 +24,19 @@ def add_cart(request, id_produto):
       product = Produto.objects.get(pk=id_produto)
       cart = Carrinho.objects.get(pk=request.user.id)
 
-      # Numa relação one-to-many, aqui nós adicionamos os produtos ao clickarmos, no carrinho do user
+      # Numa relação many-to-many, aqui nós adicionamos os produtos ao clickarmos, no carrinho do user
       product.fk_carrinho.add(cart)
 
       return HttpResponseRedirect(reverse('lojarelogiosapp:products'))
+
+def remove_cart(request, id_produto):
+      product = Produto.objects.get(pk=id_produto)
+      cart = Carrinho.objects.get(pk=request.user.id)
+
+      product.fk_carrinho.remove(cart)
+
+      return HttpResponseRedirect(reverse('lojarelogiosapp:products'))
+
 
 # Usuário
 def index_user_view(request):
