@@ -43,7 +43,8 @@ def register_view(request):
                      # new_user.get_username
                      new_user.save()
                      # Agora nós criamos um carrinho para esse usuário:
-                     new_cart = Carrinho.objects.create(fk_usuario_id=new_user)
+                     new_cart = Carrinho.objects.create(fk_usuario=new_user)
+                     new_cart.save()
                      return redirect(reverse('lojarelogiosapp:index'))
 
               except IntegrityError:
