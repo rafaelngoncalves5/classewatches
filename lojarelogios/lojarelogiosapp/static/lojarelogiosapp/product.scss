@@ -6,6 +6,9 @@
         @include display-style(flex, center, center);
     }
     .cards {
+        .row {
+            gap: 2rem;
+        }
         .card-product {
             display: flex;
             padding: 3.2rem;
@@ -41,3 +44,26 @@
         }
     }
 }
+@media (max-width: 540px) {
+    .main {
+        padding: 8.2rem 3.6rem 6.4rem;
+    }
+    .card-buttons {
+        a {
+            padding: 1.1rem 2.6rem;
+        }
+    }
+}
+@media (max-width: 356px) {
+    .main {
+        .cards {
+            .card-product {
+                .card-buttons {
+                    a {
+                        font-size: 1.6rem;
+                    }
+                }
+            }
+        }
+    }
+} ;

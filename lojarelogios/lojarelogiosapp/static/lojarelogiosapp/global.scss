@@ -43,9 +43,75 @@
         border: solid 2px transparent;
     }
 }
+.btn-style3 {   
+    gap: 1rem;
+    cursor: pointer;
+    transition: 0.5s;
+    max-width: 28.8rem;
+    max-height: 5.3rem;
+    border-radius: 1rem;
+    padding: 1.1rem 4.6rem;
+    background-color: $cyan-button;
+    @include display-style(flex, center, center);
+    @include text-style(600, $text-size-medium, Cinzel);
+    a{
+    color: $black;
+
+        text-decoration: none;    
+    }
+    &:hover {
+        transition: 0.6s;
+        background-color: $cyan-button-hover;
+    
+    }
+}
+.btn-style4 {   
+    gap: 1rem;
+    cursor: pointer;
+    transition: 0.5s;
+    max-width: 28.8rem;
+    max-height: 5.3rem;
+    border-radius: 1rem;
+    padding: 1.1rem .6rem;
+    background-color: $green-button;
+    @include display-style(flex, center, center);
+    @include text-style(600, $text-size-medium, Cinzel);
+    a{
+        color: $black;
+        text-decoration: none;    
+    }
+    &:hover {
+        transition: 0.6s;
+        background-color: $green-button-hover;
+    
+    }
+}
+.btn-style5{   
+    gap: 1rem;
+    cursor: pointer;
+    transition: 0.5s;
+    max-width: 28.8rem;
+    max-height: 5.3rem;
+    border-radius: 1rem;
+    padding: 1.1rem .6rem;
+    background-color: $red-button;
+    @include display-style(flex, center, center);
+    @include text-style(600, $text-size-medium, Cinzel);
+    a{
+        color: $black;
+        text-decoration: none;    
+    }
+    &:hover {
+        transition: 0.6s;
+        background-color: $red-button-hover;
+    
+    }
+}
 .header {
+    gap: 5rem;
     width: 100%;
     color: $white;
+    z-index: 2;
     position: fixed;
     padding: 1rem 5rem;
     background-color: $less-black;
@@ -63,3 +129,38 @@
         width: 50px;
     }
 }
+.products-footer {
+    color: $blue;
+    padding: 5.6rem 9.6rem 2rem;
+    background-color: $less-black;
+    .info-text {
+        h1 {
+            @include text-style(600, $title-size-small, Cinzel);
+        }
+        p {
+            @include text-style(400, $text-size-medium, Cinzel);
+        }
+    }
+    .footer-icons {
+        ul {
+            gap: 1rem;
+            list-style: none;
+            @include display-style(flex, center, end);
+            a {
+                img {
+                    width: 50px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 400px) {
+    .products-footer {
+        padding: 3.6rem 4.6rem;
+    }
+}
+@media (max-width: 356px) {
+    .header {
+        padding: 1rem 2rem;
+    }
+} ;

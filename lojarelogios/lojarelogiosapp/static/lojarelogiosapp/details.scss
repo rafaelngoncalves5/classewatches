@@ -1,23 +1,14 @@
 .details {
     display: flex;
     padding-top: 7rem;
+    margin-bottom: 21rem;
     .product-images {
         width: 60%;
         overflow: hidden;
-        ul {
-            display: flex;
-            overflow: hidden;
-            li {
-                width: 40rem;
-                height: 40rem;
-                overflow: hidden;
+        .swiper-slide {
+            img {
                 border-radius: 1rem;
-                background-size: cover;
-                @include display-style(flex, center, center);
-                img {
-                    border-radius: 1rem;
-                    width: 100%;
-                }
+                max-height: 50.7rem;
             }
         }
     }
@@ -111,3 +102,30 @@
         }
     }
 }
+@media (max-width: 880px) {
+    .details {
+        gap: 25rem;
+        max-height: 150rem;
+        align-items: center;
+        flex-direction: column;
+        .swiper-slide {
+            img {
+                max-height: 45.7rem;
+            }
+        }
+    }
+}
+@media (max-width: 590px) {
+    .swiper-slide {
+        img {
+            max-height: 35.7rem;
+        }
+    }
+}
+@media (max-width: 440px) {
+    .swiper-slide {
+        img {
+            max-height: 25.7rem;
+        }
+    }
+} ;

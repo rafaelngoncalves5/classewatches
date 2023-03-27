@@ -1,5 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content %} {%
-include'navbar.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %} {% include 'navbar.html' %}
 <script>
     const input = document.getElementById("quantity");
     function addValue() {
@@ -20,29 +19,51 @@ include'navbar.html' %}
         card.classList.toggle("flip");
     }
 </script>
+<style>
+    .swiper {
+        margin-top: 3em;
+    }
 
+    .swiper-slide {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: snow;
+        min-width: fit-content;
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: snow !important;
+    }
+</style>
 <main class="details">
     <div class="product-images">
-        <ul>
-            <li>
-                <img
-                    src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}"
-                    alt=""
-                />
-            </li>
-            <li>
-                <img
-                    src="{% static 'lojarelogiosapp/images/relogio5.jpg' %}"
-                    alt=""
-                />
-            </li>
-            <li>
-                <img
-                    src="{% static 'lojarelogiosapp/images/relogio3.jpg' %}"
-                    alt=""
-                />
-            </li>
-        </ul>
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img
+                        src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}"
+                        alt=""
+                    />
+                </div>
+                <div class="swiper-slide">
+                    <img
+                        src="{% static 'lojarelogiosapp/images/relogio5.jpg' %}"
+                        alt=""
+                    />
+                </div>
+                <div class="swiper-slide">
+                    <img
+                        src="{% static 'lojarelogiosapp/images/relogio3.jpg' %}"
+                        alt=""
+                    />
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
     </div>
     <div class="" id="product-info">
         <div class="face" id="back">
@@ -92,4 +113,16 @@ include'navbar.html' %}
         </div>
     </div>
 </main>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+</script>
 {% include 'footer.html' %} {% endblock content %}
