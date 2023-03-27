@@ -1,13 +1,12 @@
 {% load static %}
-<header class="header">
+
+<header class="header" style="position: static !important;">
     <div class="logo">
         <a href="{% url 'lojarelogiosapp:index' %}"><img src="{% static 'lojarelogiosapp/images/icon-watch.svg' %}"
                 alt="Carrinho de compras" /></a>
     </div>
     <div class="users-functions">
-        <a href="">
-            <img src="{% static 'lojarelogiosapp/images/icon-cart.svg' %}" alt="Carrinho de compras" />
-        </a>
+        {% include 'cart.html' %}
         {% if user.is_authenticated %}
         <a href="{% url 'lojarelogiosapp:index_user' %}">
             <img src="{% static 'lojarelogiosapp/images/icon-user.svg' %}" alt="Perfil do Usuário" />
