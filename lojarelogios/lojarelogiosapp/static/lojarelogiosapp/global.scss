@@ -18,6 +18,7 @@
     padding: 2.1rem 5.6rem;
     background-color: $blue-button;
     @include display-style(flex, center, center);
+    @include text-style(400, $text-size-medium, Cinzel);
     &:hover {
         background-color: $blue-button-hover;
         transition: 0.5s;
@@ -34,10 +35,31 @@
     border: solid 2px $black;
     background-color: transparent;
     @include display-style(flex, center, center);
+    @include text-style(400, $text-size-medium, Cinzel);
     &:hover {
         color: $white;
         transition: 0.6s;
         background-color: $black;
         border: solid 2px transparent;
+    }
+}
+.header {
+    width: 100%;
+    color: $white;
+    position: fixed;
+    padding: 1rem 5rem;
+    background-color: $less-black;
+    @include text-style(400, $title-size-small, Cinzel);
+    @include display-style(flex, center, space-between);
+    .users-functions {
+        gap: 5rem;
+        @include display-style(flex, center, center);
+    }
+    .logo {
+        height: 5.4rem;
+    }
+    img {
+        cursor: pointer;
+        width: 50px;
     }
 }

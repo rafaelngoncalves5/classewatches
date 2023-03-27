@@ -20,6 +20,9 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 400;
+  font-size: 2.4rem;
+  font-family: Cinzel;
 }
 .btn-style1:hover {
   background-color: #343c7d;
@@ -39,6 +42,9 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 400;
+  font-size: 2.4rem;
+  font-family: Cinzel;
 }
 .btn-style2:hover {
   color: #fbfbfb;
@@ -116,6 +122,132 @@ html {
 }
 .main .cards .card-product .card-buttons :nth-child(1) {
   margin-top: 5.4rem;
+}
+
+.details {
+  display: flex;
+  padding-top: 7rem;
+}
+.details .product-images {
+  width: 60%;
+  overflow: hidden;
+}
+.details .product-images ul {
+  display: flex;
+  overflow: hidden;
+}
+.details .product-images ul li {
+  width: 40rem;
+  height: 40rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.details .product-images ul li img {
+  border-radius: 1rem;
+  width: 100%;
+}
+.details #product-info {
+  width: 40%;
+  transition: all 0.5s;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.details #product-info input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.details #product-info input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.details #product-info .face {
+  width: 34rem;
+  height: 40rem;
+  position: absolute;
+  border-radius: 2rem;
+  background-color: #d9d9d9;
+}
+.details #product-info .face,
+.details #product-info .top,
+.details #product-info .price,
+.details #product-info .quantity {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: none;
+  font-weight: 400;
+  font-size: 2.4rem;
+  font-family: Cinzel;
+}
+.details #product-info .product-name,
+.details #product-info .input > button,
+.details #product-info #quantity {
+  border: none;
+  background-color: #d9d9d9;
+  font-weight: 400;
+  font-size: 4.8rem;
+  font-family: Cinzel;
+}
+.details #product-info .input {
+  display: flex;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.details #product-info .input button {
+  padding: 0rem 1rem;
+  background-color: #fbfbfb;
+}
+.details #product-info .input .sum {
+  border-radius: 10px 0px 0px 10px;
+  max-height: 6.5rem;
+}
+.details #product-info .input .subtraction {
+  border-radius: 0px 10px 10px 0px;
+  max-height: 6.5rem;
+}
+.details #product-info .input #quantity {
+  color: #fbfbfb;
+  max-height: 6.5rem;
+  text-align: center;
+  background-color: #000000;
+}
+.details #product-info .btn-style2 {
+  max-height: 7.3rem;
+}
+.details #product-info .help {
+  font-weight: 400;
+  font-size: 1.6rem;
+  font-family: Cinzel;
+  text-align: center;
+}
+.details #product-info #back {
+  padding: 0rem 1rem;
+  transform: rotateY(180deg);
+}
+.details #product-info #back .product-details {
+  font-weight: 300;
+  font-size: 2.4rem;
+  font-family: Cinzel;
+  overflow: auto;
+}
+.details .flip {
+  transform: rotateY(180deg);
+}
+.details .flip .btn-style2 {
+  visibility: hidden;
+  transition: all 0.2s;
+}
+.details .flip #front {
+  visibility: hidden;
+  transition: all 0.2s;
 }
 
 .content {

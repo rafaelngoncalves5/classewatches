@@ -1,8 +1,95 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %} {%
+include'navbar.html' %}
+<script>
+    const input = document.getElementById("quantity");
+    function addValue() {
+        const input = document.getElementById("quantity");
+        let max = parseInt(input.max);
+        if (input.value < max) {
+            input.value++;
+        }
+    }
+    function subtraction() {
+        const input = document.getElementById("quantity");
+        if (input.value > input.min) {
+            input.value--;
+        }
+    }
+    function flipCard() {
+        const card = document.querySelector("#product-info");
+        card.classList.toggle("flip");
+    }
+</script>
 
-{% block content %}
-
-<h3>Esta é a página de detalhes Gabriel :)</h3>
-
-{% include 'footer.html' %}
-{% endblock content %}
+<main class="details">
+    <div class="product-images">
+        <ul>
+            <li>
+                <img
+                    src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}"
+                    alt=""
+                />
+            </li>
+            <li>
+                <img
+                    src="{% static 'lojarelogiosapp/images/relogio5.jpg' %}"
+                    alt=""
+                />
+            </li>
+            <li>
+                <img
+                    src="{% static 'lojarelogiosapp/images/relogio3.jpg' %}"
+                    alt=""
+                />
+            </li>
+        </ul>
+    </div>
+    <div class="" id="product-info">
+        <div class="face" id="back">
+            <div class="top">
+                <button class="product-name" onclick="flipCard()">
+                    RelógioX
+                </button>
+                <p class="help">Clique no nome para adicionar ao carrinho</p>
+            </div>
+            <p class="product-details">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum,
+                rem hic maxime fugit tempora quo officiis atque esse, omnis
+                sapiente provident ratione quis? Ab ducimus culpa nostrum
+                voluptatibus assumenda?
+            </p>
+        </div>
+        <div class="face" id="front">
+            <div class="top">
+                <button class="product-name" onclick="flipCard()">
+                    RelógioX
+                </button>
+                <p class="help">Clique no nome para ver a descrição</p>
+            </div>
+            <div class="price">
+                <p>Valor</p>
+                <p class="value">R$ 99,99</p>
+            </div>
+            <div class="quantity">
+                <label for="quantity">Quantidade</label>
+                <div class="input">
+                    <button class="sum" onclick="addValue()">+</button>
+                    <input
+                        type="number"
+                        name="quantity"
+                        id="quantity"
+                        disabled
+                        min="1"
+                        max="11"
+                        value="1"
+                    />
+                    <button class="subtraction" onclick="subtraction()">
+                        -
+                    </button>
+                </div>
+            </div>
+            <a class="btn-style2" href="">Add to cart</a>
+        </div>
+    </div>
+</main>
+{% include 'footer.html' %} {% endblock content %}
