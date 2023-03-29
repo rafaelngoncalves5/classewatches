@@ -4,9 +4,17 @@
     <div class="content">
         <div class="fundo">
             {% if user.is_authenticated %}
-            <a href="{% url 'lojarelogiosapp:index_user' %}" class="btn btn-link text-light btn-sm float-end">Olá {{ user.username }}</a>
+            <a
+                href="{% url 'lojarelogiosapp:index_user' %}"
+                class="btn btn-link text-light btn-sm float-end"
+                >Olá {{ user.username }}</a
+            >
             {% else %}
-            <a href="{% url 'lojarelogiosapp:login' %}" class="btn btn-link text-light btn-sm float-end">Entrar</a>
+            <a
+                href="{% url 'lojarelogiosapp:login' %}"
+                class="btn btn-link text-light btn-sm float-end"
+                >Entrar</a
+            >
             {% endif %}
             <div class="icon">
                 <img
@@ -23,9 +31,9 @@
                     Horário de funcionamento: Segunda a Sexta de 9:00 às 18:00
                 </p>
             </div>
-            <a href="{% url 'lojarelogiosapp:products' %}" class="btn-style1">
-                <p>Products</p>
-            </a>
+            <a href="{% url 'lojarelogiosapp:products' %}" class="btn-style1"
+                >Products</a
+            >
         </div>
     </div>
 </main>

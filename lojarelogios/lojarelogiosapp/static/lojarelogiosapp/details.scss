@@ -1,0 +1,131 @@
+.details {
+    display: flex;
+    padding-top: 7rem;
+    margin-bottom: 21rem;
+    .product-images {
+        width: 60%;
+        overflow: hidden;
+        .swiper-slide {
+            img {
+                border-radius: 1rem;
+                max-height: 50.7rem;
+            }
+        }
+    }
+    #product-info {
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+        width: 40%;
+        transition: all 0.5s;
+        transform-style: preserve-3d;
+        @include display-style(flex, center, center);
+        .face {
+            width: 34rem;
+            height: 40rem;
+            position: absolute;
+            border-radius: 2rem;
+            background-color: $gray;
+        }
+        .face,
+        .top,
+        .price,
+        .quantity {
+            flex-direction: column;
+            @include display-style(flex, center, none);
+            @include text-style(400, $text-size-medium, Cinzel);
+        }
+
+        .product-name,
+        .input > button,
+        #quantity {
+            border: none;
+            background-color: $gray;
+            @include text-style(400, $title-size-medium, Cinzel);
+        }
+        .input {
+            display: flex;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+
+            @include display-style(flex, center, center);
+
+            button {
+                padding: 0rem 1rem;
+                background-color: $white;
+            }
+            .sum {
+                border-radius: 10px 0px 0px 10px;
+                max-height: 6.5rem;
+            }
+            .subtraction {
+                border-radius: 0px 10px 10px 0px;
+                max-height: 6.5rem;
+            }
+            #quantity {
+                color: $white;
+                max-height: 6.5rem;
+                text-align: center;
+                background-color: $black;
+            }
+        }
+        .btn-style2 {
+            max-height: 7.3rem;
+        }
+
+        .help {
+            @include text-style(400, $text-size-small, Cinzel);
+            text-align: center;
+        }
+        #back {
+            padding: 0rem 1rem;
+            .product-details {
+                @include text-style(300, $text-size-medium, Cinzel);
+                overflow: auto;
+            }
+            transform: rotateY(180deg);
+        }
+    }
+    .flip {
+        transform: rotateY(180deg);
+        .btn-style2 {
+            visibility: hidden;
+            transition: all 0.2s;
+        }
+        #front {
+            visibility: hidden;
+            transition: all 0.2s;
+        }
+    }
+}
+@media (max-width: 880px) {
+    .details {
+        gap: 25rem;
+        max-height: 150rem;
+        align-items: center;
+        flex-direction: column;
+        .swiper-slide {
+            img {
+                max-height: 45.7rem;
+            }
+        }
+    }
+}
+@media (max-width: 590px) {
+    .swiper-slide {
+        img {
+            max-height: 35.7rem;
+        }
+    }
+}
+@media (max-width: 440px) {
+    .swiper-slide {
+        img {
+            max-height: 25.7rem;
+        }
+    }
+} ;

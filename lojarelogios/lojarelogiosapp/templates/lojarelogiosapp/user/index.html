@@ -1,21 +1,91 @@
-{% extends 'base.html' %}
-<title>{% block title %}Loja de Relógios - Olá {{ user.username }}{% endblock title %}</title>
+{% extends 'base.html' %} {% load static %}
+<title>{% block title %}Loja de Relógios - {{ user.username }}{% endblock title %}</title>
 {% block content %}
-{% include 'navbar.html' %}
-<div class="container-fluid fs-1">
-    <br />
-    <br />
-    <br />
-    <br />
-    <ul class="card row text-center list-group col-lg-6 col-sm-10 mx-auto p-5">
-        <h1>Olá {{ user.username }}</h1>
-        <li class="list-group-item">Nome completo: {{ user.first_name }} {{ user.last_name }}</li>
-        <li class="list-group-item">Email: {{ user.email }}</li>
-        <li class="list-group-item">Cadastrado em: {{ user.date_joined }}</li>
-    </ul>
+<div class="user-page">
+    <div class="sidebar">
+        <a href="{% url 'lojarelogiosapp:products' %}" class="return">
+        <img
+            src="{% static 'lojarelogiosapp/images/icon-arrow.svg' %}"
+            alt="Return"
+                    /></a>
+        <div class="user">
+            
+            <img src="{% static 'lojarelogiosapp/images/icon-user.svg' %}" alt="">
+        </div>
+        <div class="user-info">
+            <label for="name">Nome</label>
+            <input type="text" id="name" name="user-info" value="{{ user.first_name }} {{ user.last_name }}">
+            <label for="username">Usuário</label>
+            <input type="text" id="username" name="user-info" value="{{ user.username }}">
+            <label for="email">E-mail</label>
+            <input type="text" id="email" name="user-info" value="{{ user.email }}">
+            <label for="Create">Cadastrado em: {{ user.date_joined }}</label>
+            <details >
+                <summary class="switch-password">
+                    Alterar Senha
+                </summary>
+                <label for="password">Senha</label>
+                <input type="password" name="user-info" id="password">
+                <label for="verify">Repita a Senha</label>
+                <input type="password" name="user-info" id="verify">
+            </details>
+        </div>
+        <div class="btn-style3">
+            <img
+            src="{% static 'lojarelogiosapp/images/icon-signout.svg' %}"
+            alt="logout"
+                    />
+            <a href="{% url 'lojarelogiosapp:logout' %}" >Sair</a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="title">Compras recentes</div>
+        <div class="purchase">
+            <div class="historic">
+                <div class="image">
+                    <img
+                    src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}"
+                    alt="logout"
+                    />
+                </div>
+                <div class="historic-watch">
+                    <p>Relógio</p>
+                    <p>Valor: R$ 99,99</p>
+                    <p>Quantidade: 2</p>
+                    <p>Data: DD/MM/YY</p>
+                </div>
 
-    <div class="d-grid gap-2 col-lg-6 col-sm-10 mx-auto my-5">
-        <a href="{% url 'lojarelogiosapp:logout' %}" type="button" class="btn btn-link fs-1">Sair</a>
+            </div>
+            <div class="historic">   
+                <div class="image">
+                    <img
+                    src="{% static 'lojarelogiosapp/images/relogio2.jpg' %}"
+                    alt="logout"
+                    />                
+                </div>   
+                <div class="historic-watch">
+                    <p>Relógio</p>
+                    <p>Valor: R$ 99,99</p>
+                    <p>Quantidade: 2</p>
+                    <p>Data: DD/MM/YY</p>
+                </div>
+            </div>
+        </div>
+        <div class="user-buttons">
+            <div class="btn-style4">
+            <img
+                src="{% static 'lojarelogiosapp/images/icon-check.svg' %}"
+                alt="logout"/>
+            <a href="{% url 'lojarelogiosapp:logout' %}" >Save changes</a>
+            </div>
+        <div class="btn-style5">
+            <img
+                src="{% static 'lojarelogiosapp/images/icon-trash.svg' %}"
+                alt="logout"/>
+            <a href="{% url 'lojarelogiosapp:logout' %}" >Delete user</a>
+        </div>
+        </div>
     </div>
 </div>
+
 {% endblock content %}

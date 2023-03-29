@@ -1,0 +1,72 @@
+.user-page{
+    display: flex;
+    .sidebar{
+        max-width: 32rem;
+        height: 100vh;
+        background-color: $less-black;
+        flex-direction: column;
+        @include display-style(flex, center, none);
+        .return{
+            top: 1rem;
+            left: 1rem;
+            position: fixed;    
+            img{
+                width: 3rem;
+            }
+        }
+        .user{
+            img{
+                width: 10rem;
+                margin-top: 3rem;
+                border-radius: 50%;
+                background-color: $white;
+            }
+        }
+        .user-info{
+            margin-bottom: 1rem;
+            label, .switch-password{
+                color: $white;
+                margin: 1rem 0rem .5rem 1rem;
+                @include text-style(400, $text-size-small, Cinzel);
+            }
+            input{
+                width: 100%;
+                border: none;
+                
+                color: $white;
+                text-align: center;
+                background-color: $blue;    
+                @include text-style(600, $text-size-small, Cinzel);
+            }
+        }
+    }
+    .content{
+        flex-direction: column;
+        @include display-style(flex, center, none);
+        .title{
+            @include text-style(400,$title-size-large, Cinzel)
+        }
+        .purchase{
+            width: 80%;
+            padding: 3rem;
+            background-color: $gray;
+            .historic{
+                gap: 1rem;
+                width: 100%;
+                max-height: 13rem;
+                background-color: $blue;
+                @include display-style(flex, none, center);
+
+                .image{
+                    width: 17.8rem;
+                    overflow: hidden;
+                    max-height: 17.8rem;
+                    @include display-style(flex, center, none);
+                    img{
+                        width: 17.8rem;
+                    }
+                }
+            }
+        }
+    }
+}
