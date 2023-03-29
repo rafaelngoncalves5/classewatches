@@ -13,7 +13,7 @@ class Carrinho(models.Model):
 class Produto(models.Model):
     id_produto = models.AutoField(primary_key=True)
     # Posso acessar o carrinho tanto usando o carrinho.produto_set quanto com o produto.fk_carrinho
-    fk_carrinho = models.ManyToManyField(Carrinho, null=True, editable=False)
+    fk_carrinho = models.ManyToManyField(Carrinho, editable=False)
     titulo = models.CharField(max_length=50)
     descricao = models.CharField(max_length=150)
     preco = models.FloatField(default=0.00)
