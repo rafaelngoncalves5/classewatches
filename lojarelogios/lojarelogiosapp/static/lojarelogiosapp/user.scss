@@ -41,13 +41,22 @@
         }
     }
     .content{
+        flex-direction: column;
+        @include display-style(flex, center, none);
         .title{
-            @include display-style(flex, center, center);
             @include text-style(400,$title-size-large, Cinzel)
         }
         .purchase{
+            width: 80%;
+            padding: 3rem;
             background-color: $gray;
             .historic{
+                gap: 1rem;
+                width: 100%;
+                max-height: 13rem;
+                background-color: $blue;
+                @include display-style(flex, none, center);
+
                 .image{
                     width: 17.8rem;
                     overflow: hidden;

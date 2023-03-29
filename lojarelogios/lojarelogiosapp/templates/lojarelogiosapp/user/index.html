@@ -47,34 +47,43 @@
                     src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}"
                     alt="logout"
                     />
-                    </div>
+                </div>
+                <div class="historic-watch">
+                    <p>Relógio</p>
+                    <p>Valor: R$ 99,99</p>
+                    <p>Quantidade: 2</p>
+                    <p>Data: DD/MM/YY</p>
+                </div>
+
             </div>
-            <div class="historic">
+            <div class="historic">   
                 <div class="image">
                     <img
                     src="{% static 'lojarelogiosapp/images/relogio2.jpg' %}"
                     alt="logout"
-                    />
-                    </div>
+                    />                
+                </div>   
+                <div class="historic-watch">
+                    <p>Relógio</p>
+                    <p>Valor: R$ 99,99</p>
+                    <p>Quantidade: 2</p>
+                    <p>Data: DD/MM/YY</p>
+                </div>
             </div>
-            <p class="address">Endereço 1: Rua 1</p>
-            <p class="address">Endereço 2: Rua 2</p>
-            <p class="phone">Telefone: (31)9 98765432</p>
-            <p class="date">Emitido em DD/MM/YY</p>
         </div>
-        <div class="btn-style4">
+        <div class="user-buttons">
+            <div class="btn-style4">
             <img
-            src="{% static 'lojarelogiosapp/images/icon-check.svg' %}"
-            alt="logout"
-                    />
+                src="{% static 'lojarelogiosapp/images/icon-check.svg' %}"
+                alt="logout"/>
             <a href="{% url 'lojarelogiosapp:logout' %}" >Save changes</a>
-        </div>
+            </div>
         <div class="btn-style5">
             <img
-            src="{% static 'lojarelogiosapp/images/icon-trash.svg' %}"
-            alt="logout"
-                    />
+                src="{% static 'lojarelogiosapp/images/icon-trash.svg' %}"
+                alt="logout"/>
             <a href="{% url 'lojarelogiosapp:logout' %}" >Delete user</a>
+        </div>
         </div>
     </div>
 </div>

@@ -433,16 +433,30 @@ html {
   font-size: 1.6rem;
   font-family: Cinzel;
 }
-.user-page .content .title {
+.user-page .content {
+  flex-direction: column;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: none;
+}
+.user-page .content .title {
   font-weight: 400;
   font-size: 6.4rem;
   font-family: Cinzel;
 }
 .user-page .content .purchase {
+  width: 80%;
+  padding: 3rem;
   background-color: #d9d9d9;
+}
+.user-page .content .purchase .historic {
+  gap: 1rem;
+  width: 100%;
+  max-height: 13rem;
+  background-color: #717fff;
+  display: flex;
+  align-items: none;
+  justify-content: center;
 }
 .user-page .content .purchase .historic .image {
   width: 17.8rem;
