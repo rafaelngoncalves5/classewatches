@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.views import generic
 
 # Create your views here.
 def index_view(request):
@@ -18,8 +19,10 @@ def products_view(request):
     else:
       return render(request, 'lojarelogiosapp/products/index.html', {'produtos': Produto.objects.all()})
 
-def details_view(request, id_produto):
-      return render(request, 'lojarelogiosapp/products/details.html')
+class DetailsView(generic.DetailView):
+      # Envia como 'produto' para o template especificado
+      model = Produto
+      template_name = 'lojarelogiosapp/products/details.html'
 
 def add_cart(request, id_produto):
       if request.user.is_authenticated:
