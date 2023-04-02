@@ -15,7 +15,9 @@ def index_view(request):
 
 def products_view(request):
     if request.user.is_authenticated:
-          return render(request, 'lojarelogiosapp/products/index.html', {'produtos': Produto.objects.all(), 'carrinho': Carrinho.objects.get(pk=request.user.id)})
+         user = request.user
+         return render(request, 'lojarelogiosapp/products/index.html', {'produtos': Produto.objects.all(), 'carrinho': Carrinho.objects.get(fk_usuario=user.id)})
+
     else:
       return render(request, 'lojarelogiosapp/products/index.html', {'produtos': Produto.objects.all()})
 
@@ -54,32 +56,42 @@ def index_user_view(request):
             return render(request, 'lojarelogiosapp/user/index.html', {'user': request.user})
       else:
             return HttpResponseRedirect(reverse('lojarelogiosapp:login'))
-
+     
 def register_view(request):
     if request.method == 'POST':
+
               primeiro_nome = request.POST['primeiro_nome']
               ultimo_nome = request.POST['ultimo_nome']
               usuario = request.POST['usuario']
               email = request.POST['email']
               senha = request.POST['senha']
 
-              try:
-                     new_user = User.objects.create_user(f"{usuario}", f"{email}", f"{senha}")
-                     new_user.first_name = primeiro_nome
-                     new_user.last_name = ultimo_nome
-                     new_user.date_joined = timezone.now()
-                     # new_user.get_username
-                     new_user.save()
-                     # Agora nós criamos um carrinho para esse usuário:
-                     new_cart = Carrinho.objects.create(fk_usuario=new_user)
-                     new_cart.save()
-                     return redirect(reverse('lojarelogiosapp:index'))
+              if User.objects.filter(email = email).exists():
+                  return render(request, 'lojarelogiosapp/user/register.html', {'erro_msg': 'Endereço de email já cadastrado!'})
 
+              try:
+                  new_user = User.objects.create_user(f"{usuario}", f"{email}", f"{senha}")
+                  new_user.first_name = primeiro_nome
+                  new_user.last_name = ultimo_nome
+                  new_user.date_joined = timezone.now()
+                  new_user.save()
+
+                  # Agora nós criamos um carrinho para esse usuário:
+                  new_cart = Carrinho.objects.create(fk_usuario=new_user)
+                  new_cart.save()
+                  return redirect(reverse('lojarelogiosapp:index'))
+              
               except IntegrityError:
-                     # Tratar isso aqui na fase de testes
-                     return render(request, 'lojarelogiosapp/user/register.html', {'erro_msg': 'Nome de usuário já cadastrado!'})
+                  return render(request, 'lojarelogiosapp/user/register.html', {'erro_msg': 'Nome de usuário já cadastrado!'})
+              
 
     return render(request, 'lojarelogiosapp/user/register.html')
+
+def delete_user_view(request):
+      current_user = request.user
+      db_user = User.objects.get(id = current_user.id)
+      db_user.delete()
+      return redirect('lojarelogiosapp:index')
 
 def login_view(request):
 
