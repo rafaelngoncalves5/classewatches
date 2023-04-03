@@ -28,27 +28,30 @@ class DetailsView(generic.DetailView):
 
 def add_cart(request, id_produto):
       if request.user.is_authenticated:
+            user = request.user
+
             product = Produto.objects.get(pk=id_produto)
-            cart = Carrinho.objects.get(pk=request.user.id)
+            cart = Carrinho.objects.get(fk_usuario_id=request.user.id)
 
             # Numa relação many-to-many, aqui nós adicionamos os produtos ao clickarmos, no carrinho do user
             product.fk_carrinho.add(cart)
 
-            return HttpResponseRedirect(reverse('lojarelogiosapp:products'))
+            return render(request, 'lojarelogiosapp/products/index.html', {'sucesso_msg': 'Produto adicionado ao carrinho com sucesso!', 'produtos': Produto.objects.all(), 'carrinho': Carrinho.objects.get(fk_usuario=user.id)})
       else:
             return redirect('lojarelogiosapp:login')
 
 def remove_cart(request, id_produto):
       if request.user.is_authenticated:
+            user = request.user
+
             product = Produto.objects.get(pk=id_produto)
-            cart = Carrinho.objects.get(pk=request.user.id)
+            cart = Carrinho.objects.get(fk_usuario_id=request.user.id)
 
             product.fk_carrinho.remove(cart)
 
-            return HttpResponseRedirect(reverse('lojarelogiosapp:products'))
+            return render(request, 'lojarelogiosapp/products/index.html', {'sucesso_msg': 'Produto removido do carrinho com sucesso!', 'produtos': Produto.objects.all(), 'carrinho': Carrinho.objects.get(fk_usuario=user.id)})
       else:
             return redirect('lojarelogiosapp:login')
-
 
 # Usuário
 def index_user_view(request):
@@ -79,7 +82,7 @@ def register_view(request):
                   # Agora nós criamos um carrinho para esse usuário:
                   new_cart = Carrinho.objects.create(fk_usuario=new_user)
                   new_cart.save()
-                  return redirect(reverse('lojarelogiosapp:index'))
+                  return render(request, 'lojarelogiosapp/index.html', {'sucesso_msg': "Usuário cadastrado com sucesso!"})
               
               except IntegrityError:
                   return render(request, 'lojarelogiosapp/user/register.html', {'erro_msg': 'Nome de usuário já cadastrado!'})

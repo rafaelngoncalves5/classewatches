@@ -6,6 +6,11 @@
 {% block content %}
 {% include 'navbar.html' %}
 <main class="main">
+
+    <span id="success-div"
+        class="rounded-4 text-success lead display-6 text-center fixed-top bg-white w-50 mx-auto opacity-75 fw-semibold">{{
+        sucesso_msg }}</span>
+
     <div class="main-title">Products</div>
     <div class="container cards">
         <div class="row">
@@ -23,6 +28,11 @@
         </div>
     </div>
 </main>
+<script async>
+    var successDiv = document.getElementById('success-div')
+
+    setTimeout(() => successDiv.style.display = 'none', 3000)
+</script>
 {% include 'footer.html' %}
 
 {% endblock content %}
