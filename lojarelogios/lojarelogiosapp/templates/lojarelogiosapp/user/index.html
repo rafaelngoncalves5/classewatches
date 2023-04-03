@@ -68,7 +68,31 @@
             </div>
             <div class="btn-style5">
                 <img src="{% static 'lojarelogiosapp/images/icon-trash.svg' %}" alt="logout" />
-                <a href="{% url 'lojarelogiosapp:delete_user' %}">Delete user</a>
+                
+                <!-- Button trigger modal -->
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal">Delete user</a>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-danger text-white text-center">
+                            <div class="modal-body">
+                                <h1>ATENÇÃO</h1>
+                                <hr />
+                                <p>
+                                    Tem certeza que deseja excluir sua conta de usuário de registrada no email {{user.email}}?
+                                    Este processo não poderá ser desfeito!
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Não</button>
+                                <a href="{% url 'lojarelogiosapp:delete_user' %}" type="button" class="btn btn-secondary btn-lg text-white">Sim</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
