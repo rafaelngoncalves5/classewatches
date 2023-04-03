@@ -26,6 +26,11 @@ class DetailsView(generic.DetailView):
       model = Produto
       template_name = 'lojarelogiosapp/products/details.html'
 
+      def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['carrinho'] = Carrinho.objects.get(fk_usuario = self.request.user.id)
+        return context
+
 def add_cart(request, id_produto):
       if request.user.is_authenticated:
             user = request.user
