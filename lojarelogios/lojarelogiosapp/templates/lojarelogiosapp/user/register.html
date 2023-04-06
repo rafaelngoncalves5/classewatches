@@ -13,42 +13,47 @@
                 <br />
                 <div class="mb-3">
                     <label for="primeiro_nome" class="form-label">Primeiro Nome:</label>
-                    <input required minlength="3" maxlength="30" name="primeiro_nome" type="text" class="fs-2 p-3 form-control" id="primeiro_nome"
-                        aria-describedby="primeiro_nome">
+                    <input required minlength="3" maxlength="30" name="primeiro_nome" type="text"
+                        class="fs-2 p-3 form-control" id="primeiro_nome" aria-describedby="primeiro_nome">
                 </div>
 
                 <div class="mb-3">
                     <label for="ultimo_nome" class="form-label">Último Nome:</label>
-                    <input required minlength="3" maxlength="30" name="ultimo_nome" type="text" class="fs-2 p-3 form-control" id="ultimo_nome"
-                        aria-describedby="ultimo_nome">
+                    <input required minlength="3" maxlength="30" name="ultimo_nome" type="text"
+                        class="fs-2 p-3 form-control" id="ultimo_nome" aria-describedby="ultimo_nome">
                 </div>
 
                 <div class="mb-3">
                     <label for="usuario" class="form-label">Usuário:</label>
-                    <input required minlength="3" maxlength="30" name="usuario" type="text" class="fs-2 p-3 form-control" id="usuario" aria-describedby="usuario">
+                    <input required minlength="3" maxlength="30" name="usuario" type="text"
+                        class="fs-2 p-3 form-control" id="usuario" aria-describedby="usuario">
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
-                    <input required maxlength="30" name="email" type="email" class="fs-2 p-3 form-control" id="email" aria-describedby="email">
+                    <input required maxlength="30" name="email" type="email" class="fs-2 p-3 form-control" id="email"
+                        aria-describedby="email">
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Confirmar email:</label>
-                    <input required id="confirma-email" name="email" type="email" class="fs-2 p-3 form-control" aria-describedby="email">
+                    <input required id="confirma-email" name="email" type="email" class="fs-2 p-3 form-control"
+                        aria-describedby="email">
                 </div>
-
+                <!-- pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,24}$' -->
                 <div class="mb-3">
                     <label for="senha" class="form-label">Senha:</label>
-                    <input required minlength="8" name="senha" type="password" class="fs-2 p-3 form-control" id="senha" aria-describedby="senha">
+                    <input required minlength="8" name="senha" type="password"
+                        class="fs-2 p-3 form-control" id="senha" aria-describedby="senha">
                 </div>
 
                 <div class="mb-3">
                     <label for="confirma-senha" class="form-label">Confirmar senha:</label>
-                    <input required name="confirma-senha" type="password" class="fs-2 p-3 form-control" id="confirma-senha"
-                        aria-describedby="confirma-senha">
+                    <input required name="confirma-senha" type="password" class="fs-2 p-3 form-control"
+                        id="confirma-senha" aria-describedby="confirma-senha">
                 </div>
-                <button disabled id="sbtn" type="submit" class="my-5 btn-style1 d-grid mx-auto">Registrar-se</button>
+                <button disabled id="sbtn" type="submit"
+                    class="my-5 btn-style1 d-grid mx-auto">Registrar-se</button>
 
             </div>
         </div>
@@ -73,5 +78,11 @@
 
     var confirmaEmail = document.getElementById('confirma-email');
     confirmaEmail.addEventListener('input', async () => testeCondicional());
+
+    function checkRegex() {
+        /*if (senha.validity.patternMismatch) {
+            senha.setCustomValidity("Por favor, sua senha precisa de: \n 1 - Pelo menos uma letra minúscula \n 2 - Pelo menos uma letra maiúscula \n 3 - Pelo menos um número");
+        } onclick="checkRegex()" */
+    }
 </script>
 {% endblock content %}

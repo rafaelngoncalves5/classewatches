@@ -4,38 +4,34 @@
 <div class="user-page">
     <div class="sidebar">
         <a href="{% url 'lojarelogiosapp:products' %}" class="return">
-        <img
-            src="{% static 'lojarelogiosapp/images/icon-arrow.svg' %}"
-            alt="Return"
-                    /></a>
+            <img src="{% static 'lojarelogiosapp/images/icon-arrow.svg' %}" alt="Return" /></a>
         <div class="user">
-            
+
             <img src="{% static 'lojarelogiosapp/images/icon-user.svg' %}" alt="">
         </div>
         <div class="user-info">
             <label for="name">Nome</label>
-            <input type="text" id="name" name="user-info" value="{{ user.first_name }} {{ user.last_name }}">
+            <input disabled type="text" id="name" name="user-info" value="{{ user.first_name }} {{ user.last_name }}">
             <label for="username">Usuário</label>
-            <input type="text" id="username" name="user-info" value="{{ user.username }}">
+            <input disabled type="text" id="username" name="user-info" value="{{ user.username }}">
             <label for="email">E-mail</label>
-            <input type="text" id="email" name="user-info" value="{{ user.email }}">
+            <input disabled type="text" id="email" name="user-info" value="{{ user.email }}">
             <label for="Create">Cadastrado em: {{ user.date_joined }}</label>
-            <details >
+            <!--
+                <details >
                 <summary class="switch-password">
                     Alterar Senha
                 </summary>
-                <label for="password">Senha</label>
+                <label for="password">Nova senha</label>
                 <input type="password" name="user-info" id="password">
-                <label for="verify">Repita a Senha</label>
+                <label for="verify">repita a nova Senha</label>
                 <input type="password" name="user-info" id="verify">
             </details>
+             -->
         </div>
         <div class="btn-style3">
-            <img
-            src="{% static 'lojarelogiosapp/images/icon-signout.svg' %}"
-            alt="logout"
-                    />
-            <a href="{% url 'lojarelogiosapp:logout' %}" >Sair</a>
+            <img src="{% static 'lojarelogiosapp/images/icon-signout.svg' %}" alt="logout" />
+            <a href="{% url 'lojarelogiosapp:logout' %}">Sair</a>
         </div>
     </div>
     <div class="content">
@@ -43,10 +39,7 @@
         <div class="purchase">
             <div class="historic">
                 <div class="image">
-                    <img
-                    src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}"
-                    alt="logout"
-                    />
+                    <img src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}" alt="logout" />
                 </div>
                 <div class="historic-watch">
                     <p>Relógio</p>
@@ -56,13 +49,10 @@
                 </div>
 
             </div>
-            <div class="historic">   
+            <div class="historic">
                 <div class="image">
-                    <img
-                    src="{% static 'lojarelogiosapp/images/relogio2.jpg' %}"
-                    alt="logout"
-                    />                
-                </div>   
+                    <img src="{% static 'lojarelogiosapp/images/relogio2.jpg' %}" alt="logout" />
+                </div>
                 <div class="historic-watch">
                     <p>Relógio</p>
                     <p>Valor: R$ 99,99</p>
@@ -73,17 +63,37 @@
         </div>
         <div class="user-buttons">
             <div class="btn-style4">
-            <img
-                src="{% static 'lojarelogiosapp/images/icon-check.svg' %}"
-                alt="logout"/>
-            <a href="{% url 'lojarelogiosapp:logout' %}" >Save changes</a>
+                <img src="{% static 'lojarelogiosapp/images/icon-check.svg' %}" alt="logout" />
+                <a href="">Save changes</a>
             </div>
-        <div class="btn-style5">
-            <img
-                src="{% static 'lojarelogiosapp/images/icon-trash.svg' %}"
-                alt="logout"/>
-            <a href="{% url 'lojarelogiosapp:logout' %}" >Delete user</a>
-        </div>
+            <div class="btn-style5">
+                <img src="{% static 'lojarelogiosapp/images/icon-trash.svg' %}" alt="logout" />
+                
+                <!-- Button trigger modal -->
+                <a data-bs-toggle="modal" data-bs-target="#exampleModal">Delete user</a>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-danger text-white text-center">
+                            <div class="modal-body">
+                                <h1>ATENÇÃO</h1>
+                                <hr />
+                                <p>
+                                    Tem certeza que deseja excluir sua conta de usuário de registrada no email {{user.email}}?
+                                    Este processo não poderá ser desfeito!
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Não</button>
+                                <a href="{% url 'lojarelogiosapp:delete_user' %}" type="button" class="btn btn-secondary btn-lg text-white">Sim</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

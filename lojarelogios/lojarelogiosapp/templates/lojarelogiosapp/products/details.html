@@ -44,19 +44,19 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <img
-                        src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}"
+                        src="{{ produto.imagem_capa.url }}"
                         alt=""
                     />
                 </div>
                 <div class="swiper-slide">
                     <img
-                        src="{% static 'lojarelogiosapp/images/relogio5.jpg' %}"
+                        src="{{ produto.imagem_2.url }}"
                         alt=""
                     />
                 </div>
                 <div class="swiper-slide">
                     <img
-                        src="{% static 'lojarelogiosapp/images/relogio3.jpg' %}"
+                        src="{{ produto.imagem_3.url }}"
                         alt=""
                     />
                 </div>
@@ -69,27 +69,24 @@
         <div class="face" id="back">
             <div class="top">
                 <button class="product-name" onclick="flipCard()">
-                    RelógioX
+                    {{ produto.titulo }}
                 </button>
                 <p class="help">Clique no nome para adicionar ao carrinho</p>
             </div>
             <p class="product-details">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum,
-                rem hic maxime fugit tempora quo officiis atque esse, omnis
-                sapiente provident ratione quis? Ab ducimus culpa nostrum
-                voluptatibus assumenda?
+                {{ produto.descricao }}
             </p>
         </div>
         <div class="face" id="front">
             <div class="top">
                 <button class="product-name" onclick="flipCard()">
-                    RelógioX
+                    {{ produto.titulo }}
                 </button>
                 <p class="help">Clique no nome para ver a descrição</p>
             </div>
             <div class="price">
                 <p>Valor</p>
-                <p class="value">R$ 99,99</p>
+                <p class="value">R$ {{ produto.preco }}</p>
             </div>
             <div class="quantity">
                 <label for="quantity">Quantidade</label>
@@ -101,7 +98,7 @@
                         id="quantity"
                         disabled
                         min="1"
-                        max="11"
+                        max="{{ produto.quantidade }}"
                         value="1"
                     />
                     <button class="subtraction" onclick="subtraction()">
@@ -109,7 +106,11 @@
                     </button>
                 </div>
             </div>
-            <a class="btn-style2" href="">Add to cart</a>
+            {% if user.is_authenticated %}
+            <a class="btn-style2" href="{% url 'lojarelogiosapp:add_cart' produto.id_produto %}">Add to cart</a>
+            {% else %}
+            <a class="btn-style2" href="{% url 'lojarelogiosapp:login' %}">Add to cart</a>
+            {% endif %}
         </div>
     </div>
 </main>
