@@ -1,15 +1,15 @@
 .user-page{
     display: flex;
     .sidebar{
-        max-width: 32rem;
+        width: 32rem;
         height: 100vh;
-        background-color: $less-black;
         flex-direction: column;
+        background-color: $less-black;
         @include display-style(flex, center, none);
         .return{
             top: 1rem;
             left: 1rem;
-            position: fixed;    
+            position: absolute;    
             img{
                 width: 3rem;
             }
@@ -18,8 +18,6 @@
             img{
                 width: 10rem;
                 margin-top: 3rem;
-                border-radius: 50%;
-                background-color: $white;
             }
         }
         .user-info{
@@ -43,7 +41,8 @@
         flex-direction: column;
         @include display-style(flex, center, none);
         .title{
-            @include text-style(400,$title-size-large, Cinzel)
+            text-align: center;
+            @include text-style(500,$title-size-large, Cinzel)
         }
         .purchase{
             width: 80%;
@@ -55,14 +54,13 @@
             .historic{
                 gap: 1rem;
                 width: 100%;
-                display: flex;
-                max-height: 13rem;
-                align-items: center;
+                height: 20.8vh;
+                @include display-style(flex, center, none);
                 background-color: $dark-blue;
                 .image{
                     width: 17.8rem;
                     overflow: hidden;
-                    max-height: 13rem;
+                    max-height: 20.8vh;
                     @include display-style(flex, center, none);
                     img{
                         width: 17.8rem;
@@ -77,8 +75,8 @@
                 }
             }
             .address-info{
+                color: $black;
                 margin-top: .2rem;
-                color: $white;
                 @include text-style(400,$text-size-small, Cinzel);
 
                 &:last-child(){
@@ -86,13 +84,96 @@
                 }   
                 p{
                     font-size: 1.2rem;
+                    margin-bottom: .5rem;
+                    font-weight: 600;
+                    strong{
+                        font-weight: 700;
+                    
+                    }
                 }
             }
         }
         .user-buttons{
             width: 80%;
             margin-top: 0.5rem;
-            @include display-style(flex, none, space-between);
+            @include display-style(flex, none, center);
         }
     }
 }
+@media (max-width: 944px) {
+    .user-page{
+        .content{
+            .title{
+                font-size: $title-size-medium;
+            }
+        }   
+    }
+} ;
+@media (max-width: 829px) {
+    .user-page{
+        .sidebar{
+            width: 28rem;
+        }
+        .content{
+            .purchase{
+                padding: 1rem 2rem;
+            }   
+            .user-buttons{
+                flex-direction: column;
+                align-items: center
+            }
+        }
+    }
+} ;
+@media (max-width: 707px) {
+    .user-page{
+        .content{
+            .purchase{
+                width: 90%;
+
+                .historic{
+                    .historic-watch{
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+        }
+    }
+} ;
+@media (max-width: 662px) {
+    .user-page{
+        .sidebar{
+            height: 111vh;
+        }
+    }
+} ;
+
+@media (max-width: 585px) {
+    .user-page{
+        .sidebar{
+            height: 158vh;
+        }
+        .content{
+            .purchase{
+                .historic{
+                    height: 24rem;
+                    flex-direction: column;
+                }
+            }
+        }
+    }
+} ;
+@media (max-width: 504px) {
+    .user-page{
+        flex-direction: column;
+        .sidebar{
+            width: 100%;
+            height: 90vh
+        }
+        .content{
+            .user-buttons{
+                padding: 0 0 1rem;
+            }
+        }
+    }
+} ;
