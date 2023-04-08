@@ -18,17 +18,24 @@
                 {% for produto in carrinho.produto_set.all %}
                 <ul class="row list-group">
                     <li class="text-dark list-group-item">
-                        <a class="float-end btn btn-danger remove-cart" href="{% url 'lojarelogiosapp:remove_cart' produto.id_produto %}">
-                        <img src="{% static 'lojarelogiosapp/images/icon-trash.svg' %}" alt="Remover item do carrinho"></a>
-
+                        <a class="float-start btn btn-danger remove-cart" href="{% url 'lojarelogiosapp:remove_cart' produto.id_produto %}">
+                        <img class="float-start" src="{% static 'lojarelogiosapp/images/icon-trash.svg' %}" alt="Remover item do carrinho"></a>
                         {{ produto }}
+                        <div class="bought-products-info float-end">
+                            <p>2x</p>
+                            <p>R$99,99</p>
+                        </div>
                     </li>
                 </ul>
                 {% endfor %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-lg">Save changes</button>
+                <button type="button" class="btn btn-danger btn-lg" data-bs-dismiss="modal">Close</button>
+                <div class="value-total">
+                    <p>Total</p>
+                    <p>199,99</p>
+                </div>
+                <button type="button" class="btn btn-success btn-lg">Comprar</button>
             </div>
         </div>
     </div>

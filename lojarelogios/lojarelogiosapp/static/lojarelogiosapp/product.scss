@@ -20,9 +20,10 @@
             border: 2px solid $black;
             .image {
                 height: 26rem;
+                overflow: hidden;
+                box-shadow: 2px 5px 4px $black;
                 max-width: 29.6rem;
                 border-radius: 56px;
-                overflow: hidden;
                 img {
                     width: 100%;
                     height: 100%;
