@@ -1,2 +1,4 @@
 bootstrap
 sass
+braintree
+django_braintree

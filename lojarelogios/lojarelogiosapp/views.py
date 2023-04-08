@@ -8,6 +8,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views import generic
+import braintree
 
 # Create your views here.
 def index_view(request):
@@ -128,3 +129,23 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('lojarelogiosapp:products')
+
+def payment_view(request):
+    user = request.user
+
+    gateway = braintree.BraintreeGateway(
+            braintree.Configuration(
+                braintree.Environment.Sandbox,
+                merchant_id="wjn3nwnyk7jpdxbm",
+                public_key="9br7xc3vm98kpfcj",
+                private_key="8a106243762ffc29e20f7ee34f01155e"
+            )
+        )
+
+    if request.method == 'GET':
+         # Passando o client token pro front-end
+         client_token = gateway.client_token.generate()
+    else:
+         pass
+    
+    return render(request, 'lojarelogiosapp/payment/index.html', {'client_token': client_token})
