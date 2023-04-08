@@ -13,6 +13,9 @@ from django.views import generic
 def index_view(request):
     return render(request, 'lojarelogiosapp/index.html', {'user': request.user})
 
+def privacy_view(request):
+     return render(request, 'lojarelogiosapp/privacy.html')
+
 def products_view(request):
     if request.user.is_authenticated:
          user = request.user
@@ -33,7 +36,7 @@ class DetailsView(generic.DetailView):
              return context
         else:
              context = super().get_context_data(**kwargs)
-             return context 
+             return context
 
 def add_cart(request, id_produto):
       if request.user.is_authenticated:
