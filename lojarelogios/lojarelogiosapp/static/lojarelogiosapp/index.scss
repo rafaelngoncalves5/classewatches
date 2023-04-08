@@ -23,9 +23,9 @@ html {
         background-size: cover;
         .icon {
             display: flex;
-            justify-content: center;
-            position: relative;
             bottom: -10.7rem;
+            position: relative;
+            justify-content: center;
         }
     }
     .text {
@@ -40,8 +40,11 @@ html {
         p {
             @include text-style(600, $text-size-large, Cinzel);
         }
-        .btn-style1 {
-            margin-top: 3.2rem;
+        .ways{
+            @include display-style(flex, center, space-between);
+            .btn-style1, .btn-style2 {
+                margin-top: 1.2rem;
+            }
         }
     }
 }
@@ -63,8 +66,7 @@ html {
             p {
                 @include text-style(600, $text-size-medium, Cinzel);
             }
-            .btn-style1 {
-                margin-top: 1.2rem;
+            .btn-style1, .btn-style2 {  
                 max-width: 24.8rem;
                 max-height: 6.3rem;
             }
@@ -99,10 +101,25 @@ html {
             }
         }
         .text {
-            padding: 5.1rem 4.7rem;
+            padding: 6.1rem 4.7rem;
+            .ways{
+                .btn-style1, .btn-style2 {
+                    margin-top: .2rem;
+                }
+                
+            }
         }
     }
 }
+@media (max-width: 558px) {
+    .content {
+        .text {
+            .ways{
+                flex-direction: column;                
+            }
+        }
+    }
+} ;
 @media (max-width: 470px) {
     .content {
         .fundo .icon {
@@ -116,10 +133,10 @@ html {
             p {
                 @include text-style(600, $text-size-small, Cinzel);
             }
-            .btn-style1 {
+            .btn-style1, .btn-style2 {
                 margin-top: 1.2rem;
-                max-width: 16.8rem;
-                max-height: 0.3rem;
+                max-width: 20.8rem;
+                max-height: 3.3rem;
             }
         }
     }

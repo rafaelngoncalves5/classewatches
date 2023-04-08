@@ -91,7 +91,9 @@
             <div class="quantity">
                 <label for="quantity">Quantidade</label>
                 <div class="input">
-                    <button class="sum" onclick="addValue()">+</button>
+                    <button class="subtraction" onclick="subtraction()">
+                        -
+                    </button>
                     <input
                         type="number"
                         name="quantity"
@@ -101,9 +103,8 @@
                         max="{{ produto.quantidade }}"
                         value="1"
                     />
-                    <button class="subtraction" onclick="subtraction()">
-                        -
-                    </button>
+                    <button class="sum" onclick="addValue()">+</button>
+                    
                 </div>
             </div>
             {% if user.is_authenticated %}

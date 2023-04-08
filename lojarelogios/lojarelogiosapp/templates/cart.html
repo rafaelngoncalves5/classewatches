@@ -18,16 +18,17 @@
                 {% for produto in carrinho.produto_set.all %}
                 <ul class="row list-group">
                     <li class="text-dark list-group-item">
-                        <a class="float-end btn btn-danger" href="{% url 'lojarelogiosapp:remove_cart' produto.id_produto %}">X</a>
+                        <a class="float-end btn btn-danger remove-cart" href="{% url 'lojarelogiosapp:remove_cart' produto.id_produto %}">
+                        <img src="{% static 'lojarelogiosapp/images/icon-trash.svg' %}" alt="Remover item do carrinho"></a>
 
-                        Meu carrinho contém {{ produto }}
+                        {{ produto }}
                     </li>
                 </ul>
                 {% endfor %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-lg">Save changes</button>
             </div>
         </div>
     </div>

@@ -11,11 +11,11 @@ html {
 .btn-style1 {
   color: #fbfbfb;
   transition: 0.5s;
-  max-width: 28.8rem;
+  min-width: 23.2rem;
   max-height: 9.3rem;
   border-radius: 1rem;
   text-decoration: none;
-  padding: 2.1rem 5.6rem;
+  padding: 2.1rem 0;
   background-color: #1f2453;
   display: flex;
   align-items: center;
@@ -32,11 +32,11 @@ html {
 .btn-style2 {
   color: #000000;
   transition: 0.5s;
-  max-width: 28.8rem;
+  min-width: 23.2rem;
   max-height: 9.3rem;
   border-radius: 1rem;
   text-decoration: none;
-  padding: 2.1rem 5.6rem;
+  padding: 2.1rem 0;
   border: solid 2px #000000;
   background-color: transparent;
   display: flex;
@@ -83,6 +83,7 @@ html {
   cursor: pointer;
   transition: 0.5s;
   max-width: 28.8rem;
+  min-width: 23.4rem;
   max-height: 5.3rem;
   border-radius: 1rem;
   padding: 1.1rem 0.6rem;
@@ -109,6 +110,7 @@ html {
   transition: 0.5s;
   max-width: 28.8rem;
   max-height: 5.3rem;
+  min-width: 23.4rem;
   border-radius: 1rem;
   padding: 1.1rem 0.6rem;
   background-color: #AD5959;
@@ -148,6 +150,9 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.header .remove-cart img {
+  width: 32px;
 }
 .header .logo {
   height: 5.4rem;
@@ -194,7 +199,7 @@ html {
   }
 }
 .main {
-  padding: 10.2rem 9.6rem 6.4rem;
+  padding: 3.2rem 4.6rem 6.4rem;
 }
 .main .main-title {
   font-size: 6.4rem;
@@ -228,8 +233,8 @@ html {
   position: center;
 }
 .main .cards .card-product .card-buttons a {
+  width: 100%;
   margin-top: 3.2rem;
-  max-width: 29.6rem;
   max-height: 5.6rem;
   text-decoration: none;
   font-weight: 400;
@@ -240,17 +245,31 @@ html {
   margin-top: 5.4rem;
 }
 
-@media (max-width: 540px) {
+@media (max-width: 762px) {
   .main {
-    padding: 8.2rem 3.6rem 6.4rem;
+    padding: 5.2rem 3.6rem 6.4rem;
   }
-  .card-buttons a {
+  .main .main-title {
+    margin-bottom: 3.6rem;
+  }
+  .main .cards .card-product .card-buttons a {
     padding: 1.1rem 2.6rem;
+    margin-top: 2.4rem;
+  }
+  .main .cards .card-product .card-buttons :nth-child(1) {
+    margin-top: 2.4rem;
   }
 }
-@media (max-width: 356px) {
+@media (max-width: 375px) {
+  .main .cards .card-product {
+    padding: 1rem;
+  }
   .main .cards .card-product .card-buttons a {
     font-size: 1.6rem;
+    margin-top: 1.4rem;
+  }
+  .main .cards .card-product .card-buttons :nth-child(1) {
+    margin-top: 1.4rem;
   }
 }
 .details {
@@ -322,12 +341,12 @@ html {
   background-color: #fbfbfb;
 }
 .details #product-info .input .sum {
-  border-radius: 10px 0px 0px 10px;
   max-height: 6.5rem;
+  border-radius: 0px 10px 10px 0px;
 }
 .details #product-info .input .subtraction {
-  border-radius: 0px 10px 10px 0px;
   max-height: 6.5rem;
+  border-radius: 10px 0px 0px 10px;
 }
 .details #product-info .input #quantity {
   color: #fbfbfb;
@@ -373,28 +392,37 @@ html {
     align-items: center;
     flex-direction: column;
   }
-  .details .swiper-slide img {
+  .details .product-images .swiper-slide img {
     max-height: 45.7rem;
   }
 }
 @media (max-width: 590px) {
-  .swiper-slide img {
+  .details .product-images .swiper-slide img {
     max-height: 35.7rem;
   }
 }
 @media (max-width: 440px) {
-  .swiper-slide img {
+  .details .product-images .swiper-slide img {
     max-height: 25.7rem;
+  }
+}
+@media (max-width: 350px) {
+  .details .product-images .swiper-slide img {
+    max-height: 20.7rem;
+  }
+  .details #product-info .face {
+    width: 30rem;
+    height: 41rem;
   }
 }
 .user-page {
   display: flex;
 }
 .user-page .sidebar {
-  max-width: 32rem;
+  width: 32rem;
   height: 100vh;
-  background-color: #333333;
   flex-direction: column;
+  background-color: #333333;
   display: flex;
   align-items: center;
   justify-content: none;
@@ -402,7 +430,7 @@ html {
 .user-page .sidebar .return {
   top: 1rem;
   left: 1rem;
-  position: fixed;
+  position: absolute;
 }
 .user-page .sidebar .return img {
   width: 3rem;
@@ -410,8 +438,6 @@ html {
 .user-page .sidebar .user img {
   width: 10rem;
   margin-top: 3rem;
-  border-radius: 50%;
-  background-color: #fbfbfb;
 }
 .user-page .sidebar .user-info {
   margin-bottom: 1rem;
@@ -440,28 +466,32 @@ html {
   justify-content: none;
 }
 .user-page .content .title {
-  font-weight: 400;
+  text-align: center;
+  font-weight: 500;
   font-size: 6.4rem;
   font-family: Cinzel;
 }
 .user-page .content .purchase {
   width: 80%;
-  padding: 3rem;
+  gap: 0.8rem;
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
   background-color: #d9d9d9;
 }
 .user-page .content .purchase .historic {
   gap: 1rem;
   width: 100%;
-  max-height: 13rem;
-  background-color: #717fff;
+  height: 20.8vh;
   display: flex;
-  align-items: none;
-  justify-content: center;
+  align-items: center;
+  justify-content: none;
+  background-color: #303C5E;
 }
 .user-page .content .purchase .historic .image {
   width: 17.8rem;
   overflow: hidden;
-  max-height: 17.8rem;
+  max-height: 20.8vh;
   display: flex;
   align-items: center;
   justify-content: none;
@@ -469,7 +499,92 @@ html {
 .user-page .content .purchase .historic .image img {
   width: 17.8rem;
 }
+.user-page .content .purchase .historic .historic-watch {
+  color: #fbfbfb;
+  font-weight: 400;
+  font-size: 1.6rem;
+  font-family: Cinzel;
+}
+.user-page .content .purchase .historic .historic-watch p {
+  margin-bottom: 0.5rem;
+}
+.user-page .content .purchase .address-info {
+  color: #000000;
+  margin-top: 0.2rem;
+  font-weight: 400;
+  font-size: 1.6rem;
+  font-family: Cinzel;
+}
+.user-page .content .purchase .address-info:last-child() {
+  text-align: end;
+}
+.user-page .content .purchase .address-info p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.user-page .content .purchase .address-info p strong {
+  font-weight: 700;
+}
+.user-page .content .user-buttons {
+  width: 80%;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: none;
+  justify-content: center;
+}
 
+@media (max-width: 944px) {
+  .user-page .content .title {
+    font-size: 4.8rem;
+  }
+}
+@media (max-width: 829px) {
+  .user-page .sidebar {
+    width: 28rem;
+  }
+  .user-page .content .purchase {
+    padding: 1rem 2rem;
+  }
+  .user-page .content .user-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media (max-width: 707px) {
+  .user-page .content .purchase {
+    width: 90%;
+  }
+  .user-page .content .purchase .historic .historic-watch {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 662px) {
+  .user-page .sidebar {
+    height: 111vh;
+  }
+}
+@media (max-width: 585px) {
+  .user-page .sidebar {
+    height: 158vh;
+  }
+  .user-page .content .purchase .historic {
+    height: 24rem;
+    flex-direction: column;
+  }
+}
+@media (max-width: 504px) {
+  .user-page {
+    flex-direction: column;
+  }
+  .user-page .sidebar {
+    width: 100%;
+    height: 90vh;
+  }
+  .user-page .content .user-buttons {
+    padding: 0 0 1rem;
+  }
+}
 .content {
   width: 100%;
   height: 100vh;
@@ -483,9 +598,9 @@ html {
 }
 .content .fundo .icon {
   display: flex;
-  justify-content: center;
-  position: relative;
   bottom: -10.7rem;
+  position: relative;
+  justify-content: center;
 }
 .content .text {
   width: 100%;
@@ -504,8 +619,13 @@ html {
   font-size: 3.2rem;
   font-family: Cinzel;
 }
-.content .text .btn-style1 {
-  margin-top: 3.2rem;
+.content .text .ways {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.content .text .ways .btn-style1, .content .text .ways .btn-style2 {
+  margin-top: 1.2rem;
 }
 
 @media (max-width: 1440px) {
@@ -528,8 +648,7 @@ html {
     font-size: 2.4rem;
     font-family: Cinzel;
   }
-  .content .text .btn-style1 {
-    margin-top: 1.2rem;
+  .content .text .btn-style1, .content .text .btn-style2 {
     max-width: 24.8rem;
     max-height: 6.3rem;
   }
@@ -559,7 +678,15 @@ html {
     width: 10rem;
   }
   .content .text {
-    padding: 5.1rem 4.7rem;
+    padding: 6.1rem 4.7rem;
+  }
+  .content .text .ways .btn-style1, .content .text .ways .btn-style2 {
+    margin-top: 0.2rem;
+  }
+}
+@media (max-width: 558px) {
+  .content .text .ways {
+    flex-direction: column;
   }
 }
 @media (max-width: 470px) {
@@ -579,10 +706,10 @@ html {
     font-size: 1.6rem;
     font-family: Cinzel;
   }
-  .content .text .btn-style1 {
+  .content .text .btn-style1, .content .text .btn-style2 {
     margin-top: 1.2rem;
-    max-width: 16.8rem;
-    max-height: 0.3rem;
+    max-width: 20.8rem;
+    max-height: 3.3rem;
   }
 }
 

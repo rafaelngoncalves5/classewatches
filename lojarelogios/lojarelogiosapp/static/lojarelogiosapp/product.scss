@@ -1,5 +1,5 @@
 .main {
-    padding: 10.2rem 9.6rem 6.4rem;
+    padding: 3.2rem 4.6rem 6.4rem;
     .main-title {
         font-size: $title-size-large;
         margin-bottom: 5.6rem;
@@ -8,6 +8,7 @@
     .cards {
         .row {
             gap: 2rem;
+            
         }
         .card-product {
             display: flex;
@@ -31,8 +32,8 @@
             }
             .card-buttons {
                 a {
+                    width: 100%;
                     margin-top: 3.2rem;
-                    max-width: 29.6rem;
                     max-height: 5.6rem;
                     text-decoration: none;
                     @include text-style(400, $text-size-medium, Cinzel);
@@ -43,24 +44,42 @@
             }
         }
     }
-}
-@media (max-width: 540px) {
+}   
+@media (max-width: 762px) {
     .main {
-        padding: 8.2rem 3.6rem 6.4rem;
-    }
-    .card-buttons {
-        a {
-            padding: 1.1rem 2.6rem;
+        padding: 5.2rem 3.6rem 6.4rem;
+        .main-title{
+            margin-bottom: 3.6rem;
+            
+        }
+        .cards{
+            .card-product{
+                .card-buttons {
+                    a {
+                        padding: 1.1rem 2.6rem;
+                        margin-top: 2.4rem;
+                    }
+                    :nth-child(1) {
+                        margin-top: 2.4rem;
+                    }
+                }
+            }
         }
     }
+    
 }
-@media (max-width: 356px) {
+@media (max-width: 375px) {
     .main {
         .cards {
             .card-product {
+                padding: 1rem;
                 .card-buttons {
                     a {
                         font-size: 1.6rem;
+                        margin-top: 1.4rem;
+                    }
+                    :nth-child(1) {
+                        margin-top: 1.4rem;
                     }
                 }
             }
