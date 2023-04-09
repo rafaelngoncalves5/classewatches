@@ -193,10 +193,19 @@ def payment_view(request):
          context = {
               'client_token': client_token,
          }
-    else:
-         # Em caso de request 'POST'
-         
+         return render(request, 'lojarelogiosapp/payment/index.html', context)
 
-         print(request.POST)
-    
-    return render(request, 'lojarelogiosapp/payment/index.html', context)
+    else:
+         # Em caso de request 'POST' nós pegamos o carrinho do usuário e o total
+         carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
+
+         total = 0
+         for produto in carrinho.produto_set.all():
+            total += produto.preco
+
+            context = {
+                 'carrinho': carrinho,
+                 'total': total
+            }
+            
+         return render(request, 'lojarelogiosapp/payment/index.html', context)
