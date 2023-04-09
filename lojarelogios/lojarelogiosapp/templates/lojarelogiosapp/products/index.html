@@ -14,6 +14,7 @@
     <div class="container cards">
         <div class="row">
             {% for produto in produtos %}
+            {% if produto.quantidade > 0 %}
             <div class="card-product col">
                 <div class="image">
                     <img src="{{produto.imagem_capa.url}}" alt="{{produto.titulo}}">
@@ -23,6 +24,7 @@
                     <a class="btn-style2" href="{% url 'lojarelogiosapp:add_cart' produto.id_produto %}">Add to cart</a>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>

@@ -20,24 +20,20 @@ def privacy_view(request):
 def products_view(request):
     if request.user.is_authenticated:
          user = request.user
-         return render(request, 'lojarelogiosapp/products/index.html', {'produtos': Produto.objects.all(), 'carrinho': Carrinho.objects.get(fk_usuario=user.id)})
+
+         carrinho = Carrinho.objects.get(fk_usuario=user.id)
+         total = 0
+         for produto in carrinho.produto_set.all():
+              total += produto.preco
+
+         context = {'produtos': Produto.objects.all(),
+                     'carrinho': carrinho,
+                     'total': total
+                     }
+         return render(request, 'lojarelogiosapp/products/index.html', context)
 
     else:
       return render(request, 'lojarelogiosapp/products/index.html', {'produtos': Produto.objects.all()})
-
-class DetailsView(generic.DetailView):
-      # Envia como 'produto' para o template especificado
-      model = Produto
-      template_name = 'lojarelogiosapp/products/details.html'
-
-      def get_context_data(self, **kwargs):
-        if self.request.user.is_authenticated:
-             context = super().get_context_data(**kwargs)
-             context['carrinho'] = Carrinho.objects.get(fk_usuario = self.request.user.id)
-             return context
-        else:
-             context = super().get_context_data(**kwargs)
-             return context
 
 def add_cart(request, id_produto):
       if request.user.is_authenticated:
@@ -49,7 +45,18 @@ def add_cart(request, id_produto):
             # Numa relação many-to-many, aqui nós adicionamos os produtos ao clickarmos, no carrinho do user
             product.fk_carrinho.add(cart)
 
-            return render(request, 'lojarelogiosapp/products/index.html', {'sucesso_msg': 'Produto adicionado ao carrinho com sucesso!', 'produtos': Produto.objects.all(), 'carrinho': Carrinho.objects.get(fk_usuario=user.id)})
+            carrinho = Carrinho.objects.get(fk_usuario=user.id)
+            total = 0
+            for produto in carrinho.produto_set.all():
+                  total += produto.preco
+
+            context = {'sucesso_msg': 'Produto adicionado ao carrinho com sucesso!', 
+                       'produtos': Produto.objects.all(), 
+                       'carrinho': Carrinho.objects.get(fk_usuario=user.id),
+                       'total': total
+                       }
+
+            return render(request, 'lojarelogiosapp/products/index.html', context)
       else:
             return redirect('lojarelogiosapp:login')
 
@@ -62,9 +69,43 @@ def remove_cart(request, id_produto):
 
             product.fk_carrinho.remove(cart)
 
-            return render(request, 'lojarelogiosapp/products/index.html', {'sucesso_msg': 'Produto removido do carrinho com sucesso!', 'produtos': Produto.objects.all(), 'carrinho': Carrinho.objects.get(fk_usuario=user.id)})
+            carrinho = Carrinho.objects.get(fk_usuario=user.id)
+            total = 0
+            for produto in carrinho.produto_set.all():
+                  total += produto.preco
+
+            context = {
+                 'sucesso_msg': 'Produto removido do carrinho com sucesso!',
+                  'produtos': Produto.objects.all(),
+                  'carrinho': Carrinho.objects.get(fk_usuario=user.id),
+                  'total': total
+                  }
+
+            return render(request, 'lojarelogiosapp/products/index.html', context)
       else:
             return redirect('lojarelogiosapp:login')
+
+class DetailsView(generic.DetailView):
+      # Envia como 'produto' para o template especificado
+      model = Produto
+      template_name = 'lojarelogiosapp/products/details.html'
+
+      def get_context_data(self, **kwargs):
+        if self.request.user.is_authenticated:
+             context = super().get_context_data(**kwargs)
+
+             carrinho = Carrinho.objects.get(fk_usuario = self.request.user.id)
+             context['carrinho'] = carrinho
+             
+             total = 0
+             for produto in carrinho.produto_set.all():
+                  total += produto.preco
+
+             context['total'] = total
+             return context
+        else:
+             context = super().get_context_data(**kwargs)
+             return context
 
 # Usuário
 def index_user_view(request):
@@ -154,6 +195,8 @@ def payment_view(request):
          }
     else:
          # Em caso de request 'POST'
+         
+
          print(request.POST)
     
     return render(request, 'lojarelogiosapp/payment/index.html', context)
