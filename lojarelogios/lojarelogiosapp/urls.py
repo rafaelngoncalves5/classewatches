@@ -15,5 +15,5 @@ urlpatterns = [
     path('user/logout', views.logout_view, name='logout'),
     path('user/delete', views.delete_user_view, name='delete_user'),
     # Payment
-    path('payment', views.payment_view)
+    path('payment', views.payment_view, name='payment')
 ]

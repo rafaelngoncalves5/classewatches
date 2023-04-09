@@ -43,22 +43,13 @@
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img
-                        src="{{ produto.imagem_capa.url }}"
-                        alt=""
-                    />
+                    <img src="{{ produto.imagem_capa.url }}" alt="" />
                 </div>
                 <div class="swiper-slide">
-                    <img
-                        src="{{ produto.imagem_2.url }}"
-                        alt=""
-                    />
+                    <img src="{{ produto.imagem_2.url }}" alt="" />
                 </div>
                 <div class="swiper-slide">
-                    <img
-                        src="{{ produto.imagem_3.url }}"
-                        alt=""
-                    />
+                    <img src="{{ produto.imagem_3.url }}" alt="" />
                 </div>
             </div>
             <div class="swiper-button-next"></div>
@@ -89,22 +80,15 @@
                 <p class="value">R$ {{ produto.preco }}</p>
             </div>
             <div class="quantity">
-                <label for="quantity">Quantidade</label>
+                <label for="quantity">Quantidade disponível</label>
                 <div class="input">
                     <button class="subtraction" onclick="subtraction()">
                         -
                     </button>
-                    <input
-                        type="number"
-                        name="quantity"
-                        id="quantity"
-                        disabled
-                        min="1"
-                        max="{{ produto.quantidade }}"
-                        value="1"
-                    />
+                    <input type="number" name="quantity" id="quantity" disabled min="1" max="{{ produto.quantidade }}"
+                        value="{{ produto.quantidade }}" />
                     <button class="sum" onclick="addValue()">+</button>
-                    
+
                 </div>
             </div>
             {% if user.is_authenticated %}

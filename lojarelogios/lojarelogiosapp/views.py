@@ -131,7 +131,10 @@ def logout_view(request):
     return redirect('lojarelogiosapp:products')
 
 def payment_view(request):
+    
     user = request.user
+
+    context = {}
 
     gateway = braintree.BraintreeGateway(
             braintree.Configuration(
@@ -145,7 +148,12 @@ def payment_view(request):
     if request.method == 'GET':
          # Passando o client token pro front-end
          client_token = gateway.client_token.generate()
+
+         context = {
+              'client_token': client_token,
+         }
     else:
-         pass
+         # Em caso de request 'POST'
+         print(request.POST)
     
-    return render(request, 'lojarelogiosapp/payment/index.html', {'client_token': client_token})
+    return render(request, 'lojarelogiosapp/payment/index.html', context)
