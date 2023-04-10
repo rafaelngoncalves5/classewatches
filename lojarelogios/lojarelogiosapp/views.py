@@ -2,7 +2,7 @@ from django.utils import timezone
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from .models import Produto, Carrinho
+from .models import Produto, Carrinho, Pedido
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect
@@ -110,7 +110,13 @@ class DetailsView(generic.DetailView):
 # Usuário
 def index_user_view(request):
       if request.user.is_authenticated:
-            return render(request, 'lojarelogiosapp/user/index.html', {'user': request.user})
+            user = request.user
+            carrinho = Carrinho.objects.get(fk_usuario = user.id)
+            context = {
+                 'user': user,
+                 'pedidos': Pedido.objects.filter(fk_carrinho = carrinho)
+            }
+            return render(request, 'lojarelogiosapp/user/index.html', context)
       else:
             return HttpResponseRedirect(reverse('lojarelogiosapp:login'))
      
@@ -181,7 +187,7 @@ def payment_view(request):
            'carrinho': carrinho,
            'total': total
            }
-     return render(request, 'lojarelogiosapp/payment/index.html')
+     return render(request, 'lojarelogiosapp/payment/index.html', context)
 
 def checkout_view(request):
     

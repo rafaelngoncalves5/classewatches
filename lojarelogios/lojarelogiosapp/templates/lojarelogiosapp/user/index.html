@@ -37,35 +37,20 @@
     <div class="content">
         <div class="title">Compras recentes</div>
         <div class="purchase">
+            {% for pedido in pedidos %}
             <div class="historic">
                 <div class="image">
                     <img src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}" alt="logout" />
                 </div>
                 <div class="historic-watch">
-                    <p>Relógio</p>
-                    <p>Valor: R$ 99,99</p>
-                    <p>Quantidade: 2</p>
-                    <p>Data: DD/MM/YY</p>
-                </div>
-
-            </div>
-            <div class="historic">
-                <div class="image">
-                    <img src="{% static 'lojarelogiosapp/images/relogio2.jpg' %}" alt="logout" />
-                </div>
-                <div class="historic-watch">
-                    <p>Relógio</p>
-                    <p>Valor: R$ 99,99</p>
-                    <p>Quantidade: 2</p>
-                    <p>Data: DD/MM/YY</p>
+                    <p>{{pedido.titulo}}</p>
+                    <p>Valor: R$ {{ pedido.preco }}</p>
+                    <p>Quantidade: {{ forloop.counter }}</p>
+                    <p>Data: {{ pedido.data_pedido }}</p>
+                    <p>Status do pedido: {{ pedido.status }}</p>
                 </div>
             </div>
-            <div class="address-info">
-                <p><strong>Endereço de entrega 1: </strong>Rua 1</p>
-                <p><strong>Endereço de entrega 2: </strong>Rua 2</p>
-                <p><strong>Telefone: </strong>(031) 99876-5432</p>
-                <p><strong>Emitido em: </strong>DD/MM/YY</p>
-            </div>
+            {% endfor %}
         </div>
         <div class="user-buttons">
             <!-- <div class="btn-style4">
@@ -74,10 +59,10 @@
             </div> -->
             <div class="btn-style5">
                 <img src="{% static 'lojarelogiosapp/images/icon-trash.svg' %}" alt="logout" />
-                
+
                 <!-- Button trigger modal -->
                 <a data-bs-toggle="modal" data-bs-target="#exampleModal">Delete user</a>
-                
+
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -87,13 +72,16 @@
                                 <h1>ATENÇÃO</h1>
                                 <hr />
                                 <p>
-                                    Tem certeza que deseja excluir sua conta de usuário de registrada no email {{user.email}}?
+                                    Tem certeza que deseja excluir sua conta de usuário de registrada no email
+                                    {{user.email}}?
                                     Este processo não poderá ser desfeito!
                                 </p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal">Não</button>
-                                <a href="{% url 'lojarelogiosapp:delete_user' %}" type="button" class="btn btn-secondary btn-lg text-white">Sim</a>
+                                <button type="button" class="btn btn-secondary btn-lg"
+                                    data-bs-dismiss="modal">Não</button>
+                                <a href="{% url 'lojarelogiosapp:delete_user' %}" type="button"
+                                    class="btn btn-secondary btn-lg text-white">Sim</a>
                             </div>
                         </div>
                     </div>
