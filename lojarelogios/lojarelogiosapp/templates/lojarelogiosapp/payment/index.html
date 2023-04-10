@@ -41,9 +41,8 @@
                         <h5 class="mb-0">Biling details</h5>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{% url 'lojarelogiosapp:checkout' %}">
-                            {% csrf_token %}
-                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                        <form id="payment-form" method="post" action="{% url 'lojarelogiosapp:checkout' %}">
+                            {% csrf_token %}                            
                             <div class="row mb-4">
                                 <div class="col">
                                     <div class="form-outline">
@@ -59,7 +58,7 @@
                                 </div>
                             </div>
 
-                            <!-- Text input -->
+                            
                             <div class="form-outline mb-4">
                                 <input placeholder="Rua mesquita, número 22, 1403, alfa b" maxlength="100" minlength="7" required type="text" id="endereco_entrega_1" class="form-control" name="endereco_entrega_1" />
                                 <label class="form-label" for="endereco_entrega_1">Endereço de entrega 1</label>
@@ -70,7 +69,7 @@
                                 <label class="form-label" for="endereco_entrega_2">Endereço de entrega 2</label>
                             </div>
 
-                            <!-- Number input -->
+                            
                             <div class="form-outline mb-4">
                                 <input placeholder="31 98899-9999" maxlength="30" minlength="7" required type="number" id="telefone_1" class="form-control" name="telefone_1" />
                                 <label class="form-label" for="telefone_1">Telefone 1</label>
@@ -88,29 +87,32 @@
 
                             <hr class="my-4" />
                             
+
+                            <!-- Step one: add an empty container to your page -->
+                            <div id="dropin-container"></div>
                             <!-- Pagamento -->
                             <h5 class="mb-4">Pagamento</h5>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="checkoutForm3"
-                                    checked />
-                                <label class="form-check-label" for="checkoutForm3">
-                                    Credit card
+                                <input name="payment_method_nonce" value="Credit card" class="form-check-input"
+                                    type="radio" id="cc-radio" checked />
+                                <label class="form-check-label" for="cc-radio">
+                                    Cartão de crédito
                                 </label>
                             </div>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="checkoutForm4" />
-                                <label class="form-check-label" for="checkoutForm4">
-                                    Debit card
+                                <input name="payment_method_nonce" value="Debit card" class="form-check-input"
+                                    type="radio" id="debit-radio" />
+                                <label class="form-check-label" for="debit-radio">
+                                    Cartão de débito
                                 </label>
                             </div>
 
                             <div class="form-check mb-4">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="checkoutForm5" />
-                                <label class="form-check-label" for="checkoutForm5">
+                                <input name="payment_method_nonce" value="Paypal" class="form-check-input" type="radio"
+                                    id="paypal-radio" />
+                                <label class="form-check-label" for="paypal-radio">
                                     Paypal
                                 </label>
                             </div>
@@ -118,14 +120,14 @@
                             <div class="row mb-4">
                                 <div class="col">
                                     <div class="form-outline">
-                                        <input type="text" id="formNameOnCard" class="form-control" />
-                                        <label class="form-label" for="formNameOnCard">Name on card</label>
+                                        <input required type="text" id="card-name" class="form-control" name="card-name" />
+                                        <label class="form-label" for="card-name">Name on card</label>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-outline">
-                                        <input type="text" id="formCardNumber" class="form-control" />
-                                        <label class="form-label" for="formCardNumber">Credit card number</label>
+                                        <input required type="text" id="card-number" class="form-control" name="card-number" />
+                                        <label class="form-label" for="card-number">Credit card number</label>
                                     </div>
                                 </div>
                             </div>
@@ -133,18 +135,17 @@
                             <div class="row mb-4">
                                 <div class="col-3">
                                     <div class="form-outline">
-                                        <input type="text" id="formExpiration" class="form-control" />
-                                        <label class="form-label" for="formExpiration">Expiration</label>
+                                        <input placeholder="12/48" required type="text" id="expiration" class="form-control" name="expiration" />
+                                        <label class="form-label" for="expiration">Expiration</label>
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="form-outline">
-                                        <input type="text" id="formCVV" class="form-control" />
-                                        <label class="form-label" for="formCVV">CVV</label>
+                                        <input type="text" id="cvv" class="form-control" name="cvv" maxlength="4" minlength="3" />
+                                        <label class="form-label" for="cvv">CVV</label>
                                     </div>
                                 </div>
                             </div>
-
                             <button class="btn btn-primary btn-lg btn-block" type="submit">
                                 Enviar
                             </button>
@@ -189,14 +190,9 @@
             </div>
         </div>
     </section>
-    <!-- Credit card form -->
     <!--  -->
 
     {% include 'footer.html' %}
-
-
-    <!-- Step one: add an empty container to your page -->
-    <div id="dropin-container"></div>
 
     <script type="text/javascript">
         // call `braintree.dropin.create` code here

@@ -40,7 +40,8 @@
             {% for pedido in pedidos %}
             <div class="historic">
                 <div class="image">
-                    <img src="{% static 'lojarelogiosapp/images/relogio1.jpg' %}" alt="logout" />
+                    <!-- Testar ver como funciona queryset nos related objects aqui, depois! -->
+                    <img src="{{ pedido.produto_set.img_capa.url }}" alt="logout" />
                 </div>
                 <div class="historic-watch">
                     <p>{{pedido.titulo}}</p>

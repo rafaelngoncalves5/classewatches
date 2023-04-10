@@ -214,27 +214,41 @@ def checkout_view(request):
          return render(request, 'lojarelogiosapp/payment/checkout.html', context)
      
     else:
-         # Em caso de request 'POST' nós pegamos o carrinho do usuário e o total
+         # Em caso de request 'POST' nós pegamos todos os dados relevantes
          carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
-
          total = 0
          for produto in carrinho.produto_set.all():
             total += produto.preco
 
-            context = {
-                 'carrinho': carrinho,
-                 'total': total
-            }
+            payment_method_nonce = request.POST['payment_method_nonce']
+            card_name = request.POST['card-name']
+            card_number = request.POST['card-number']
+            expiration = request.POST['expiration']
+            cvv = request.POST['cvv']
 
+            fk_carrinho = carrinho
+            data_pedido = timezone.now()
+            cep = request.POST['cep']
+            telefone_1 = request.POST['telefone_1']
+            telefone_2 = request.POST['telefone_2']
+            endereco_entrega_1 = request.POST['endereco_entrega_1']
+            endereco_entrega_2 = request.POST['endereco_entrega_2']
+            
             # 1 - Aqui a gente primeiro procede com um pagamento
-            # ...
+            result = gateway.transaction.sale({
+                 "amount": int(total),
+                 "payment_method_nonce": payment_method_nonce,
+                 "options": {
+                 "submit_for_settlement": True
+            }})
 
             # 2 - Depois, nós instanciamos um novo pedido
-            #fk_carrinho = carrinho
-            #data_pedido = timezone.now()
-            #cep = request.POST['cep']
-            #telefone_1 = request.POST['telefone_1']
-            #telefone_2 = request.POST['telefone_2']
-            #endereco_entrega_1 = request.POST['endereco_entrega_1']
-            #endereco_entrega_2 = request.POST['endereco_entrega_2']
-            return render(request, 'lojarelogiosapp/payment/checkout.html')
+            # ...
+
+            context = {
+                 'carrinho': carrinho,
+                 'total': total,
+                 # Pegamos os dados do pagamento para o braintree
+                 'payment_method': payment_method_nonce,
+            }
+            return render(request, 'lojarelogiosapp/payment/checkout.html', context)
