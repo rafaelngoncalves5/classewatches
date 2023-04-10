@@ -8,7 +8,10 @@ from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views import generic
-from django.views.decorators.csrf import csrf_exempt
+from django.views import View
+import stripe
+from django.conf import settings
+from django.http import JsonResponse
 
 # Create your views here.
 def index_view(request):
@@ -189,8 +192,9 @@ def payment_view(request):
            }
      return render(request, 'lojarelogiosapp/payment/index.html', context)
 
-def checkout_view(request):
+def checkout_view(request):    
     
+    # 1 - Colhendo dados de formulário
     user = request.user
     
     carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
@@ -198,12 +202,14 @@ def checkout_view(request):
     for produto in carrinho.produto_set.all():
       total += produto.preco
       
+      # 2.1 - Colhendo os dados relevantes ao pagamento
       payment_method = request.POST['payment_method']
       card_name = request.POST['card-name']
       card_number = request.POST['card-number']
       expiration = request.POST['expiration']
       cvv = request.POST['cvv']
 
+      # 2.2 - Colhendo os dados relevantes ao pedido
       fk_carrinho = carrinho
       data_pedido = timezone.now()
       cep = request.POST['cep']
@@ -212,8 +218,37 @@ def checkout_view(request):
       endereco_entrega_1 = request.POST['endereco_entrega_1']
       endereco_entrega_2 = request.POST['endereco_entrega_2']
 
+      # 3 - Instanciando um pedido
+      # ...
+
+      # 4 - Stripe e pagamento
+      stripe.api_key = settings.STRIPE_SECRET_KEY
+
+      domain = "http://localhost:8000/lojarelogiosapp"
+      
+      if settings.DEBUG:
+            domain = "http://127.0.0.1:8000"
+            checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[
+                {
+                    'price': 'price_1MvTqtKY6ADNgA35HYRCtT87',
+                    'quantity': 1,
+                },
+            ],
+            mode='payment',
+            success_url=domain + '/payment/success',
+            cancel_url=domain + '/payment/cancel',
+        )
       context = {
             'carrinho': carrinho,
             'total': total,
+            'checkout_id': checkout_session.id,
             }
-      return render(request, 'lojarelogiosapp/payment/checkout.html', context)
+      return redirect(checkout_session.url)
+    
+def success_view(request):
+     return render(request, 'lojarelogiosapp/payment/success.html')
+
+def cancel_view(request):
+     return render(request, 'lojarelogiosapp/payment/cancel.html')
