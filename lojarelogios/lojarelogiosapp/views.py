@@ -8,7 +8,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.views import generic
-import braintree
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index_view(request):
@@ -192,63 +192,28 @@ def payment_view(request):
 def checkout_view(request):
     
     user = request.user
+    
+    carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
+    total = 0
+    for produto in carrinho.produto_set.all():
+      total += produto.preco
+      
+      payment_method = request.POST['payment_method']
+      card_name = request.POST['card-name']
+      card_number = request.POST['card-number']
+      expiration = request.POST['expiration']
+      cvv = request.POST['cvv']
 
-    context = {}
+      fk_carrinho = carrinho
+      data_pedido = timezone.now()
+      cep = request.POST['cep']
+      telefone_1 = request.POST['telefone_1']
+      telefone_2 = request.POST['telefone_2']
+      endereco_entrega_1 = request.POST['endereco_entrega_1']
+      endereco_entrega_2 = request.POST['endereco_entrega_2']
 
-    gateway = braintree.BraintreeGateway(
-            braintree.Configuration(
-                braintree.Environment.Sandbox,
-                merchant_id="wjn3nwnyk7jpdxbm",
-                public_key="9br7xc3vm98kpfcj",
-                private_key="8a106243762ffc29e20f7ee34f01155e"
-            )
-        )
-
-    if request.method == 'GET':
-         # Passando o client token pro front-end
-         client_token = gateway.client_token.generate()
-
-         context = {
-              'client_token': client_token,
-         }
-         return render(request, 'lojarelogiosapp/payment/checkout.html', context)
-     
-    else:
-         # Em caso de request 'POST' nós pegamos todos os dados relevantes
-         carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
-         total = 0
-         for produto in carrinho.produto_set.all():
-            total += produto.preco
-
-            payment_method_nonce = request.POST['payment_method_nonce']
-            card_name = request.POST['card-name']
-            card_number = request.POST['card-number']
-            expiration = request.POST['expiration']
-            cvv = request.POST['cvv']
-
-            fk_carrinho = carrinho
-            data_pedido = timezone.now()
-            cep = request.POST['cep']
-            telefone_1 = request.POST['telefone_1']
-            telefone_2 = request.POST['telefone_2']
-            endereco_entrega_1 = request.POST['endereco_entrega_1']
-            endereco_entrega_2 = request.POST['endereco_entrega_2']
-            
-            # 1 - Aqui a gente primeiro procede com um pagamento
-            result = gateway.transaction.sale({
-                 "amount": int(total),
-                 "payment_method_nonce": payment_method_nonce,
-                 "options": {
-                 "submit_for_settlement": True
-            }})
-
-            # 2 - Depois, nós instanciamos um novo pedido
-            # ...
-
-            context = {
-                 'carrinho': carrinho,
-                 'total': total,
-                 # Pegamos os dados do pagamento para o braintree
-                 'payment_method': payment_method_nonce,
+      context = {
+            'carrinho': carrinho,
+            'total': total,
             }
-            return render(request, 'lojarelogiosapp/payment/checkout.html', context)
+      return render(request, 'lojarelogiosapp/payment/checkout.html', context)

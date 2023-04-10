@@ -42,75 +42,83 @@
                     </div>
                     <div class="card-body">
                         <form id="payment-form" method="post" action="{% url 'lojarelogiosapp:checkout' %}">
-                            {% csrf_token %}                            
+                            {% csrf_token %}
                             <div class="row mb-4">
                                 <div class="col">
                                     <div class="form-outline">
-                                        <input placeholder="John" type="text" required minlength="2" maxlength="25" id="nome" class="form-control" name="nome" />
+                                        <input placeholder="John" type="text" required minlength="2" maxlength="25"
+                                            id="nome" class="form-control" name="nome" />
                                         <label class="form-label" for="nome">Nome</label>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-outline">
-                                        <input placeholder="Doe" type="text" id="sobrenome" required minlength="2" maxlength="35" class="form-control" name="sobrenome" />
+                                        <input placeholder="Doe" type="text" id="sobrenome" required minlength="2"
+                                            maxlength="35" class="form-control" name="sobrenome" />
                                         <label class="form-label" for="sobrenome">Sobrenome</label>
                                     </div>
                                 </div>
                             </div>
 
-                            
+
                             <div class="form-outline mb-4">
-                                <input placeholder="Rua mesquita, número 22, 1403, alfa b" maxlength="100" minlength="7" required type="text" id="endereco_entrega_1" class="form-control" name="endereco_entrega_1" />
+                                <input
+                                    placeholder="Estado JS, cidade rochas, bairro uva, rua mesquita, número 22, 1403, alfa b"
+                                    maxlength="100" minlength="7" required type="text" id="endereco_entrega_1"
+                                    class="form-control" name="endereco_entrega_1" />
                                 <label class="form-label" for="endereco_entrega_1">Endereço de entrega 1</label>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input placeholder="Rua mesquita, número 24, 1404, alfa c" maxlength="100" minlength="7" type="text" id="endereco_entrega_2" class="form-control" name="endereco_entrega_2" />
+                                <input
+                                    placeholder="Estado JC, cidade amarilia, bairro banana, rua mesquita, número 24, 1404, alfa c"
+                                    maxlength="100" minlength="7" type="text" id="endereco_entrega_2"
+                                    class="form-control" name="endereco_entrega_2" />
                                 <label class="form-label" for="endereco_entrega_2">Endereço de entrega 2</label>
                             </div>
 
-                            
+
                             <div class="form-outline mb-4">
-                                <input placeholder="31 98899-9999" maxlength="30" minlength="7" required type="number" id="telefone_1" class="form-control" name="telefone_1" />
+                                <input placeholder="31 98899-9999" maxlength="30" minlength="7" required type="tel"
+                                    id="telefone_1" class="form-control" name="telefone_1" />
                                 <label class="form-label" for="telefone_1">Telefone 1</label>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input placeholder="31 98899-9999" maxlength="30" minlength="7" type="number" id="telefone_2" class="form-control" name="telefone_2" />
+                                <input placeholder="31 98899-9999" maxlength="30" minlength="7" type="tel"
+                                    id="telefone_2" class="form-control" name="telefone_2" />
                                 <label class="form-label" for="telefone_2">Telefone 2</label>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input placeholder="33113-133" maxlength="20" minlength="6" required type="number" id="cep" class="form-control" name="cep" />
+                                <input placeholder="33113-133" maxlength="20" minlength="6" required type="text"
+                                    id="cep" class="form-control" name="cep" />
                                 <label class="form-label" for="cep">CEP</label>
                             </div>
 
                             <hr class="my-4" />
-                            
 
-                            <!-- Step one: add an empty container to your page -->
-                            <div id="dropin-container"></div>
                             <!-- Pagamento -->
                             <h5 class="mb-4">Pagamento</h5>
 
                             <div class="form-check">
-                                <input name="payment_method_nonce" value="Credit card" class="form-check-input"
-                                    type="radio" id="cc-radio" checked />
+                                <input name="payment_method" value="Credit card" class="form-check-input" type="radio"
+                                    id="cc-radio" checked />
                                 <label class="form-check-label" for="cc-radio">
                                     Cartão de crédito
                                 </label>
                             </div>
 
                             <div class="form-check">
-                                <input name="payment_method_nonce" value="Debit card" class="form-check-input"
-                                    type="radio" id="debit-radio" />
+                                <input name="payment_method" value="Debit card" class="form-check-input" type="radio"
+                                    id="debit-radio" />
                                 <label class="form-check-label" for="debit-radio">
                                     Cartão de débito
                                 </label>
                             </div>
 
                             <div class="form-check mb-4">
-                                <input name="payment_method_nonce" value="Paypal" class="form-check-input" type="radio"
+                                <input name="payment_method" value="Paypal" class="form-check-input" type="radio"
                                     id="paypal-radio" />
                                 <label class="form-check-label" for="paypal-radio">
                                     Paypal
@@ -120,13 +128,15 @@
                             <div class="row mb-4">
                                 <div class="col">
                                     <div class="form-outline">
-                                        <input required type="text" id="card-name" class="form-control" name="card-name" />
+                                        <input required type="text" id="card-name" class="form-control"
+                                            name="card-name" />
                                         <label class="form-label" for="card-name">Name on card</label>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-outline">
-                                        <input required type="text" id="card-number" class="form-control" name="card-number" />
+                                        <input required type="text" id="card-number" class="form-control"
+                                            name="card-number" />
                                         <label class="form-label" for="card-number">Credit card number</label>
                                     </div>
                                 </div>
@@ -135,18 +145,20 @@
                             <div class="row mb-4">
                                 <div class="col-3">
                                     <div class="form-outline">
-                                        <input placeholder="12/48" required type="text" id="expiration" class="form-control" name="expiration" />
+                                        <input placeholder="MM/YYYY" required type="text" id="expiration"
+                                            class="form-control" name="expiration" />
                                         <label class="form-label" for="expiration">Expiration</label>
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="form-outline">
-                                        <input type="text" id="cvv" class="form-control" name="cvv" maxlength="4" minlength="3" />
+                                        <input type="text" id="cvv" class="form-control" name="cvv" maxlength="4"
+                                            minlength="3" />
                                         <label class="form-label" for="cvv">CVV</label>
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary btn-lg btn-block" type="submit">
+                            <button id="submit-button" class="btn btn-primary btn-lg btn-block" type="submit">
                                 Enviar
                             </button>
                         </form>
@@ -193,17 +205,4 @@
     <!--  -->
 
     {% include 'footer.html' %}
-
-    <script type="text/javascript">
-        // call `braintree.dropin.create` code here
-        // Step two: create a dropin instance using that container (or a string
-        //   that functions as a query selector such as `#dropin-container`)
-        braintree.dropin.create({
-            container: document.getElementById('dropin-container'),
-            // ...plus remaining configuration
-        }, (error, dropinInstance) => {
-            // Use `dropinInstance` here
-            // Methods documented at https://braintree.github.io/braintree-web-drop-in/docs/current/Dropin.html
-        });
-    </script>
 </body>

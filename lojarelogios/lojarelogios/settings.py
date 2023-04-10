@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
-import braintree
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "django_braintree",
     'lojarelogiosapp.apps.LojarelogiosappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,14 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-# Braintree sandbox settings
-BRAINTREE_ENV = braintree.Environment.Sandbox
-BRAINTREE_MERCHANT = 'your_merchant_key'
-BRAINTREE_PUBLIC_KEY = 'your_public_key'
-BRAINTREE_PRIVATE_KEY = 'your_private_key'
-
-# If you cannot install M2Crypto (e.g. AppEngine):
-BRAINTREE_UNSAFE_SSL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -134,5 +123,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-SESSION_COOKIE_AGE = 5 * 60
