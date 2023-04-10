@@ -44,6 +44,7 @@ class Pedido(models.Model):
     telefone_2 = models.IntegerField(null=True)
     endereco_entrega_1 = models.CharField(max_length=150)
     endereco_entrega_2 = models.CharField(max_length=150, null=True)
+    cep = models.CharField(max_length=20, null=True)
     status = models.CharField(choices=STATUS_OPTIONS, default=STATUS_OPTIONS[0][1], max_length=25)
     # Quando o produto estiver com status = 'despachado', o administrador insere um link com o código de despache nos correios
     link_rastreamento = models.CharField(max_length=999, null=True)

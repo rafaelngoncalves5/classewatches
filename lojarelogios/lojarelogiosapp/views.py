@@ -172,6 +172,18 @@ def logout_view(request):
     return redirect('lojarelogiosapp:products')
 
 def payment_view(request):
+     carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
+
+     total = 0
+     for produto in carrinho.produto_set.all():
+      total += produto.preco
+      context = {
+           'carrinho': carrinho,
+           'total': total
+           }
+     return render(request, 'lojarelogiosapp/payment/index.html')
+
+def checkout_view(request):
     
     user = request.user
 
@@ -193,8 +205,8 @@ def payment_view(request):
          context = {
               'client_token': client_token,
          }
-         return render(request, 'lojarelogiosapp/payment/index.html', context)
-
+         return render(request, 'lojarelogiosapp/payment/checkout.html', context)
+     
     else:
          # Em caso de request 'POST' nós pegamos o carrinho do usuário e o total
          carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
@@ -207,5 +219,16 @@ def payment_view(request):
                  'carrinho': carrinho,
                  'total': total
             }
-            
-         return render(request, 'lojarelogiosapp/payment/index.html', context)
+
+            # 1 - Aqui a gente primeiro procede com um pagamento
+            # ...
+
+            # 2 - Depois, nós instanciamos um novo pedido
+            #fk_carrinho = carrinho
+            #data_pedido = timezone.now()
+            #cep = request.POST['cep']
+            #telefone_1 = request.POST['telefone_1']
+            #telefone_2 = request.POST['telefone_2']
+            #endereco_entrega_1 = request.POST['endereco_entrega_1']
+            #endereco_entrega_2 = request.POST['endereco_entrega_2']
+            return render(request, 'lojarelogiosapp/payment/checkout.html')
