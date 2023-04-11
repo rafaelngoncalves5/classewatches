@@ -11,6 +11,7 @@ class Carrinho(models.Model):
     def __str__(self):
         return "Carrinho do usuário " + str(self.fk_usuario)
 
+# Esta model deve ser cadastrado antes no stripe, depois na página de admin
 class Produto(models.Model):
     id_produto = models.AutoField(primary_key=True)
     # Posso acessar o carrinho tanto usando o carrinho.produto_set quanto com o produto.fk_carrinho
@@ -24,6 +25,9 @@ class Produto(models.Model):
     imagem_capa = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
     imagem_2 = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
     imagem_3 = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
+
+    # stripe_id é o id do objeto de preço do produto no stripe. O produto primeiro é cadastrado no stripe, depois cadastrado no banco de dados do site
+    stripe_id = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.titulo

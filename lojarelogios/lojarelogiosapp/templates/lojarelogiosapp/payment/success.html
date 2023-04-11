@@ -1,5 +1,27 @@
 {% extends 'base.html' %}
 <title>{% block title %}Loja de Relógios - Sucesso{% endblock title %}</title>
-<h1 class="text-success text-center">Sucesso! {{ checkout_id }}</h1>
+
 {% block content %}
+<br class="my-5" />
+<br class="my-5" />
+<br class="my-5" />
+<br class="my-5" />
+<br class="my-5" />
+<br class="my-5" />
+<br class="my-5" />
+<br class="my-5" />
+<br class="my-5" />
+<div class="text-center my-5">
+    <h1 class="text-success">Sucesso!</h1>
+    <h2>Transação completada com sucesso</h2>
+    <h4>Redirecionando</h4>
+</div>
+<div class="d-flex justify-content-center align-items-center">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<script async>
+setTimeout(() => window.location.replace('http://localhost:8000/lojarelogiosapp/user/'), 2000)
+</script>
 {% endblock content %}
