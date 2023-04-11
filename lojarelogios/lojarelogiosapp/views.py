@@ -226,21 +226,24 @@ def checkout_view(request):
       stripe.api_key = settings.STRIPE_SECRET_KEY
 
       domain = "http://localhost:8000/lojarelogiosapp"
+
+      line_items_list = []
+      for produto in carrinho.produto_set.all():     
+           line_items_list.append({
+            'price': produto.stripe_id,
+            'quantity': 1,
+            }),
       
       if settings.DEBUG:
-            domain = "http://127.0.0.1:8000"
+            domain = "http://127.0.0.1:8000/lojarelogiosapp"
             checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
-            line_items=[
-                {
-                    'price': 'price_1MvTqtKY6ADNgA35HYRCtT87',
-                    'quantity': 1,
-                },
-            ],
+            line_items=line_items_list,
             mode='payment',
             success_url=domain + '/payment/success',
             cancel_url=domain + '/payment/cancel',
         )
+      
       context = {
             'carrinho': carrinho,
             'total': total,
