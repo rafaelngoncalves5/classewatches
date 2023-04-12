@@ -11,27 +11,6 @@ class Carrinho(models.Model):
     def __str__(self):
         return "Carrinho do usuário " + str(self.fk_usuario)
 
-# Esta model deve ser cadastrado antes no stripe, depois na página de admin
-class Produto(models.Model):
-    id_produto = models.AutoField(primary_key=True)
-    # Posso acessar o carrinho tanto usando o carrinho.produto_set quanto com o produto.fk_carrinho
-    fk_carrinho = models.ManyToManyField(Carrinho, editable=False)
-    titulo = models.CharField(max_length=25)
-    descricao = models.CharField(max_length=150)
-    preco = models.FloatField(default=0.00)
-    quantidade = models.IntegerField(default=1)
-
-    # Imagens
-    imagem_capa = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
-    imagem_2 = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
-    imagem_3 = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
-
-    # stripe_id é o id do objeto de preço do produto no stripe. O produto primeiro é cadastrado no stripe, depois cadastrado no banco de dados do site
-    stripe_id = models.CharField(max_length=200, null=True)
-
-    def __str__(self):
-        return self.titulo
-
 # Essa model, basicamente gera um pedido baseado no retrato do carrinho ao clicarmos em 'comprar'. Ela se atualiza baseado no estado do pagamaento gerado pela API de Payment Gateway
 class Pedido(models.Model):
 
@@ -60,3 +39,26 @@ class Pedido(models.Model):
 
     def __str__(self):
         return self.id_pedido
+
+
+# Esta model deve ser cadastrado antes no stripe, depois na página de admin
+class Produto(models.Model):
+    id_produto = models.AutoField(primary_key=True)
+    # Posso acessar o carrinho tanto usando o carrinho.produto_set quanto com o produto.fk_carrinho
+    fk_carrinho = models.ManyToManyField(Carrinho, editable=False)
+    fk_pedido = models.ManyToManyField(Pedido, editable=False)
+    titulo = models.CharField(max_length=25)
+    descricao = models.CharField(max_length=150)
+    preco = models.FloatField(default=0.00)
+    quantidade = models.IntegerField(default=1)
+
+    # Imagens
+    imagem_capa = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
+    imagem_2 = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
+    imagem_3 = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
+
+    # stripe_id é o id do objeto de preço do produto no stripe. O produto primeiro é cadastrado no stripe, depois cadastrado no banco de dados do site
+    stripe_id = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.titulo

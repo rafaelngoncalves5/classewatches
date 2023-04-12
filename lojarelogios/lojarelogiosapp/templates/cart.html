@@ -27,7 +27,7 @@
                             {{ produto }}
                             <div class="bought-products-info float-end">
                                 <p>1</p>
-                                <p>R${{ produto.preco }}</p>
+                                <p>R$ {{ produto.preco }}</p>
                             </div>
                         </li>
                     </ul>
@@ -39,7 +39,7 @@
                     {% if carrinho.produto_set.exists %}
                     <div class="value-total">
                         <p>Total</p>
-                        <p>R${{ total }}</p>
+                        <p>R$ {{ total }}</p>
                     </div>
                     {% else %}
                     {% endif %}

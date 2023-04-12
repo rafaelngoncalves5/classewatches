@@ -13,6 +13,7 @@
     <div class="main-title">Products</div>
     <div class="container cards">
         <div class="row">
+            {% if produto %}
             {% for produto in produtos %}
             {% if produto.quantidade > 0 %}
             <div class="card-product col">
@@ -26,6 +27,31 @@
             </div>
             {% endif %}
             {% endfor %}
+            {% else %}
+            <span style="font-family: cinzel;" class="fs-1 text-center">Não temos produtos disponíveis atualmente...</span>
+            <span style="font-family: cinzel;" class="fs-3 text-center">Volte mais tarde!</span>
+            <br />
+            <div style="font-family: cinzel;" class="fs-2 fw-bolder text-light text-center card border-secondary bg-secondary p-5 border-rounded">
+                <h4>Quer encomendar um produto?</h4>
+                <p>Me contate</p>
+                <div class="footer-icons">
+                    <ul style="list-style: none;" class="d-flex justify-content-center gap-5 my-5 py-5">
+                        <li>
+                            <a href=""><img src="{% static 'lojarelogiosapp/images/icon-instagram.svg' %}"
+                                    alt="Relógio" /></a>
+                        </li>
+                        <li>
+                            <a href="https://wa.link/6r502g"><img
+                                    src="{% static 'lojarelogiosapp/images/icon-phone.svg' %}" alt="Relógio" /></a>
+                        </li>
+                        <li>
+                            <a href=""><img src="{% static 'lojarelogiosapp/images/icon-facebook.svg' %}"
+                                    alt="Relógio" /></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </main>

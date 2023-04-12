@@ -117,14 +117,15 @@ def index_user_view(request):
       if request.user.is_authenticated:
             user = request.user
             carrinho = Carrinho.objects.get(fk_usuario = user.id)
-            pedido = Pedido.objects.filter(fk_carrinho = carrinho)
-
+            pedidos = Pedido.objects.filter(fk_carrinho = carrinho)
+            
             # Boa área para adicionar WEBHOOKS do stripe
             # ...
 
             context = {
                  'user': user,
-                 'pedidos': Pedido.objects.filter(fk_carrinho = carrinho),
+                 'pedidos': pedidos,
+                 #'primeiro_produto': primeiro_produto,
             }
             return render(request, 'lojarelogiosapp/user/index.html', context)
       else:
@@ -193,6 +194,7 @@ def payment_view(request):
      total = 0
      for produto in carrinho.produto_set.all():
       total += produto.preco
+
       context = {
            'carrinho': carrinho,
            'total': total
@@ -200,33 +202,30 @@ def payment_view(request):
      return render(request, 'lojarelogiosapp/payment/index.html', context)
 
 def checkout_view(request):    
-        
     carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
+    line_items_list = []
+
     total = 0
     for produto in carrinho.produto_set.all():
+      line_items_list.append({
+           'price': produto.stripe_id,
+           'quantity': 1,
+           }),
       total += produto.preco
 
-      # Stripe e pagamento
-      stripe.api_key = settings.STRIPE_SECRET_KEY
-
-      domain = "http://localhost:8000/lojarelogiosapp"
-
-      line_items_list = []
-      for produto in carrinho.produto_set.all():     
-           line_items_list.append({
-            'price': produto.stripe_id,
-            'quantity': 1,
-            }),
-      
-      if settings.DEBUG:
-            domain = "http://127.0.0.1:8000/lojarelogiosapp"
-            checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=line_items_list,
-            mode='payment',
-            success_url=domain + '/payment/success',
-            cancel_url=domain + '/payment/cancel',
-        )
+    # Stripe e pagamento
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    domain = "http://localhost:8000/lojarelogiosapp"
+    
+    if settings.DEBUG:
+      domain = "http://127.0.0.1:8000/lojarelogiosapp"
+      checkout_session = stripe.checkout.Session.create(
+      payment_method_types=['card'],
+      line_items=line_items_list,
+      mode='payment',
+      success_url=domain + '/payment/success',
+      cancel_url=domain + '/payment/cancel',
+      )
             
       # Dados de usuário
       user = request.user
@@ -248,7 +247,7 @@ def checkout_view(request):
       cep = request.POST['cep']
 
       # Instanciando um pedido
-      Pedido.objects.create(
+      new_pedido = Pedido.objects.create(
            id_pedido=id_pedido,
            fk_carrinho=fk_carrinho,
            total=total,
@@ -264,16 +263,20 @@ def checkout_view(request):
            complemento=complemento
            )
       
-      # Reduzindo a quantidade de produtos no banco de dados
-      for produto in carrinho.produto_set.all():     
-           produto.quantidade -= 1
-      
-      # Salvando a tabela inteira
-      for produto in Produto.objects.all():
-           produto.save()
+      # Reduzindo a quantidade de produtos no banco de dados e adicionando os produtos do carrinho no pedido
+      for produto in carrinho.produto_set.all():
+           new_pedido.produto_set.add(produto)
+
+           current_product = Produto.objects.get(pk=produto.id_produto)
+           current_product.quantidade -= 1
+           current_product.save()
+
+      produtos_comprados = []
+      for produto in carrinho.produto_set.all():
+           produtos_comprados.append(produto.titulo)
       
       # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
-      msg = f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n- ID: {checkout_session.stripe_id}\n- Email: {user.email}\n - Data: {data_pedido}\n - Total: {total} {checkout_session.currency}\n- Produtos comprados: {checkout_session.line_items} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, ou apenas acessando sua página de pedidos do stripe!"
+      msg = f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n- ID: {checkout_session.stripe_id}\n- Email: {user.email}\n - Data: {data_pedido}\n - Status: {checkout_session.status}\n - Total: {total} {checkout_session.currency}\n- Produtos comprados: {produtos_comprados} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, apenas acessando sua página de pedidos do stripe, ou através da aba de pedidos da administração da sua loja virtual!"
       send_mail(
            "NOVO PEDIDO NA LOJA VIRTUAL!",
             msg,
@@ -281,12 +284,14 @@ def checkout_view(request):
             ["rafaelngoncalves5@outlook.com"],
             fail_silently=False,
       )
+      # Limpando o carrinho pós compra
+      for produto in carrinho.produto_set.all():
+            # 1 - Pego o produto
+            current_product = Produto.objects.get(pk = produto.id_produto)
+            # 2 - Removo a instância
+            current_product.fk_carrinho.remove(carrinho)
+
       
-      context = {
-            'carrinho': carrinho,
-            'total': total,
-            'checkout_id': checkout_session.id,
-            }
       return redirect(checkout_session.url)
     
 def success_view(request):

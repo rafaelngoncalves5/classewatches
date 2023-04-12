@@ -39,11 +39,10 @@
         <div class="purchase">
             {% for pedido in pedidos %}
             <div class="historic">
-                <div class="image">
-                    <!-- Testar ver como funciona queryset nos related objects aqui, depois! -->
-                    <!-- ATUALIZAÇÃO: adicionei a imagem de capa do primeiro produto comprado -->
-                </div>
                 <div class="historic-watch">
+                    {% for produto in pedido.produto_set.all %}
+                    <p>{{ produto.titulo }}</p>
+                    {% endfor %}
                     <p>Valor: R$ {{ pedido.total }}</p>
                     <p>Data: {{ pedido.data_pedido }}</p>
                     <p>Status do pedido: {{ pedido.status }}</p>
