@@ -264,15 +264,16 @@ def checkout_view(request):
            complemento=complemento
            )
       
-      # Reduzindo a quantidade de itens do banco de dados
+      # Reduzindo a quantidade de produtos no banco de dados
       for produto in carrinho.produto_set.all():     
            produto.quantidade -= 1
       
-      for c in carrinho:
-           c.save()
+      # Salvando a tabela inteira
+      for produto in Produto.objects.all():
+           produto.save()
       
       # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
-      msg = f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n- ID: {checkout_session.stripe_id}\n- Email: {user.email}\n - Data: {data_pedido}\n - Total: {total} {checkout_session.currency}\n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, ou apenas acessando sua página de pedidos do stripe!"
+      msg = f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n- ID: {checkout_session.stripe_id}\n- Email: {user.email}\n - Data: {data_pedido}\n - Total: {total} {checkout_session.currency}\n- Produtos comprados: {checkout_session.line_items} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, ou apenas acessando sua página de pedidos do stripe!"
       send_mail(
            "NOVO PEDIDO NA LOJA VIRTUAL!",
             msg,
