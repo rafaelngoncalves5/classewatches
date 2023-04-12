@@ -202,25 +202,6 @@ def checkout_view(request):
     total = 0
     for produto in carrinho.produto_set.all():
       total += produto.preco
-      
-      # 2.1 - Colhendo os dados relevantes ao pagamento
-      payment_method = request.POST['payment_method']
-      card_name = request.POST['card-name']
-      card_number = request.POST['card-number']
-      expiration = request.POST['expiration']
-      cvv = request.POST['cvv']
-
-      # 2.2 - Colhendo os dados relevantes ao pedido
-      fk_carrinho = carrinho
-      data_pedido = timezone.now()
-      cep = request.POST['cep']
-      telefone_1 = request.POST['telefone_1']
-      telefone_2 = request.POST['telefone_2']
-      endereco_entrega_1 = request.POST['endereco_entrega_1']
-      endereco_entrega_2 = request.POST['endereco_entrega_2']
-
-      # 3 - Instanciando um pedido
-      # ...
 
       # 4 - Stripe e pagamento
       stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -243,6 +224,31 @@ def checkout_view(request):
             success_url=domain + '/payment/success',
             cancel_url=domain + '/payment/cancel',
         )
+            
+      # Colhendo os dados relevantes ao pedido
+      id_pedido = checkout_session.id
+      fk_carrinho = carrinho
+      data_pedido = timezone.now()
+      cep = request.POST['cep']
+      telefone_1 = request.POST['telefone_1']
+      telefone_2 = request.POST['telefone_2']
+      endereco_entrega_1 = request.POST['endereco_entrega_1']
+      endereco_entrega_2 = request.POST['endereco_entrega_2']
+
+      # Instanciando um pedido
+      Pedido.objects.create(
+           id_pedido=id_pedido,
+           fk_carrinho=fk_carrinho,
+           data_pedido=data_pedido,
+           cep=cep, 
+           telefone_1=telefone_1,
+           telefone_2=telefone_2,
+           endereco_entrega_1=endereco_entrega_1,
+           endereco_entrega_2=endereco_entrega_2
+           )
+      
+      # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
+      # ...
       
       context = {
             'carrinho': carrinho,

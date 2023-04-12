@@ -20,5 +20,4 @@ urlpatterns = [
     path('payment/checkout', views.checkout_view, name='checkout'),
     path('payment/success', views.success_view, name='success'),
     path('payment/cancel', views.cancel_view, name='cancel'),
-
 ]

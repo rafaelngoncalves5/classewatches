@@ -40,14 +40,18 @@ class Pedido(models.Model):
         ('aceito', 'aceito'),
         ('despachado', 'despachado')
     ]
-
-    id_pedido = models.AutoField(primary_key=True)
+    # Esse aqui é o ID encontrado na página de pedidos do stripe
+    id_pedido = models.CharField(max_length=400, primary_key=True)
     fk_carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE)
     data_pedido = models.DateTimeField(auto_now_add=False, default=timezone.now)
     telefone_1 = models.IntegerField()
     telefone_2 = models.IntegerField(null=True)
-    endereco_entrega_1 = models.CharField(max_length=150)
-    endereco_entrega_2 = models.CharField(max_length=150, null=True)
+    estado = models.CharField(max_length=25)
+    cidade = models.CharField(max_length=50)
+    bairro = models.CharField(max_length=150)
+    rua = models.CharField(max_length=150)
+    numero_rua = models.CharField(max_length=150)
+    complemento = models.CharField(null=True, max_length=150)
     cep = models.CharField(max_length=20, null=True)
     status = models.CharField(choices=STATUS_OPTIONS, default=STATUS_OPTIONS[0][1], max_length=25)
     # Quando o produto estiver com status = 'despachado', o administrador insere um link com o código de despache nos correios
