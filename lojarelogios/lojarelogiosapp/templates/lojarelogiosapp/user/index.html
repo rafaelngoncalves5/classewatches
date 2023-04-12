@@ -41,12 +41,10 @@
             <div class="historic">
                 <div class="image">
                     <!-- Testar ver como funciona queryset nos related objects aqui, depois! -->
-                    <img src="{{ pedido.produto_set.img_capa.url }}" alt="logout" />
+                    <!-- ATUALIZAÇÃO: adicionei a imagem de capa do primeiro produto comprado -->
                 </div>
                 <div class="historic-watch">
-                    <p>{{ pedido.id_pedido }}</p>
                     <p>Valor: R$ {{ pedido.total }}</p>
-                    <p>Quantidade: {{ pedido.produto_set.count }}</p>
                     <p>Data: {{ pedido.data_pedido }}</p>
                     <p>Status do pedido: {{ pedido.status }}</p>
                 </div>

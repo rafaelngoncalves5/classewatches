@@ -117,9 +117,14 @@ def index_user_view(request):
       if request.user.is_authenticated:
             user = request.user
             carrinho = Carrinho.objects.get(fk_usuario = user.id)
+            pedido = Pedido.objects.filter(fk_carrinho = carrinho)
+
+            # Boa área para adicionar WEBHOOKS do stripe
+            # ...
+
             context = {
                  'user': user,
-                 'pedidos': Pedido.objects.filter(fk_carrinho = carrinho)
+                 'pedidos': Pedido.objects.filter(fk_carrinho = carrinho),
             }
             return render(request, 'lojarelogiosapp/user/index.html', context)
       else:
@@ -259,8 +264,15 @@ def checkout_view(request):
            complemento=complemento
            )
       
+      # Reduzindo a quantidade de itens do banco de dados
+      for produto in carrinho.produto_set.all():     
+           produto.quantidade -= 1
+      
+      for c in carrinho:
+           c.save()
+      
       # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
-      msg = f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n- ID: {checkout_session.stripe_id}\n- Email: {user.email}\n - Data: {data_pedido}\n - Total: {total}.\n\n\nTelefones de contato:\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n. \n\nEndereço de entrega:\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}"
+      msg = f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n- ID: {checkout_session.stripe_id}\n- Email: {user.email}\n - Data: {data_pedido}\n - Total: {total} {checkout_session.currency}\n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, ou apenas acessando sua página de pedidos do stripe!"
       send_mail(
            "NOVO PEDIDO NA LOJA VIRTUAL!",
             msg,
