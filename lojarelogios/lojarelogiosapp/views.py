@@ -13,6 +13,7 @@ from django.views import View
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
+from django.core.mail import send_mail
 
 # Create your views here.
 def index_view(request):
@@ -194,16 +195,13 @@ def payment_view(request):
      return render(request, 'lojarelogiosapp/payment/index.html', context)
 
 def checkout_view(request):    
-    
-    # 1 - Colhendo dados de formulário
-    user = request.user
-    
+        
     carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
     total = 0
     for produto in carrinho.produto_set.all():
       total += produto.preco
 
-      # 4 - Stripe e pagamento
+      # Stripe e pagamento
       stripe.api_key = settings.STRIPE_SECRET_KEY
 
       domain = "http://localhost:8000/lojarelogiosapp"
@@ -224,6 +222,11 @@ def checkout_view(request):
             success_url=domain + '/payment/success',
             cancel_url=domain + '/payment/cancel',
         )
+            
+      # Dados de usuário
+      user = request.user
+      nome = request.POST['nome']
+      sobrenome = request.POST['sobrenome']
             
       # Colhendo os dados relevantes ao pedido
       id_pedido = checkout_session.id
@@ -257,7 +260,14 @@ def checkout_view(request):
            )
       
       # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
-      # ...
+      msg = f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n- ID: {checkout_session.stripe_id}\n- Email: {user.email}\n - Data: {data_pedido}\n - Total: {total}.\n\n\nTelefones de contato:\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n. \n\nEndereço de entrega:\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}"
+      send_mail(
+           "NOVO PEDIDO NA LOJA VIRTUAL!",
+            msg,
+            "rafaelngoncalves5@outlook.com",
+            ["rafaelngoncalves5@outlook.com"],
+            fail_silently=False,
+      )
       
       context = {
             'carrinho': carrinho,
