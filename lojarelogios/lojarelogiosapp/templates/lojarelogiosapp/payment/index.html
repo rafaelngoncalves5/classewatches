@@ -38,7 +38,7 @@
             <div class="col-md-8 mb-4">
                 <div class="card mb-4">
                     <div class="card-header py-3">
-                        <h5 class="mb-0">Biling details</h5>
+                        <h5 class="mb-0">Detalhes de entrega</h5>
                     </div>
                     <div class="card-body">
                         <form id="payment-form" method="post" action="{% url 'lojarelogiosapp:checkout' %}">
@@ -48,52 +48,71 @@
                                     <div class="form-outline">
                                         <input placeholder="John" type="text" required minlength="2" maxlength="25"
                                             id="nome" class="form-control" name="nome" />
-                                        <label class="form-label" for="nome">Nome</label>
+                                        <label class="form-label" for="nome">Nome<span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-outline">
                                         <input placeholder="Doe" type="text" id="sobrenome" required minlength="2"
                                             maxlength="35" class="form-control" name="sobrenome" />
-                                        <label class="form-label" for="sobrenome">Sobrenome</label>
+                                        <label class="form-label" for="sobrenome">Sobrenome<span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                             </div>
 
-
                             <div class="form-outline mb-4">
-                                <input
-                                    placeholder="Estado JS, cidade rochas, bairro uva, rua mesquita, número 22, 1403, alfa b"
-                                    maxlength="100" minlength="7" required type="text" id="endereco_entrega_1"
-                                    class="form-control" name="endereco_entrega_1" />
-                                <label class="form-label" for="endereco_entrega_1">Endereço de entrega 1</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input
-                                    placeholder="Estado JC, cidade amarilia, bairro banana, rua mesquita, número 24, 1404, alfa c"
-                                    maxlength="100" minlength="7" type="text" id="endereco_entrega_2"
-                                    class="form-control" name="endereco_entrega_2" />
-                                <label class="form-label" for="endereco_entrega_2">Endereço de entrega 2</label>
-                            </div>
-
-
-                            <div class="form-outline mb-4">
-                                <input placeholder="31 98899-9999" maxlength="30" minlength="7" required type="tel"
+                                <input placeholder="31 98899-9999" maxlength="30" minlength="7" required type="text"
                                     id="telefone_1" class="form-control" name="telefone_1" />
-                                <label class="form-label" for="telefone_1">Telefone 1</label>
+                                <label class="form-label" for="telefone_1">Telefone 1<span class="text-danger">*</span></label>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input placeholder="31 98899-9999" maxlength="30" minlength="7" type="tel"
+                                <input placeholder="31 98899-9999" maxlength="30" minlength="7" type="text"
                                     id="telefone_2" class="form-control" name="telefone_2" />
                                 <label class="form-label" for="telefone_2">Telefone 2</label>
                             </div>
 
                             <div class="form-outline mb-4">
+                                <input placeholder="Minas Gerais" maxlength="25" minlength="1" required type="text"
+                                    id="estado" class="form-control" name="estado" />
+                                <label class="form-label" for="estado">Estado<span class="text-danger">*</span></label>
+                            </div>
+
+
+                            <div class="form-outline mb-4">
+                                <input placeholder="Belo Horizonte" maxlength="50" minlength="1" required type="text"
+                                    id="cidade" class="form-control" name="cidade" />
+                                <label class="form-label" for="cidade">Cidade<span class="text-danger">*</span></label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input placeholder="Barro Preto" maxlength="150" minlength="1" required type="text"
+                                    id="bairro" class="form-control" name="bairro" />
+                                <label class="form-label" for="bairro">Bairro<span class="text-danger">*</span></label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input placeholder="Barro Preto" maxlength="150" minlength="1" required type="text"
+                                    id="rua" class="form-control" name="rua" />
+                                <label class="form-label" for="rua">Rua<span class="text-danger">*</span></label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input placeholder="175" maxlength="150" minlength="1" required type="text"
+                                    id="numero_rua" class="form-control" name="numero_rua" />
+                                <label class="form-label" for="rua">Número da rua<span class="text-danger">*</span></label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input placeholder="175" maxlength="150" minlength="4" type="text"
+                                    id="complemento" class="form-control" name="complemento" />
+                                <label class="form-label" for="complemento">Complemento</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
                                 <input placeholder="33113-133" maxlength="20" minlength="6" required type="text"
                                     id="cep" class="form-control" name="cep" />
-                                <label class="form-label" for="cep">CEP</label>
+                                <label class="form-label" for="cep">CEP<span class="text-danger">*</span></label>
                             </div>
 
                             <hr class="my-4" />

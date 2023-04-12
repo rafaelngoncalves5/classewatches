@@ -43,9 +43,10 @@ class Pedido(models.Model):
     # Esse aqui é o ID encontrado na página de pedidos do stripe
     id_pedido = models.CharField(max_length=400, primary_key=True)
     fk_carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE)
+    total = models.FloatField(default=0.00)
     data_pedido = models.DateTimeField(auto_now_add=False, default=timezone.now)
-    telefone_1 = models.IntegerField()
-    telefone_2 = models.IntegerField(null=True)
+    telefone_1 = models.CharField(max_length=25)
+    telefone_2 = models.CharField(max_length=25)
     estado = models.CharField(max_length=25)
     cidade = models.CharField(max_length=50)
     bairro = models.CharField(max_length=150)

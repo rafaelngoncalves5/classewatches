@@ -229,22 +229,31 @@ def checkout_view(request):
       id_pedido = checkout_session.id
       fk_carrinho = carrinho
       data_pedido = timezone.now()
-      cep = request.POST['cep']
       telefone_1 = request.POST['telefone_1']
       telefone_2 = request.POST['telefone_2']
-      endereco_entrega_1 = request.POST['endereco_entrega_1']
-      endereco_entrega_2 = request.POST['endereco_entrega_2']
+      estado = request.POST['estado']
+      cidade = request.POST['cidade']
+      bairro = request.POST['bairro']
+      rua = request.POST['rua']
+      numero_rua = request.POST['numero_rua']
+      complemento = request.POST['complemento']
+      cep = request.POST['cep']
 
       # Instanciando um pedido
       Pedido.objects.create(
            id_pedido=id_pedido,
            fk_carrinho=fk_carrinho,
-           data_pedido=data_pedido,
-           cep=cep, 
+           total=total,
+           data_pedido=data_pedido, 
            telefone_1=telefone_1,
            telefone_2=telefone_2,
-           endereco_entrega_1=endereco_entrega_1,
-           endereco_entrega_2=endereco_entrega_2
+           cep=cep,
+           estado=estado,
+           cidade=cidade,
+           bairro=bairro,
+           rua=rua,
+           numero_rua=numero_rua,
+           complemento=complemento
            )
       
       # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe

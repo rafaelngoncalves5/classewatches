@@ -35,11 +35,20 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-lg" data-bs-dismiss="modal">Close</button>
+                    
+                    {% if carrinho.produto_set.exists %}
                     <div class="value-total">
                         <p>Total</p>
                         <p>R${{ total }}</p>
                     </div>
+                    {% else %}
+                    {% endif %}
+                    
+                    {% if carrinho.produto_set.exists %}
                     <button type="submit" class="btn btn-success btn-lg">Comprar</button>
+                    {% else %}
+
+                    {% endif %}
                 </div>
             </div>
         </div>
