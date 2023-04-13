@@ -3,7 +3,7 @@
 {% block content %}
 {% include 'navbar.html' %}
 <main>
-    <form method="post" action="{% url 'lojarelogiosapp:register' %}">
+    <form id="register-form" method="post" action="{% url 'lojarelogiosapp:register' %}">
         {% csrf_token %}
         <div style="background-color: #1f2453;" class="container-fluid fs-2 p-5">
             <div style="margin-top: 5em;" class="rounded bg-white shadow-sm mx-auto p-5 col-lg-6">
@@ -43,8 +43,8 @@
                 <!-- pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,24}$' -->
                 <div class="mb-3">
                     <label for="senha" class="form-label">Senha:</label>
-                    <input required minlength="8" name="senha" type="password"
-                        class="fs-2 p-3 form-control" id="senha" aria-describedby="senha">
+                    <input required minlength="8" name="senha" type="password" class="fs-2 p-3 form-control" id="senha"
+                        aria-describedby="senha">
                 </div>
 
                 <div class="mb-3">
@@ -52,15 +52,23 @@
                     <input required name="confirma-senha" type="password" class="fs-2 p-3 form-control"
                         id="confirma-senha" aria-describedby="confirma-senha">
                 </div>
-                <button disabled id="sbtn" type="submit"
-                    class="my-5 btn-style1 d-grid mx-auto">Registrar-se</button>
-
+                <span id="erro-msg-span" class="text-danger text-center"></span>
+                <button type="button" id="sbtn" class="my-5 btn-style1 d-grid mx-auto">Registrar-se</button>
             </div>
         </div>
     </form>
 </main>
 <script async>
-    var testeCondicional = () => confirmaSenha.value == senha.value && confirmaEmail.value == email.value ? sBtn.disabled = false : sBtn.disabled = true;
+    const erro_msg = "Por favor, verifique se as senhas e emails estão iguais!"
+
+    var testeCondicional = () => {
+        if (confirmaSenha.value == senha.value && confirmaEmail.value == email.value) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // Variável representando o input de senha
     var senha = document.getElementById('senha');
     senha.addEventListener('input', async () => testeCondicional());
@@ -79,10 +87,20 @@
     var confirmaEmail = document.getElementById('confirma-email');
     confirmaEmail.addEventListener('input', async () => testeCondicional());
 
-    function checkRegex() {
-        /*if (senha.validity.patternMismatch) {
+    /*function checkRegex() {
+        if (senha.validity.patternMismatch) {
             senha.setCustomValidity("Por favor, sua senha precisa de: \n 1 - Pelo menos uma letra minúscula \n 2 - Pelo menos uma letra maiúscula \n 3 - Pelo menos um número");
-        } onclick="checkRegex()" */
+        } onclick="checkRegex()"
+    } */
+
+    function checkDouble(event) {
+        if (testeCondicional()) {
+            // Gambiarra para prevenir o submit em caso de erro
+            document.getElementById('register-form').submit()
+        } else {
+            document.getElementById('erro-msg-span').innerHTML = erro_msg
+        }
     }
+    sBtn.addEventListener('click', () => checkDouble())
 </script>
 {% endblock content %}
