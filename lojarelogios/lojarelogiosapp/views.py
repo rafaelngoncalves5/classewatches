@@ -290,7 +290,6 @@ def checkout_view(request):
             current_product = Produto.objects.get(pk = produto.id_produto)
             # 2 - Removo a instância
             current_product.fk_carrinho.remove(carrinho)
-
       
       return redirect(checkout_session.url)
     
