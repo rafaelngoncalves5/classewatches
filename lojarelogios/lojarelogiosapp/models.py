@@ -21,7 +21,7 @@ class Pedido(models.Model):
     ]
     # Esse aqui é o ID encontrado na página de pedidos do stripe
     id_pedido = models.CharField(max_length=400, primary_key=True)
-    fk_carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE)
+    fk_carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE, editable=False)
     total = models.FloatField(default=0.00)
     data_pedido = models.DateTimeField(auto_now_add=False, default=timezone.now)
     telefone_1 = models.CharField(max_length=25)

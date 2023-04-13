@@ -79,6 +79,8 @@
                 <p>Valor</p>
                 <p class="value">R$ {{ produto.preco }}</p>
             </div>
+            <span class="my-4 fw-bold text-success">Disponível</span>
+            <!--
             <div class="quantity">
                 <label for="quantity">Quantidade disponível</label>
                 <div class="input">
@@ -91,6 +93,7 @@
 
                 </div>
             </div>
+            -->
             {% if user.is_authenticated %}
             <a class="btn-style2" href="{% url 'lojarelogiosapp:add_cart' produto.id_produto %}">Add to cart</a>
             {% else %}

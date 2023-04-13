@@ -5,15 +5,45 @@
 
 {% block content %}
 {% include 'navbar.html' %}
-<main class="main">
+<main class="main" style="min-height: 100vh;">
+
+    <span id="error-div"
+        class="rounded-4 text-danger lead display-6 text-center fixed-top bg-white w-50 mx-auto opacity-75 fw-semibold">{{erro_msg}}</span>
 
     <span id="success-div"
         class="rounded-4 text-success lead display-6 text-center fixed-top bg-white w-50 mx-auto opacity-75 fw-semibold">{{sucesso_msg}}</span>
 
-    <div class="main-title">Products</div>
+    <div class="display-1 text-center my-5" style="font-family: cinzel;">Produtos</div>
     <div class="container cards">
         <div class="row">
-            {% if produto %}
+            {% if available is False %}
+            <span style="font-family: cinzel;" class="fs-1 text-center">Não temos produtos disponíveis
+                atualmente...</span>
+            <span style="font-family: cinzel;" class="fs-3 text-center">Volte mais tarde!</span>
+            <br />
+            <div style="font-family: cinzel;"
+                class="fs-2 fw-bolder text-light text-center card border-secondary bg-secondary p-5 border-rounded">
+                <h4>Quer encomendar um produto?</h4>
+                <p>Me contate</p>
+                <div class="footer-icons">
+                    <ul style="list-style: none;" class="d-flex justify-content-center gap-5 my-5 py-5">
+                        <li>
+                            <a href=""><img src="{% static 'lojarelogiosapp/images/icon-instagram.svg' %}"
+                                    alt="Relógio" /></a>
+                        </li>
+                        <li>
+                            <a href="https://wa.link/6r502g"><img
+                                    src="{% static 'lojarelogiosapp/images/icon-phone.svg' %}" alt="Relógio" /></a>
+                        </li>
+                        <li>
+                            <a href=""><img src="{% static 'lojarelogiosapp/images/icon-facebook.svg' %}"
+                                    alt="Relógio" /></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+            {% if produtos %}
             {% for produto in produtos %}
             {% if produto.quantidade > 0 %}
             <div class="card-product col">
@@ -27,11 +57,14 @@
             </div>
             {% endif %}
             {% endfor %}
+            <!-- Podia usar o empty tbm -->
             {% else %}
-            <span style="font-family: cinzel;" class="fs-1 text-center">Não temos produtos disponíveis atualmente...</span>
+            <span style="font-family: cinzel;" class="fs-1 text-center">Não temos produtos disponíveis
+                atualmente...</span>
             <span style="font-family: cinzel;" class="fs-3 text-center">Volte mais tarde!</span>
             <br />
-            <div style="font-family: cinzel;" class="fs-2 fw-bolder text-light text-center card border-secondary bg-secondary p-5 border-rounded">
+            <div style="font-family: cinzel;"
+                class="fs-2 fw-bolder text-light text-center card border-secondary bg-secondary p-5 border-rounded">
                 <h4>Quer encomendar um produto?</h4>
                 <p>Me contate</p>
                 <div class="footer-icons">
@@ -59,6 +92,10 @@
     var successDiv = document.getElementById('success-div')
 
     setTimeout(() => successDiv.style.display = 'none', 3000)
+
+    var errorDiv = document.getElementById('error-div')
+
+    setTimeout(() => errorDiv.style.display = 'none', 3000)
 </script>
 {% include 'footer.html' %}
 

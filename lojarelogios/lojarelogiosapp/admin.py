@@ -6,6 +6,9 @@ admin.site.register(Produto)
 admin.site.register(Pedido)
 admin.site.register(Carrinho)
 
+class PedidoAdmin(admin.ModelAdmin):
+    search_fields = ['id_pedido']
+
 '''
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = ('title', 'publisher', 'publication_date')
