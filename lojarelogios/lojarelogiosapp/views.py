@@ -243,7 +243,7 @@ def checkout_view(request):
 
             return render(request, 'lojarelogiosapp/products/index.html', context)
             
-    try:
+    if request.method == 'POST':
          line_items_list = []
          total = 0
          for produto in carrinho.produto_set.all():
@@ -268,7 +268,7 @@ def checkout_view(request):
                       cancel_url=domain + '/payment/cancel',
                       )
                  
-         # Dados de usuário
+         '''# Dados de usuário
          user = request.user
          nome = request.POST['nome']
          sobrenome = request.POST['sobrenome']
@@ -332,11 +332,9 @@ def checkout_view(request):
                   # 1 - Pego o produto
                   current_product = Produto.objects.get(pk = produto.id_produto)
                   # 2 - Removo a instância
-                  current_product.fk_carrinho.remove(carrinho)
+                  current_product.fk_carrinho.remove(carrinho)'''
                                  
-            return redirect(checkout_session.url)
-    except:
-         pass
+         return redirect(checkout_session.url)
     
 def success_view(request):     
      return render(request, 'lojarelogiosapp/payment/success.html')
