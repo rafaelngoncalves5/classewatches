@@ -134,13 +134,13 @@ def index_user_view(request):
             user = request.user
             carrinho = Carrinho.objects.get(fk_usuario = user.id)
             pedidos = Pedido.objects.filter(fk_carrinho = carrinho)
-            
-            # Boa área para adicionar WEBHOOKS do stripe
-            # ...
+
+            # Pegando só os 5 primeiro pedidos
+            pedidos_recentes = pedidos.order_by("-data_pedido")[0:4]
 
             context = {
                  'user': user,
-                 'pedidos': pedidos,
+                 'pedidos': pedidos_recentes,
                  #'primeiro_produto': primeiro_produto,
             }
             return render(request, 'lojarelogiosapp/user/index.html', context)

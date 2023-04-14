@@ -56,6 +56,11 @@
                         <p>Valor: R$ {{ pedido.total }}</p>
                         <p>Data: {{ pedido.data_pedido }}</p>
                         <p>Status do pedido: {{ pedido.status }}</p>
+                        {% if pedido.status == 'despachado' %}
+                        <p>Link de rastreamento: {{ pedido.link_rastreamento }}</p>
+                        {% else %}
+                        <p>Produto ainda não despachado</p>
+                        {% endif %}
                     </div>
                 </div>
                 <hr class="border-bottom-3 border-light">
