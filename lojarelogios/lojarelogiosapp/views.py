@@ -266,7 +266,7 @@ def checkout_view(request):
                  checkout_session = stripe.checkout.Session.create(
                       payment_method_types=['card'],
                       line_items=line_items_list,
-                      mode='payment',
+                      mode='subscription',
                       success_url=domain + '/payment/success',
                       cancel_url=domain + '/payment/cancel',
                       )
