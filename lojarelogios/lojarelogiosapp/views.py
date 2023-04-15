@@ -217,6 +217,10 @@ def payment_view(request):
            }
      return render(request, 'lojarelogiosapp/payment/index.html', context)
 
+# Varíavel global para armazenar a checkout_session
+session = object
+msg = ''
+
 def checkout_view(request):
     carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
     
@@ -253,7 +257,6 @@ def checkout_view(request):
                  'quantity': 1,
                  })
                         
-            
          # Stripe e pagamento
          stripe.api_key = settings.STRIPE_SECRET_KEY
          domain = "http://localhost:8000/lojarelogiosapp"
@@ -267,8 +270,11 @@ def checkout_view(request):
                       success_url=domain + '/payment/success',
                       cancel_url=domain + '/payment/cancel',
                       )
+         # Alterando a session com a checkout_session        
+         global session
+         session = checkout_session
                  
-         '''# Dados de usuário
+         # Dados de usuário
          user = request.user
          nome = request.POST['nome']
          sobrenome = request.POST['sobrenome']
@@ -303,41 +309,55 @@ def checkout_view(request):
               numero_rua=numero_rua,
               complemento=complemento
               )
-            
-            # Reduzindo a quantidade de produtos no banco de dados e adicionando os produtos do carrinho no pedido
          for produto in carrinho.produto_set.all():
-            new_pedido.produto_set.add(produto)
+              new_pedido.produto_set.add(produto)
+
+         produtos_comprados = []
+      
+         for produto in carrinho.produto_set.all():
+              produtos_comprados.append(produto.titulo)
+         
+         # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
+         global msg
+         msg = str(f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n - ID do pedido: {checkout_session.stripe_id}\n - Email: {user.email}\n - Data: {data_pedido}\n - Status: {checkout_session.status}\n - Total: {total} {checkout_session.currency}\n - Produtos comprados: {produtos_comprados} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, apenas acessando sua página de pedidos do stripe, ou através da aba de pedidos da administração da sua loja virtual!")
+                                 
+         return redirect(checkout_session.url)
+    
+def success_view(request):
+
+      carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
+
+      # Reduzindo a quantidade de produtos no banco de dados e adicionando os produtos do carrinho no pedido
+      for produto in carrinho.produto_set.all():
             current_product = Produto.objects.get(pk=produto.id_produto)
             current_product.quantidade -= 1
             current_product.save()
                  
-            produtos_comprados = []
+      produtos_comprados = []
       
-         for produto in carrinho.produto_set.all():
+      for produto in carrinho.produto_set.all():
             produtos_comprados.append(produto.titulo)
-                      
-            # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
-            msg = f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n - ID do pedido: {checkout_session.stripe_id}\n - Email: {user.email}\n - Data: {data_pedido}\n - Status: {checkout_session.status}\n - Total: {total} {checkout_session.currency}\n - Produtos comprados: {produtos_comprados} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, apenas acessando sua página de pedidos do stripe, ou através da aba de pedidos da administração da sua loja virtual!"
-                      
-            send_mail(
-                  "NOVO PEDIDO NA LOJA VIRTUAL!",
-                  msg,
-                  "rafaelngoncalves5@outlook.com",
-                  ["rafaelngoncalves5@outlook.com"],
-                  fail_silently=False,
-                  )
-                      
-            # Limpando o carrinho pós compra
-            for produto in carrinho.produto_set.all():
-                  # 1 - Pego o produto
-                  current_product = Produto.objects.get(pk = produto.id_produto)
-                  # 2 - Removo a instância
-                  current_product.fk_carrinho.remove(carrinho)'''
-                                 
-         return redirect(checkout_session.url)
-    
-def success_view(request):     
-     return render(request, 'lojarelogiosapp/payment/success.html')
+
+     # Limpando o carrinho pós compra
+      for produto in carrinho.produto_set.all():
+            # 1 - Pego o produto
+            current_product = Produto.objects.get(pk = produto.id_produto)
+            # 2 - Removo a instância
+            current_product.fk_carrinho.remove(carrinho)
+
+     # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
+      local_msg = msg
+      send_mail(
+            "NOVO PEDIDO NA LOJA VIRTUAL!",
+            local_msg,
+            "rafaelngoncalves5@outlook.com",
+            ["rafaelngoncalves5@outlook.com"],
+            fail_silently=False,
+            )
+      return render(request, 'lojarelogiosapp/payment/success.html')
 
 def cancel_view(request):
+     pedido = Pedido.objects.get(pk = session.id)
+     pedido.delete()
+     
      return render(request, 'lojarelogiosapp/payment/cancel.html')
