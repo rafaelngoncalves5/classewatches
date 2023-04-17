@@ -53,7 +53,7 @@
                         id="confirma-senha" aria-describedby="confirma-senha">
                 </div>
                 <span id="erro-msg-span" class="text-danger text-center"></span>
-                <button type="button" id="sbtn" class="my-5 btn-style1 d-grid mx-auto">Registrar-se</button>
+                <button disabled type="button" id="sbtn" class="my-5 btn-style1 d-grid mx-auto">Registrar-se</button>
             </div>
         </div>
     </form>
@@ -95,8 +95,8 @@
 
     function checkDouble(event) {
         if (testeCondicional()) {
-            // Gambiarra para prevenir o submit em caso de erro
             document.getElementById('register-form').submit()
+            sBtn.disabled = false
         } else {
             document.getElementById('erro-msg-span').innerHTML = erro_msg
         }

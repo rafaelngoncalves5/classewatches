@@ -15,6 +15,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.template import loader
+from uuid import uuid4
 
 # Create your views here.
 def check_available(request, produtos):
@@ -361,3 +362,15 @@ def cancel_view(request):
      #pedido.delete()
      
      return render(request, 'lojarelogiosapp/payment/cancel.html')
+
+# Método que envia email para troca de senha
+def recover_password(request):
+     user = request.user
+     # Vou intanciar um token novo que vai ser um slug
+     # Depois eu verifico se existe o token e se sim, eu dou acesso à url de troca (switch)
+     rand_token = uuid4()
+     return render(request, 'lojarelogiosapp/recover-pass.html', {'user_mail': user.email})
+
+# Método que troca senha
+def switch_password(request):
+     pass
