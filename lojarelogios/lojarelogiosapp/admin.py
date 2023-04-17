@@ -3,7 +3,7 @@ from .models import Produto, Pedido, Carrinho
 
 # Register your models here.
 admin.site.register(Produto)
-admin.site.register(Pedido)
+# admin.site.register(Pedido)
 admin.site.register(Carrinho)
 
 class PedidoAdmin(admin.ModelAdmin):

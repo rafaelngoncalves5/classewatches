@@ -17,7 +17,7 @@ urlpatterns = [
     path('user/delete', views.delete_user_view, name='delete_user'),
 
     # Payment
-    path('payment', login_required(views.payment_view, login_url='/lojarelogiosapp/user/login'), name='payment'),
+    # path('payment', login_required(views.payment_view, login_url='/lojarelogiosapp/user/login'), name='payment'),
     path('payment/checkout', login_required(views.checkout_view, login_url='/lojarelogiosapp/user/login'), name='checkout'),
     path('payment/success', login_required(views.success_view, login_url='/lojarelogiosapp/user/login'), name='success'),
     path('payment/cancel', login_required(views.cancel_view, login_url='/lojarelogiosapp/user/login'), name='cancel'),

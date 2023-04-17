@@ -203,7 +203,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('lojarelogiosapp:products')
-
+'''
 def payment_view(request):
      carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
 
@@ -215,7 +215,7 @@ def payment_view(request):
            'carrinho': carrinho,
            'total': total
            }
-     return render(request, 'lojarelogiosapp/payment/index.html', context)
+     return render(request, 'lojarelogiosapp/payment/index.html', context)'''
 
 # Varíavel global para armazenar a checkout_session
 session = object
@@ -278,7 +278,7 @@ def checkout_view(request):
          user = request.user
          nome = request.POST['nome']
          sobrenome = request.POST['sobrenome']
-            
+         '''
          # Colhendo os dados relevantes ao pedido
          id_pedido = checkout_session.id
          fk_carrinho = carrinho
@@ -291,10 +291,10 @@ def checkout_view(request):
          rua = request.POST['rua']
          numero_rua = request.POST['numero_rua']
          complemento = request.POST['complemento']
-         cep = request.POST['cep']
+         cep = request.POST['cep']'''
             
          # Instanciando um pedido
-         new_pedido = Pedido.objects.create(
+         '''new_pedido = Pedido.objects.create(
               id_pedido=id_pedido,
               fk_carrinho=fk_carrinho,
               total=total,
@@ -308,24 +308,24 @@ def checkout_view(request):
               rua=rua,
               numero_rua=numero_rua,
               complemento=complemento
-              )
-         for produto in carrinho.produto_set.all():
-              new_pedido.produto_set.add(produto)
+              )'''
+         '''for produto in carrinho.produto_set.all():
+              new_pedido.produto_set.add(produto)'''
 
          produtos_comprados = []
       
          for produto in carrinho.produto_set.all():
               produtos_comprados.append(produto.titulo)
          
-         # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
+         '''# Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
          global msg
          msg = str(f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n - ID do pedido: {checkout_session.stripe_id}\n - Email: {user.email}\n - Data: {data_pedido}\n - Status: {checkout_session.status}\n - Total: {total} {checkout_session.currency}\n - Produtos comprados: {produtos_comprados} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, apenas acessando sua página de pedidos do stripe, ou através da aba de pedidos da administração da sua loja virtual!")
-                                 
+         '''                        
          return redirect(checkout_session.url)
     
 def success_view(request):
 
-      carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
+      '''carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
 
       # Reduzindo a quantidade de produtos no banco de dados e adicionando os produtos do carrinho no pedido
       for produto in carrinho.produto_set.all():
@@ -353,11 +353,11 @@ def success_view(request):
             "rafaelngoncalves5@outlook.com",
             ["rafaelngoncalves5@outlook.com"],
             fail_silently=False,
-            )
+            )'''
       return render(request, 'lojarelogiosapp/payment/success.html')
 
 def cancel_view(request):
-     pedido = Pedido.objects.get(pk = session.id)
-     pedido.delete()
+     #pedido = Pedido.objects.get(pk = session.id)
+     #pedido.delete()
      
      return render(request, 'lojarelogiosapp/payment/cancel.html')
