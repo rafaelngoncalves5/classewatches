@@ -21,4 +21,7 @@ urlpatterns = [
     path('payment/checkout', login_required(views.checkout_view, login_url='/lojarelogiosapp/user/login'), name='checkout'),
     path('payment/success', login_required(views.success_view, login_url='/lojarelogiosapp/user/login'), name='success'),
     path('payment/cancel', login_required(views.cancel_view, login_url='/lojarelogiosapp/user/login'), name='cancel'),
+
+    # Esqueci minha senha
+    path('user/switch-pass', views.switch_password, name='switch_pass'),
 ]

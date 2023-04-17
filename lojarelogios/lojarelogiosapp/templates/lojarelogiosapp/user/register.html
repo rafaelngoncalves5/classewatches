@@ -63,6 +63,7 @@
 
     var testeCondicional = () => {
         if (confirmaSenha.value == senha.value && confirmaEmail.value == email.value) {
+            sBtn.disabled = false;
             return true;
         } else {
             return false;
@@ -96,7 +97,6 @@
     function checkDouble(event) {
         if (testeCondicional()) {
             document.getElementById('register-form').submit()
-            sBtn.disabled = false
         } else {
             document.getElementById('erro-msg-span').innerHTML = erro_msg
         }

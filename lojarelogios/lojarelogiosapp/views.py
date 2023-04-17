@@ -363,14 +363,18 @@ def cancel_view(request):
      
      return render(request, 'lojarelogiosapp/payment/cancel.html')
 
-# Método que envia email para troca de senha
-def recover_password(request):
-     user = request.user
-     # Vou intanciar um token novo que vai ser um slug
-     # Depois eu verifico se existe o token e se sim, eu dou acesso à url de troca (switch)
-     rand_token = uuid4()
-     return render(request, 'lojarelogiosapp/recover-pass.html', {'user_mail': user.email})
-
 # Método que troca senha
 def switch_password(request):
-     pass
+     if request.method == 'POST':
+          user_email = request.POST['email']
+
+          # Checando se existe esse email, no BD
+          if User.objects.filter(email = user_email).exists():
+               # Vou intanciar um token novo que vai ser um slug
+               # Depois eu verifico se existe o token e se sim, eu dou acesso à url de troca (switch)
+               rand_token = uuid4()
+          else:
+               erro_msg = 'Email não cadastrado no site!'
+               return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
+      
+     return render(request, 'lojarelogiosapp/user/switch-pass.html')
