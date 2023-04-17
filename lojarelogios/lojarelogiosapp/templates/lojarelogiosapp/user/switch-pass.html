@@ -12,7 +12,8 @@
 
         <form method="post" id="switch-pass-form" action="{% url 'lojarelogiosapp:switch_pass' %}">
             {% csrf_token %}
-
+            <br />
+            <p class="text-warning text-center">Digite o email ao qual deseja trocar a senha!</p>
             <br />
             <p class="text-danger text-center">{{ erro_msg }}</p>
             <br />

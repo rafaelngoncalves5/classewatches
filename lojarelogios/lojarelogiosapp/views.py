@@ -1,9 +1,9 @@
 import time
 from django.utils import timezone
 from django.db import IntegrityError
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
-from .models import Produto, Carrinho, Pedido
+from .models import Produto, Carrinho, Pedido, password_token
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponseRedirect
@@ -370,11 +370,39 @@ def switch_password(request):
 
           # Checando se existe esse email, no BD
           if User.objects.filter(email = user_email).exists():
-               # Vou intanciar um token novo que vai ser um slug
-               # Depois eu verifico se existe o token e se sim, eu dou acesso à url de troca (switch)
-               rand_token = uuid4()
+               try:
+                    # Vou intanciar um token novo que vai ser um slug
+                    rand_token = uuid4()
+                    new_token = password_token.objects.create(rand_token)
+                    # Depois eu verifico se existe o token e se sim, eu dou acesso à url de troca (confirm-pass) e redireciono
+                    current_token = get_object_or_404(password_token, pk=new_token)
+                    
+                    link = f"http://localhost:8000/lojarelogiosapp/user/switch-pass/{current_token.id}/confirm-pass"
+                    send_mail(
+                         "Link para troca de senha",
+                         link,
+                         "rafaelngoncalves5@outlook.com",
+                         ["rafaelngoncalves5@outlook.com"],
+                         fail_silently=False,
+                         )
+                    
+                    success_msg = 'Favor verificar email para troca de senhas enviado para {}'.format(user_email)
+                    
+                    # Eu excluo o token, para que não haja reutilização
+                    it = Pedido.objects.get(pk = new_token)
+                    it.delete()
+                    # Retorno uma msg de sucesso!
+                    return render(request, 'lojarelogiosapp/user/switch-pass.html', {'success_msg': success_msg})
+
+               except password_token.DoesNotExist():
+                    erro_msg = 'Ops, algo de errado ocorreu, por favor, entre em contato com a administração!'
+                    return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
+ 
           else:
                erro_msg = 'Email não cadastrado no site!'
                return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
       
      return render(request, 'lojarelogiosapp/user/switch-pass.html')
+
+def confirm_pass(request):
+     return render(request, 'lojarelogiosapp/user/confirm-pass.html')

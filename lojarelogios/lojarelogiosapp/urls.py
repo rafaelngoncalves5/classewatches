@@ -24,4 +24,5 @@ urlpatterns = [
 
     # Esqueci minha senha
     path('user/switch-pass', views.switch_password, name='switch_pass'),
+    path('user/switch-pass/<slug:pk>/confirm-pass', views.confirm_pass, name='confirm_pass'),
 ]
