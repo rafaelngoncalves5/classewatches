@@ -6,6 +6,10 @@
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
 
+<br />
+
+![banner](https://github.com/rafaelngoncalves5/loja-relogios/blob/master/docs/banner.PNG)
+
 ## Introdução
 
 Projeto do tipo E-Commerce, fortemente centralizado na página de administração do **Django**
