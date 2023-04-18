@@ -243,7 +243,7 @@ def checkout_view(request):
                        'produtos': Produto.objects.all(), 
                        'carrinho': carrinho,
                        'total': old_total,
-                        'available': check_available(request, Produto.objects.all())                       
+                       'available': check_available(request, Produto.objects.all())                       
                        }
 
             return render(request, 'lojarelogiosapp/products/index.html', context)
@@ -265,9 +265,9 @@ def checkout_view(request):
          if settings.DEBUG:
                  domain = "http://127.0.0.1:8000/lojarelogiosapp"
                  checkout_session = stripe.checkout.Session.create(
-                      payment_method_types=['card'],
+                      payment_method_types=['card', 'boleto'],
                       line_items=line_items_list,
-                      mode='subscription',
+                      mode='payment',
                       success_url=domain + '/payment/success',
                       cancel_url=domain + '/payment/cancel',
                       )
@@ -276,9 +276,9 @@ def checkout_view(request):
          session = checkout_session
                  
          # Dados de usuário
-         user = request.user
-         nome = request.POST['nome']
-         sobrenome = request.POST['sobrenome']
+         # user = request.user
+         # nome = request.POST['nome']
+         # sobrenome = request.POST['sobrenome']
          '''
          # Colhendo os dados relevantes ao pedido
          id_pedido = checkout_session.id
@@ -325,37 +325,51 @@ def checkout_view(request):
          return redirect(checkout_session.url)
     
 def success_view(request):
+     carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
+     
+     total = 0
+     for produto in carrinho.produto_set.all():
+          total += produto.preco
 
-      '''carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
+     # Gerando um pedido
+     new_pedido = Pedido.objects.create(
+          id_pedido = session.id,
+          fk_carrinho = carrinho,
+          total = total
+     )
+     for produto in carrinho.produto_set.all():
+          new_pedido.produto_set.add(produto)
+
+     new_pedido.save()
 
       # Reduzindo a quantidade de produtos no banco de dados e adicionando os produtos do carrinho no pedido
-      for produto in carrinho.produto_set.all():
-            current_product = Produto.objects.get(pk=produto.id_produto)
-            current_product.quantidade -= 1
-            current_product.save()
-                 
-      produtos_comprados = []
+     for produto in carrinho.produto_set.all():
+          current_product = Produto.objects.get(pk=produto.id_produto)
+          current_product.quantidade -= 1
+          current_product.save()
+          
+     produtos_comprados = []
       
-      for produto in carrinho.produto_set.all():
-            produtos_comprados.append(produto.titulo)
+     for produto in carrinho.produto_set.all():
+          produtos_comprados.append(produto.titulo)
 
      # Limpando o carrinho pós compra
-      for produto in carrinho.produto_set.all():
-            # 1 - Pego o produto
-            current_product = Produto.objects.get(pk = produto.id_produto)
-            # 2 - Removo a instância
-            current_product.fk_carrinho.remove(carrinho)
+     for produto in carrinho.produto_set.all():
+          # 1 - Pego o produto
+          current_product = Produto.objects.get(pk = produto.id_produto)
+          # 2 - Removo a instância
+          current_product.fk_carrinho.remove(carrinho)
 
      # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
-      local_msg = msg
-      send_mail(
-            "NOVO PEDIDO NA LOJA VIRTUAL!",
-            local_msg,
-            "rafaelngoncalves5@outlook.com",
-            ["rafaelngoncalves5@outlook.com"],
-            fail_silently=False,
-            )'''
-      return render(request, 'lojarelogiosapp/payment/success.html')
+     '''local_msg = msg
+     send_mail(
+          "NOVO PEDIDO NA LOJA VIRTUAL!",
+          local_msg,
+          "rafaelngoncalves5@outlook.com",
+          ["rafaelngoncalves5@outlook.com"],
+          fail_silently=False,
+          )'''
+     return render(request, 'lojarelogiosapp/payment/success.html')
 
 def cancel_view(request):
      #pedido = Pedido.objects.get(pk = session.id)
@@ -367,6 +381,8 @@ user_mail = ''
 
 # Método que troca senha
 def switch_password(request):
+     if request.user.is_authenticated:
+           logout(request)
      if request.method == 'POST':
           user_email = request.POST['email']
 

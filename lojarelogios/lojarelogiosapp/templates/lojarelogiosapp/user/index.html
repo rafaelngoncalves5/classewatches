@@ -33,6 +33,8 @@
             <img src="{% static 'lojarelogiosapp/images/icon-signout.svg' %}" alt="logout" />
             <a href="{% url 'lojarelogiosapp:logout' %}">Sair</a>
         </div>
+        <a href="{% url 'lojarelogiosapp:switch_pass' %}" class="btn btn-sm btn-link fs-4 d-grid mx-auto text-white">Alterar senha</a>
+
     </div>
     <div class="content">
         <div class="display-1 text-center my-5">Compras recentes</div>
@@ -40,7 +42,8 @@
         <div class="purchase" style="background-color: #1f2453;">
             {% else %}
             <div class="purchase" style="background: none;">
-                <p style="font-family: cinzel;" class="text-center display-5">Nenhum pedido disponível para visualização!</p>
+                <p style="font-family: cinzel;" class="text-center display-5">Nenhum pedido disponível para
+                    visualização!</p>
                 {% endif %}
                 {% for pedido in pedidos %}
                 <div style="max-width: fit-content; min-height: fit-content;" class="overflow-auto d-flex text-light">
