@@ -270,6 +270,9 @@ def checkout_view(request):
                       mode='payment',
                       success_url=domain + '/payment/success',
                       cancel_url=domain + '/payment/cancel',
+                      #billing_address_collection ='required',
+                      phone_number_collection = {"enabled": True},
+                      shipping_address_collection = {'allowed_countries': ['BR']},
                       )
          # Alterando a session com a checkout_session        
          global session
