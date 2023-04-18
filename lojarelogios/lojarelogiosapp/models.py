@@ -67,4 +67,4 @@ class password_token(models.Model):
     id_token = models.SlugField(max_length=50, primary_key=True)
 
     def __str__(self):
-        return self.id_token
+        return str(self.id_token)

@@ -59,34 +59,18 @@
             {% endfor %}
             <!-- Podia usar o empty tbm -->
             {% else %}
-            <span style="font-family: cinzel;" class="fs-1 text-center">Não temos produtos disponíveis
-                atualmente...</span>
-            <span style="font-family: cinzel;" class="fs-3 text-center">Volte mais tarde!</span>
             <br />
-            <div style="font-family: cinzel;"
-                class="fs-2 fw-bolder text-light text-center card border-secondary bg-secondary p-5 border-rounded">
-                <h4>Quer encomendar um produto?</h4>
-                <p>Me contate</p>
-                <div class="footer-icons">
-                    <ul style="list-style: none;" class="d-flex justify-content-center gap-5 my-5 py-5">
-                        <li>
-                            <a href=""><img src="{% static 'lojarelogiosapp/images/icon-instagram.svg' %}"
-                                    alt="Relógio" /></a>
-                        </li>
-                        <li>
-                            <a href="https://wa.link/6r502g"><img
-                                    src="{% static 'lojarelogiosapp/images/icon-phone.svg' %}" alt="Relógio" /></a>
-                        </li>
-                        <li>
-                            <a href=""><img src="{% static 'lojarelogiosapp/images/icon-facebook.svg' %}"
-                                    alt="Relógio" /></a>
-                        </li>
-                    </ul>
-                </div>
+            <br />
+            <div style="font-family: cinzel;" class="my-5 fs-2 fw-bolder text-center">
+                <p>Estamos reestocando...</p>
+                <h4>Alguma dúvida? Me mande uma mensagem!</h4>
+                <a href="https://wa.link/6r502g" target="_blank">
+                    <img class="d-grid mx-auto img-responsive my-5" style="max-width: 50%;" ;"
+                        src="{% static 'lojarelogiosapp/images/qrcode.png' %}" alt="qrcode"></img>
+                </a>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
-    </div>
 </main>
 <script async>
     var successDiv = document.getElementById('success-div')

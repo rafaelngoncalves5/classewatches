@@ -363,6 +363,8 @@ def cancel_view(request):
      
      return render(request, 'lojarelogiosapp/payment/cancel.html')
 
+user_mail = ''
+
 # Método que troca senha
 def switch_password(request):
      if request.method == 'POST':
@@ -373,11 +375,11 @@ def switch_password(request):
                try:
                     # Vou intanciar um token novo que vai ser um slug
                     rand_token = uuid4()
-                    new_token = password_token.objects.create(rand_token)
+                    new_token = password_token.objects.create(id_token=rand_token)
                     # Depois eu verifico se existe o token e se sim, eu dou acesso à url de troca (confirm-pass) e redireciono
-                    current_token = get_object_or_404(password_token, pk=new_token)
+                    current_token = get_object_or_404(password_token, pk=new_token.id_token)
                     
-                    link = f"http://localhost:8000/lojarelogiosapp/user/switch-pass/{current_token.id}/confirm-pass"
+                    link = f"http://localhost:8000/lojarelogiosapp/user/switch-pass/{current_token.id_token}/confirm-pass"
                     send_mail(
                          "Link para troca de senha",
                          link,
@@ -388,13 +390,13 @@ def switch_password(request):
                     
                     success_msg = 'Favor verificar email para troca de senhas enviado para {}'.format(user_email)
                     
-                    # Eu excluo o token, para que não haja reutilização
-                    it = Pedido.objects.get(pk = new_token)
-                    it.delete()
+                    global user_mail
+                    user_mail = user_email
+
                     # Retorno uma msg de sucesso!
                     return render(request, 'lojarelogiosapp/user/switch-pass.html', {'success_msg': success_msg})
 
-               except password_token.DoesNotExist():
+               except (KeyError, password_token.DoesNotExist):
                     erro_msg = 'Ops, algo de errado ocorreu, por favor, entre em contato com a administração!'
                     return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
  
@@ -404,5 +406,24 @@ def switch_password(request):
       
      return render(request, 'lojarelogiosapp/user/switch-pass.html')
 
-def confirm_pass(request):
-     return render(request, 'lojarelogiosapp/user/confirm-pass.html')
+def confirm_pass(request, pk):
+      try:
+           pk_token = get_object_or_404(password_token, pk=pk)
+           user = User.objects.get(email=user_mail)
+           if request.method == 'POST':
+                # Altera a senha antiga, com a nova:
+                senha = request.POST['senha']
+                user.set_password(senha)
+                user.save()
+                
+                # Eu excluo o token, para que não haja reutilização
+                current_token = password_token.objects.get(pk=pk_token.id_token)
+                current_token.delete()
+                success_msg = "Senha trocada com sucesso!"
+                return render(request, 'lojarelogiosapp/user/login.html', {'success_msg': success_msg})
+
+      except(KeyError, password_token.DoesNotExist):
+           erro_msg = 'Ops, algo de errado ocorreu, por favor, entre em contato com a administração!'
+           return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
+
+      return render(request, 'lojarelogiosapp/user/confirm-pass.html', {'pk': pk})

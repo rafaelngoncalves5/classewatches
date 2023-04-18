@@ -10,12 +10,11 @@
     <div style="margin-top: 5em;" class="rounded bg-white shadow-sm mx-auto p-5 col-lg-6">
         <h1 class="text-center main-title" style="font-size: xx-large;">Nova senha</h1>
 
-        <form method="post" id="switch-pass-2-form" action="{% url 'lojarelogiosapp:switch_pass' %}">
+        <form method="post" id="switch-pass-2-form" action="{% url 'lojarelogiosapp:confirm_pass' pk %}">
             {% csrf_token %}
 
             <br />
             <p class="text-danger text-center">{{ erro_msg }}</p>
-            <p class="text-success text-center">{{ success_msg }}</p>
             <br />
 
             <div class="mb-3">
@@ -25,9 +24,14 @@
             </div>
 
             <div class="mb-3">
-                <label for="confirma-senha" class="form-label">Confirmar senha:<span class="text-danger">*</span></label>
-                <input required name="confirma-senha" type="password" class="fs-2 p-3 form-control"
-                    id="confirma-senha" aria-describedby="confirma-senha">
+                <label for="confirma-senha" class="form-label">Confirmar senha:<span
+                        class="text-danger">*</span></label>
+                <input required name="confirma-senha" type="password" class="fs-2 p-3 form-control" id="confirma-senha"
+                    aria-describedby="confirma-senha">
+            </div>
+            <div class="m-5">
+                <span id="erro-msg-span" class="text-danger text-center"></span>
+                <button id='sbtn' type="button" class="mt-5 mb-4 btn-style1 d-grid mx-auto">Trocar senha</button>
             </div>
         </form>
     </div>

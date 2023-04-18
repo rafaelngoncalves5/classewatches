@@ -10,6 +10,7 @@
                 <h1 class="text-center main-title" style="font-size: xx-large;">Entrar</h1>
                 <br />
                 <p class="text-danger text-center">{{ erro_msg }}</p>
+                <p class="text-success text-center">{{ success_msg }}</p>
                 <br />
                 <div class="mb-3">
                     <label for="usuario" class="form-label">Usuário:</label>
@@ -26,6 +27,10 @@
                     <button type="submit" class="mt-5 mb-4 btn-style1 d-grid mx-auto">Entrar</button>
                     <a href="{% url 'lojarelogiosapp:register' %}"
                         class="btn btn-sm btn-link fs-4 d-grid mx-auto">Cadastrar</a>
+
+                    <a href="{% url 'lojarelogiosapp:switch_pass' %}"
+                        class="btn btn-sm btn-link fs-4 d-grid mx-auto">Esqueci minha senha</a>
+
                 </div>
             </div>
         </div>
