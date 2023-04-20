@@ -12,7 +12,8 @@
                 <p class="text-danger text-center">{{ erro_msg }}</p>
                 <br />
                 <div class="mb-3">
-                    <label for="primeiro_nome" class="form-label">Primeiro Nome:<span class="text-danger">*</span></label>
+                    <label for="primeiro_nome" class="form-label">Primeiro Nome:<span
+                            class="text-danger">*</span></label>
                     <input required minlength="3" maxlength="30" name="primeiro_nome" type="text"
                         class="fs-2 p-3 form-control" id="primeiro_nome" aria-describedby="primeiro_nome">
                 </div>
@@ -48,7 +49,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="confirma-senha" class="form-label">Confirmar senha:<span class="text-danger">*</span></label>
+                    <label for="confirma-senha" class="form-label">Confirmar senha:<span
+                            class="text-danger">*</span></label>
                     <input required name="confirma-senha" type="password" class="fs-2 p-3 form-control"
                         id="confirma-senha" aria-describedby="confirma-senha">
                 </div>
@@ -88,19 +90,27 @@
     var confirmaEmail = document.getElementById('confirma-email');
     confirmaEmail.addEventListener('input', async () => testeCondicional());
 
-    /*function checkRegex() {
-        if (senha.validity.patternMismatch) {
-            senha.setCustomValidity("Por favor, sua senha precisa de: \n 1 - Pelo menos uma letra minúscula \n 2 - Pelo menos uma letra maiúscula \n 3 - Pelo menos um número");
-        } onclick="checkRegex()"
-    } */
-
-    function checkDouble(event) {
+    function checkDouble() {
         if (testeCondicional()) {
             document.getElementById('register-form').submit()
         } else {
             document.getElementById('erro-msg-span').innerHTML = erro_msg
         }
     }
-    sBtn.addEventListener('click', () => checkDouble())
+
+    function checkRegex() {
+        const isContainsSymbol =
+            /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])/;
+
+        if (!isContainsSymbol.test(senha.value)) {
+            let erro_msg_regex = "Sua senha precisa de pelo menos um caracter especial!"
+            document.getElementById('erro-msg-span').innerHTML = erro_msg_regex
+        } else {
+            checkDouble()
+            return true;
+        }
+    }
+
+    sBtn.addEventListener('click', () => checkRegex())
 </script>
 {% endblock content %}
