@@ -20,7 +20,7 @@ class Pedido(models.Model):
         ('despachado', 'despachado')
     ]
     # Esse aqui é o ID encontrado na página de pedidos do stripe
-    id_pedido = models.CharField(max_length=400, primary_key=True)
+    id_pedido = models.AutoField(primary_key=True)
     fk_carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE, editable=False)
     nome = models.CharField(max_length=50, null=True)
     sobrenome = models.CharField(max_length=50, null=True)
@@ -40,7 +40,7 @@ class Pedido(models.Model):
     link_rastreamento = models.URLField(null=True)
 
     def __str__(self):
-        return self.id_pedido
+        return str(self.id_pedido)
 
 
 # Esta model deve ser cadastrado antes no stripe, depois na página de admin

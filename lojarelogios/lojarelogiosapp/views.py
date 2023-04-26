@@ -273,6 +273,7 @@ def checkout_view(request):
     if request.method == 'POST':
          line_items_list = []
          total = 0
+
          for produto in carrinho.produto_set.all():
             total += produto.preco
             line_items_list.append({
@@ -281,6 +282,7 @@ def checkout_view(request):
                  'unit_price': produto.preco,
                  'picture_url': produto.imagem_capa.url
             })
+
             '''line_items_list.append({
                  'price': produto.stripe_id,
                  'quantity': 1,
@@ -326,13 +328,8 @@ def checkout_view(request):
          '''if response:
               print(parsed_res['id'])
          else:
-              print('Response Failed! ' + str(response.text))'''
-            
-         context = {
-              'pref_id': parsed_res['id'],
-              'carrinho': carrinho,
-              'total': total
-              }
+              print('Response Failed! ' + str(response.text))
+              print(line_items_list)'''
          
          # Dados de usuário
          user = request.user
@@ -351,6 +348,7 @@ def checkout_view(request):
          numero_rua = request.POST['numero_rua']
          complemento = request.POST['complemento']
          cep = request.POST['cep']
+
          # Instanciando um pedido
          new_pedido = Pedido.objects.create(
                fk_carrinho=fk_carrinho,
@@ -369,39 +367,52 @@ def checkout_view(request):
                complemento=complemento
               )
          
+         context = {
+              'pref_id': parsed_res['id'],
+              'carrinho': carrinho,
+              'total': total,
+              'address': new_pedido
+              }
+         
          # Reduzindo a quantidade de produtos no banco de dados e adicionando os produtos do carrinho no pedido
          for produto in carrinho.produto_set.all():
-          current_product = Produto.objects.get(pk=produto.id_produto)
           new_pedido.produto_set.add(produto)
           produtos_comprados.append(produto.titulo)
-          current_product.quantidade -= 1
-          current_product.save()
-
-          # Limpando o carrinho pós compra
-          for produto in carrinho.produto_set.all():
-               # 1 - Pego o produto
-               current_product = Produto.objects.get(pk = produto.id_produto)
-               # 2 - Removo a instância
-               current_product.fk_carrinho.remove(carrinho)
                    
           # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
           global msg
           msg = str(f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n\n - Email: {user.email}\n - Data: {data_pedido}\n - Total: {total}\n - Produtos comprados: {produtos_comprados} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, apenas acessando sua página de pedidos do stripe, ou através da aba de pedidos da administração da sua loja virtual!")
-     
-          local_msg = msg
-          send_mail(
-               "NOVO PEDIDO NA LOJA VIRTUAL!",
-               local_msg,
-               "rafaelngoncalves5@outlook.com",
-               ["rafaelngoncalves5@outlook.com"],
-               fail_silently=False,
-               )
 
          # return redirect(checkout_session.url)
          # Passando o template com o pref_id da response
          return render(request, 'lojarelogiosapp/payment/checkout.html', context)
 
 def success_view(request):
+     carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
+
+     # Reduzindo a quantidade de produtos no banco de dados e adicionando os produtos do carrinho no pedido
+     for produto in carrinho.produto_set.all():
+          current_product = Produto.objects.get(pk=produto.id_produto)
+          current_product.quantidade -= 1
+          current_product.save()
+
+     # Limpando o carrinho pós compra
+     for produto in carrinho.produto_set.all():
+          # 1 - Pego o produto
+          current_product = Produto.objects.get(pk = produto.id_produto)
+          # 2 - Removo a instância
+          current_product.fk_carrinho.remove(carrinho)
+     
+          
+     local_msg = msg
+     send_mail(
+          "NOVO PEDIDO NA LOJA VIRTUAL!",
+          local_msg,
+          "rafaelngoncalves5@outlook.com",
+          ["rafaelngoncalves5@outlook.com"],
+          fail_silently=False,
+          )
+
      return render(request, 'lojarelogiosapp/payment/success.html')
 
 def cancel_view(request):
