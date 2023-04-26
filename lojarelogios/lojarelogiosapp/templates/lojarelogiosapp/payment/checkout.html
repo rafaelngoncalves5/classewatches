@@ -76,7 +76,6 @@
                                 <label class="form-label" for="estado">Estado<span class="text-danger">*</span></label>
                             </div>
 
-
                             <div class="form-outline mb-4">
                                 <input placeholder="Belo Horizonte" maxlength="50" minlength="1" required type="text"
                                     id="cidade" class="form-control" name="cidade" />
@@ -168,19 +167,19 @@
     
     {% include 'footer.html' %}-->
 <div id="wallet_container"></div>
+<input id="pref-id" type="hidden" value="{{ pref_id }}" />
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 <script>
     const mp = new MercadoPago('TEST-49f2a42c-6762-4cb0-aeb5-367af1ca238f');
-    var prefId = ''
+    var prefId = document.getElementById('pref-id').value
     
-    // Isso aqui é pra obter o <PREFERENCE_ID>
-    fetch('https://api.mercadopago.com/checkout/preferences?access_token=TEST-6033284383326765-042517-f71f881b0fdb00736ff2f02a4c8360ac-472353305')
+    /*fetch('https://api.mercadopago.com/checkout/preferences?access_token=TEST-6033284383326765-042517-f71f881b0fdb00736ff2f02a4c8360ac-472353305')
         .then((response) => console.log(response))
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err))*/
 
     mp.bricks().create("wallet", "wallet_container", {
         initialization: {
-            preferenceId: '472353305-dc0214a2-4312-4b18-8880-e4aac0faa726',
+            preferenceId: prefId,
         },
     });
 

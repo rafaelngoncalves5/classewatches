@@ -261,10 +261,16 @@ def checkout_view(request):
          for produto in carrinho.produto_set.all():
             total += produto.preco
             line_items_list.append({
+                 'title': produto.titulo,
+                 'quantity': 1,
+                 'unit_price': produto.preco,
+                 'picture_url': produto.imagem_capa.url
+            })
+            '''line_items_list.append({
                  'price': produto.stripe_id,
                  'quantity': 1,
-                 })
-                        
+                 })'''
+         print(line_items_list)
          # Stripe e pagamento
          stripe.api_key = settings.STRIPE_SECRET_KEY
          domain = "http://localhost:8000/lojarelogiosapp"
@@ -289,21 +295,26 @@ def checkout_view(request):
 
          # Cria um item na preferência
          preference_data = {
-              "items": [
-              {
-              "title": "Relógio X",
-              "quantity": 1,
-              "unit_price": 299.90,
-              }],
-              }
+               "items": line_items_list,
+               "back_urls": {
+                    'success': domain + '/payment/success',
+                    'pending': domain + '/payment/success',
+                    'failure': domain + '/payment/cancel', 
+               },
+               "shipments": {
+                    "receiver_address": {}
+               },
+               }
          
          response = requests.post(url, json = preference_data)
          parsed_res = json.loads(response.text)
+
+         session = None
           
-         if response:
+         '''if response:
               print(parsed_res['id'])
          else:
-              print('Response Failed! ' + response.status_code)
+              print('Response Failed! ' + response.status_code)'''
 
          # Dados de usuário
          # user = request.user
@@ -353,7 +364,8 @@ def checkout_view(request):
          msg = str(f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n - ID do pedido: {checkout_session.stripe_id}\n - Email: {user.email}\n - Data: {data_pedido}\n - Status: {checkout_session.status}\n - Total: {total} {checkout_session.currency}\n - Produtos comprados: {produtos_comprados} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, apenas acessando sua página de pedidos do stripe, ou através da aba de pedidos da administração da sua loja virtual!")
          '''                        
          #return redirect(checkout_session.url)
-         return render(request, 'lojarelogiosapp/payment/checkout.html', {'pref_id': ''})
+         # Passando o template com o pref_id da response
+         return render(request, 'lojarelogiosapp/payment/checkout.html', {'pref_id': parsed_res['id']})
     
 def success_view(request):
      carrinho = Carrinho.objects.get(fk_usuario = request.user.id)

@@ -58,6 +58,7 @@ class Produto(models.Model):
     imagem_3 = models.FileField(upload_to="lojarelogiosapp/static/lojarelogiosapp/uploads/", null=True)
 
     # stripe_id é o id do objeto de preço do produto no stripe. O produto primeiro é cadastrado no stripe, depois cadastrado no banco de dados do site
+    # Só com o stripe isso aqi
     stripe_id = models.CharField(max_length=200, null=True)
 
     def __str__(self):
