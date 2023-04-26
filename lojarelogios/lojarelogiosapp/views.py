@@ -1,3 +1,4 @@
+import json
 import time
 from django.utils import timezone
 from django.db import IntegrityError
@@ -16,6 +17,12 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.template import loader
 from uuid import uuid4
+import requests
+
+# SDK do Mercado Pago
+import mercadopago
+# Adicione as credenciais
+sdk = mercadopago.SDK("TEST-6033284383326765-042517-f71f881b0fdb00736ff2f02a4c8360ac-472353305")
 
 # Create your views here.
 def check_available(request, produtos):
@@ -262,7 +269,7 @@ def checkout_view(request):
          stripe.api_key = settings.STRIPE_SECRET_KEY
          domain = "http://localhost:8000/lojarelogiosapp"
          
-         if settings.DEBUG:
+         '''if settings.DEBUG:
                  domain = "http://127.0.0.1:8000/lojarelogiosapp"
                  checkout_session = stripe.checkout.Session.create(
                       payment_method_types=['card', 'boleto'],
@@ -273,11 +280,31 @@ def checkout_view(request):
                       #billing_address_collection ='required',
                       phone_number_collection = {"enabled": True},
                       shipping_address_collection = {'allowed_countries': ['BR']},
-                      )
+                      )'''
          # Alterando a session com a checkout_session        
          global session
-         session = checkout_session
-                 
+         #session = checkout_session
+
+         url = "https://api.mercadopago.com/checkout/preferences?access_token={}".format("TEST-6033284383326765-042517-f71f881b0fdb00736ff2f02a4c8360ac-472353305")
+
+         # Cria um item na preferência
+         preference_data = {
+              "items": [
+              {
+              "title": "Relógio X",
+              "quantity": 1,
+              "unit_price": 299.90,
+              }],
+              }
+         
+         response = requests.post(url, json = preference_data)
+         parsed_res = json.loads(response.text)
+          
+         if response:
+              print(parsed_res['id'])
+         else:
+              print('Response Failed! ' + response.status_code)
+
          # Dados de usuário
          # user = request.user
          # nome = request.POST['nome']
@@ -325,7 +352,8 @@ def checkout_view(request):
          global msg
          msg = str(f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n - ID do pedido: {checkout_session.stripe_id}\n - Email: {user.email}\n - Data: {data_pedido}\n - Status: {checkout_session.status}\n - Total: {total} {checkout_session.currency}\n - Produtos comprados: {produtos_comprados} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, apenas acessando sua página de pedidos do stripe, ou através da aba de pedidos da administração da sua loja virtual!")
          '''                        
-         return redirect(checkout_session.url)
+         #return redirect(checkout_session.url)
+         return render(request, 'lojarelogiosapp/payment/checkout.html', {'pref_id': ''})
     
 def success_view(request):
      carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
