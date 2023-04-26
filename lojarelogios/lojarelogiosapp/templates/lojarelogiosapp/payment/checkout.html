@@ -26,11 +26,10 @@
     <title>{% block title %}Loja de Relógios - Confirmar compra{% endblock title %}</title>
 </head>
 
-<!-- <body style="background-color: #1f2453; min-height: 100vh; font-family: cinzel;">
+<body style="background-color: #1f2453; min-height: 100vh; font-family: cinzel;">
     <a href="{% url 'lojarelogiosapp:products' %}" class="return">
         <img src="{% static 'lojarelogiosapp/images/icon-arrow.svg' %}" alt="Return" /></a>
 
-    
     <section class="p-5">
         <div class="row">
             <div class="col-md-8 mb-4">
@@ -46,14 +45,16 @@
                                     <div class="form-outline">
                                         <input placeholder="John" type="text" required minlength="2" maxlength="25"
                                             id="nome" class="form-control" name="nome" />
-                                        <label class="form-label" for="nome">Nome<span class="text-danger">*</span></label>
+                                        <label class="form-label" for="nome">Nome<span
+                                                class="text-danger">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-outline">
                                         <input placeholder="Doe" type="text" id="sobrenome" required minlength="2"
                                             maxlength="35" class="form-control" name="sobrenome" />
-                                        <label class="form-label" for="sobrenome">Sobrenome<span class="text-danger">*</span></label>
+                                        <label class="form-label" for="sobrenome">Sobrenome<span
+                                                class="text-danger">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +62,8 @@
                             <div class="form-outline mb-4">
                                 <input placeholder="31 98899-9999" maxlength="30" minlength="7" required type="text"
                                     id="telefone_1" class="form-control" name="telefone_1" />
-                                <label class="form-label" for="telefone_1">Telefone 1<span class="text-danger">*</span></label>
+                                <label class="form-label" for="telefone_1">Telefone 1<span
+                                        class="text-danger">*</span></label>
                             </div>
 
                             <div class="form-outline mb-4">
@@ -97,12 +99,13 @@
                             <div class="form-outline mb-4">
                                 <input placeholder="175" maxlength="150" minlength="1" required type="text"
                                     id="numero_rua" class="form-control" name="numero_rua" />
-                                <label class="form-label" for="rua">Número da rua<span class="text-danger">*</span></label>
+                                <label class="form-label" for="rua">Número da rua<span
+                                        class="text-danger">*</span></label>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input placeholder="Perto da loja de roupas da fulana" maxlength="150" minlength="4" type="text"
-                                    id="complemento" class="form-control" name="complemento" />
+                                <input placeholder="Perto da loja de roupas da fulana" maxlength="150" minlength="4"
+                                    type="text" id="complemento" class="form-control" name="complemento" />
                                 <label class="form-label" for="complemento">Complemento</label>
                             </div>
 
@@ -114,18 +117,15 @@
 
                             <input name="total" value="{{total}}" id="total" type="hidden" />
                             <hr class="my-4" />
-                            <button id="submit-button" class="btn btn-primary btn-lg btn-block" type="submit">
-                                Enviar
-                            </button>
                         </form>
                     </div>
                 </div>
-            </div>-->
-<!--
+            </div>
+            <!--
             <form id="payment-form" method="post" action="{% url 'lojarelogiosapp:checkout' %}">
                 {% csrf_token %}
                 <input type="submit">
-            </form>
+            </form> -->
 
             <div class="col-md-4 mb-4">
                 <div class="card mb-4">
@@ -162,26 +162,30 @@
                 </div>
             </div>
         </div>
+        <div id="wallet_container" onclick="submit-it"></div>
+        <input id="pref-id" type="hidden" value="{{ pref_id }}" />
     </section>
-    
-    
-    {% include 'footer.html' %}-->
-<div id="wallet_container"></div>
-<input id="pref-id" type="hidden" value="{{ pref_id }}" />
-<script src="https://sdk.mercadopago.com/js/v2"></script>
-<script>
-    const mp = new MercadoPago('TEST-49f2a42c-6762-4cb0-aeb5-367af1ca238f');
-    var prefId = document.getElementById('pref-id').value
-    
-    /*fetch('https://api.mercadopago.com/checkout/preferences?access_token=TEST-6033284383326765-042517-f71f881b0fdb00736ff2f02a4c8360ac-472353305')
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err))*/
 
-    mp.bricks().create("wallet", "wallet_container", {
-        initialization: {
-            preferenceId: prefId,
-        },
-    });
 
-</script>
+    {% include 'footer.html' %}
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>
+        const paymentForm = document.getElementById('payment-form')
+
+        const submitIt = () => paymentForm.submit()
+
+        const mp = new MercadoPago('TEST-49f2a42c-6762-4cb0-aeb5-367af1ca238f');
+        var prefId = document.getElementById('pref-id').value
+
+        /*fetch('https://api.mercadopago.com/checkout/preferences?access_token=TEST-6033284383326765-042517-f71f881b0fdb00736ff2f02a4c8360ac-472353305')
+            .then((response) => console.log(response))
+            .catch((err) => console.log(err))*/
+
+        mp.bricks().create("wallet", "wallet_container", {
+            initialization: {
+                preferenceId: prefId,
+            },
+        });
+
+    </script>
 </body>
