@@ -22,6 +22,8 @@ class Pedido(models.Model):
     # Esse aqui é o ID encontrado na página de pedidos do stripe
     id_pedido = models.CharField(max_length=400, primary_key=True)
     fk_carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE, editable=False)
+    nome = models.CharField(max_length=50, null=True)
+    sobrenome = models.CharField(max_length=50, null=True)
     total = models.FloatField(default=0.00)
     data_pedido = models.DateTimeField(auto_now_add=False, default=timezone.now)
     telefone_1 = models.CharField(max_length=25, null=True)
@@ -59,7 +61,7 @@ class Produto(models.Model):
 
     # stripe_id é o id do objeto de preço do produto no stripe. O produto primeiro é cadastrado no stripe, depois cadastrado no banco de dados do site
     # Só com o stripe isso aqi
-    stripe_id = models.CharField(max_length=200, null=True)
+    # stripe_id = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.titulo
