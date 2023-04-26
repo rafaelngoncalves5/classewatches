@@ -243,6 +243,7 @@ def shipment_view(request):
      
      return render(request, 'lojarelogiosapp/payment/shipment.html', context)
 
+npedido = object
 def checkout_view(request):
     carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
     produtos_comprados = []
@@ -350,7 +351,7 @@ def checkout_view(request):
          cep = request.POST['cep']
 
          # Instanciando um pedido
-         new_pedido = Pedido.objects.create(
+         new_pedido = Pedido(
                fk_carrinho=fk_carrinho,
                nome=nome,
                sobrenome=sobrenome,
@@ -366,6 +367,8 @@ def checkout_view(request):
                numero_rua=numero_rua,
                complemento=complemento
               )
+         global npedido
+         npedido = new_pedido
          
          context = {
               'pref_id': parsed_res['id'],
@@ -374,7 +377,6 @@ def checkout_view(request):
               'address': new_pedido
               }
          
-         # Reduzindo a quantidade de produtos no banco de dados e adicionando os produtos do carrinho no pedido
          for produto in carrinho.produto_set.all():
           new_pedido.produto_set.add(produto)
           produtos_comprados.append(produto.titulo)
@@ -390,6 +392,9 @@ def checkout_view(request):
 def success_view(request):
      carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
 
+     # Só salva o pedido no BD, se der certo a transação
+     npedido.save()
+
      # Reduzindo a quantidade de produtos no banco de dados e adicionando os produtos do carrinho no pedido
      for produto in carrinho.produto_set.all():
           current_product = Produto.objects.get(pk=produto.id_produto)
@@ -402,8 +407,7 @@ def success_view(request):
           current_product = Produto.objects.get(pk = produto.id_produto)
           # 2 - Removo a instância
           current_product.fk_carrinho.remove(carrinho)
-     
-          
+      
      local_msg = msg
      send_mail(
           "NOVO PEDIDO NA LOJA VIRTUAL!",
