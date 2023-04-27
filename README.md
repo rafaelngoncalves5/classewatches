@@ -14,6 +14,16 @@
 
 Projeto do tipo E-Commerce, fortemente centralizado na página de administração do **Django**
 
+## Gateway de pagamento
+
+O pagamento é mediado utilizando o checkout pro do **mercado pago**
+
+![mercadopagogif](https://github.com/rafaelngoncalves5/loja-relogios/blob/master/docs/mercadopago.gif)
+
+Foram feitos testes usando a SDK pra Python do [stripe](https://stripe.com/docs) também:
+
+![stripe](https://github.com/rafaelngoncalves5/loja-relogios/blob/master/docs/stripe.PNG)
+
 ## Documentação
 
 ### A documentação completa encontra-se na pasta [docs](https://github.com/rafaelngoncalves5/loja-relogios/tree/master/docs)
