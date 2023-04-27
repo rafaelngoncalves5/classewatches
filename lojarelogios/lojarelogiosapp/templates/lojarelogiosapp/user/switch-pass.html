@@ -69,21 +69,7 @@
             document.getElementById('erro-msg-span').innerHTML = erro_msg
         }
     }
-
-    function checkRegex() {
-        const isContainsSymbol =
-            /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])/;
-
-        if (!isContainsSymbol.test(senha.value)) {
-            let erro_msg_regex = "Sua senha precisa de pelo menos um caracter especial!"
-            document.getElementById('erro-msg-span').innerHTML = erro_msg_regex
-        } else {
-            checkDouble()
-            return true;
-        }
-    }
-
-    sBtn.addEventListener('click', () => checkRegex())
+    sBtn.addEventListener('click', () => checkDouble())
 </script>
 {% endblock content %}
 {% include 'navbar.html' %}
