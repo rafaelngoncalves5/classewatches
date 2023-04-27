@@ -1,3 +1,4 @@
 bootstrap
 sass
 stripe
+mercadopago
