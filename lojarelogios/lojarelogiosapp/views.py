@@ -7,7 +7,7 @@ from django.urls import reverse
 from .models import Produto, Carrinho, Pedido, password_token
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, authenticate, login
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.views import View
@@ -24,12 +24,6 @@ from datetime import datetime
 import mercadopago
 # Adicione as credenciais
 sdk = mercadopago.SDK("TEST-6033284383326765-042517-f71f881b0fdb00736ff2f02a4c8360ac-472353305")
-
-# Funções periódicas:
-# 1 - Excluir todas as instâncias da tabela 'password_tokens' a cada 5 min
-def check_token_validity(token):
-     if token.data_cr() <= timezone.now():
-          token.delete()
 
 # Create your views here.
 def check_available(request, produtos):
@@ -199,6 +193,9 @@ def delete_user_view(request):
       return redirect('lojarelogiosapp:index')
 
 def login_view(request):
+    
+    if request.user.is_authenticated:
+         return redirect('lojarelogiosapp:index_user')
 
     if request.method == 'POST':
           usuario = request.POST['usuario']
@@ -218,6 +215,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('lojarelogiosapp:products')
+
 '''
 def payment_view(request):
      carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
@@ -237,18 +235,20 @@ session = object
 msg = ''
 
 def shipment_view(request):
-     carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
+     if request.method == "POST":
+          carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
 
-     total = 0
-     for produto in carrinho.produto_set.all():
-          total += produto.preco
+          total = 0
+          for produto in carrinho.produto_set.all():
+               total += produto.preco
 
-     context = {
-          'total': total,
-          'carrinho': carrinho
-     }
+          context = {
+               'total': total,
+               'carrinho': carrinho
+          }
      
-     return render(request, 'lojarelogiosapp/payment/shipment.html', context)
+          return render(request, 'lojarelogiosapp/payment/shipment.html', context)
+     return HttpResponseNotFound()
 
 def checkout_view(request):
     carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
@@ -392,6 +392,8 @@ def checkout_view(request):
          # return redirect(checkout_session.url)
          # Passando o template com o pref_id da response
          return render(request, 'lojarelogiosapp/payment/checkout.html', context)
+    else:
+          return HttpResponseNotFound()
 
 def success_view(request):
      carrinho = Carrinho.objects.get(fk_usuario = request.user.id)
@@ -461,7 +463,7 @@ def switch_password(request):
                          fail_silently=False,
                          )
                     
-                    success_msg = 'Favor verificar email para troca de senhas enviado para {}. Este token é válido por 5 minutos!'.format(user_email)
+                    success_msg = 'Favor verificar email para troca de senhas enviado para {}!'.format(user_email)
                     
                     global user_mail
                     user_mail = user_email
@@ -498,10 +500,5 @@ def confirm_pass(request, pk):
       except(KeyError, password_token.DoesNotExist):
            erro_msg = 'Ops, algo de errado ocorreu, por favor, entre em contato com a administração!'
            return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
-      finally:
-                # Eu excluo o token, para que não haja reutilização
-                pk_token = get_object_or_404(password_token, pk=pk)
-                current_token = password_token.objects.get(pk=pk_token.id_token)
-                current_token.delete()
 
       return render(request, 'lojarelogiosapp/user/confirm-pass.html', {'pk': pk})
