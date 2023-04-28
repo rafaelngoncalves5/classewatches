@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import Produto, Pedido, Carrinho
+from .models import Produto, Pedido, Carrinho, password_token
 
 # Register your models here.
 admin.site.register(Produto)
 admin.site.register(Pedido)
 admin.site.register(Carrinho)
+admin.site.register(password_token)
 
 class PedidoAdmin(admin.ModelAdmin):
     search_fields = ['id_pedido']

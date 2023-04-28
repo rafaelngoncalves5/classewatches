@@ -18,11 +18,18 @@ from django.core.mail import send_mail
 from django.template import loader
 from uuid import uuid4
 import requests
+from datetime import datetime
 
 # SDK do Mercado Pago
 import mercadopago
 # Adicione as credenciais
 sdk = mercadopago.SDK("TEST-6033284383326765-042517-f71f881b0fdb00736ff2f02a4c8360ac-472353305")
+
+# Funções periódicas:
+# 1 - Excluir todas as instâncias da tabela 'password_tokens' a cada 5 min
+def check_token_validity(token):
+     if token.data_cr() <= timezone.now():
+          token.delete()
 
 # Create your views here.
 def check_available(request, produtos):
@@ -426,6 +433,11 @@ user_mail = ''
 
 # Método que troca senha
 def switch_password(request):
+     # Antes de qualquer coisa: remova TODOS os tokens antigos
+     if password_token:
+          for token in password_token.objects.all():
+               token.delete()
+
      if request.user.is_authenticated:
            logout(request)
      if request.method == 'POST':
@@ -440,7 +452,7 @@ def switch_password(request):
                     # Depois eu verifico se existe o token e se sim, eu dou acesso à url de troca (confirm-pass) e redireciono
                     current_token = get_object_or_404(password_token, pk=new_token.id_token)
                     
-                    link = f"http://localhost:8000/lojarelogiosapp/user/switch-pass/{current_token.id_token}/confirm-pass"
+                    link = f"Este token é válido por 5 minutos! \nhttp://localhost:8000/lojarelogiosapp/user/switch-pass/{current_token.id_token}/confirm-pass"
                     send_mail(
                          "Link para troca de senha",
                          link,
@@ -449,7 +461,7 @@ def switch_password(request):
                          fail_silently=False,
                          )
                     
-                    success_msg = 'Favor verificar email para troca de senhas enviado para {}'.format(user_email)
+                    success_msg = 'Favor verificar email para troca de senhas enviado para {}. Este token é válido por 5 minutos!'.format(user_email)
                     
                     global user_mail
                     user_mail = user_email
@@ -486,5 +498,10 @@ def confirm_pass(request, pk):
       except(KeyError, password_token.DoesNotExist):
            erro_msg = 'Ops, algo de errado ocorreu, por favor, entre em contato com a administração!'
            return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
+      finally:
+                # Eu excluo o token, para que não haja reutilização
+                pk_token = get_object_or_404(password_token, pk=pk)
+                current_token = password_token.objects.get(pk=pk_token.id_token)
+                current_token.delete()
 
       return render(request, 'lojarelogiosapp/user/confirm-pass.html', {'pk': pk})

@@ -68,6 +68,12 @@ class Produto(models.Model):
     
 class password_token(models.Model):
     id_token = models.SlugField(max_length=50, primary_key=True)
+    data_cr = models.DateTimeField(auto_now_add=False, default=timezone.now)
+
+    # Trocando display name na admin page
+    class Meta:
+        verbose_name = "Token de senha"
+        verbose_name_plural = "Tokens de senha"
 
     def __str__(self):
         return str(self.id_token)

@@ -1,6 +1,13 @@
 from django.test import TestCase
 
-from .models import User, Produto
+from .models import User, Produto, password_token
+
+from datetime import datetime
+
+from django.utils import timezone
+
+ps = password_token.objects.get(data_cr = '2023-04-28 00:41:59.750972')
+ps_data = ps.data_cr
 
 # Create your tests here.
 class UserTests(TestCase):
@@ -18,3 +25,7 @@ class UserTests(TestCase):
         new_product = Produto.objects.create(id_produto=5, titulo='abc123456', descricao='fndkfdkf', preco=10.90, quantidade=20)
         self.assertIs(new_product.id_produto, 5)
         return new_product
+    
+class TokenTests(TestCase):
+    def test_token_input(self):
+        self.assertLess(ps_data, timezone.now())
