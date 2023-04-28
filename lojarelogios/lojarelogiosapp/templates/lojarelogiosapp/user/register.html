@@ -55,7 +55,7 @@
                         id="confirma-senha" aria-describedby="confirma-senha">
                 </div>
                 <span id="erro-msg-span" class="text-danger text-center"></span>
-                <button disabled type="button" id="sbtn" class="my-5 btn-style1 d-grid mx-auto">Registrar-se</button>
+                <button type="submit" id="sbtn" class="my-5 btn-style1 d-grid mx-auto">Registrar-se</button>
             </div>
         </div>
     </form>
@@ -66,9 +66,11 @@
     var testeCondicional = () => {
         if (confirmaSenha.value == senha.value && confirmaEmail.value == email.value) {
             sBtn.disabled = false;
-            return true;
+            return true
         } else {
-            return false;
+            sBtn.disabled = true;
+            document.getElementById('erro-msg-span').innerHTML = erro_msg
+            return false
         }
     }
 
@@ -89,28 +91,5 @@
 
     var confirmaEmail = document.getElementById('confirma-email');
     confirmaEmail.addEventListener('input', async () => testeCondicional());
-
-    function checkDouble() {
-        if (testeCondicional()) {
-            document.getElementById('register-form').submit()
-        } else {
-            document.getElementById('erro-msg-span').innerHTML = erro_msg
-        }
-    }
-    //www.linkedin.com/pulse/create-strong-password-validation-regex-javascript-mitanshu-kumar/
-    function checkRegex() {
-        const isContainsSymbol =
-            /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹])/;
-
-        if (!isContainsSymbol.test(senha.value)) {
-            let erro_msg_regex = "Sua senha precisa de pelo menos um caracter especial!"
-            document.getElementById('erro-msg-span').innerHTML = erro_msg_regex
-        } else {
-            checkDouble()
-            return true;
-        }
-    }
-
-    sBtn.addEventListener('click', () => checkRegex())
 </script>
 {% endblock content %}
