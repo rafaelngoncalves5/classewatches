@@ -325,6 +325,17 @@ def checkout_view(request):
                     'pending': domain + '/payment/success',
                     'failure': domain + '/payment/cancel', 
                },
+               "shipments": {
+                    "receiver_address": {
+                         "zip_code": request.POST['cep'],
+                         "street_name": request.POST['rua'],
+                         "city_name": request.POST['cidade'],
+                         "state_name": request.POST['estado'],
+                         "street_number": request.POST['numero_rua'],
+                         "apartment": request.POST['numero_casa'],
+                         "floor": request.POST['complemento']
+                    }
+               }
                }
          
          response = requests.post(url, json = preference_data)
@@ -355,9 +366,11 @@ def checkout_view(request):
          numero_rua = request.POST['numero_rua']
          complemento = request.POST['complemento']
          cep = request.POST['cep']
+         numero_casa = request.POST['numero_casa']
 
          # Instanciando um pedido
          new_pedido = Pedido.objects.create(
+               id_pedido = parsed_res['id'],
                fk_carrinho=fk_carrinho,
                nome=nome,
                sobrenome=sobrenome,
@@ -371,6 +384,7 @@ def checkout_view(request):
                bairro=bairro,
                rua=rua,
                numero_rua=numero_rua,
+               numero_casa=numero_casa,
                complemento=complemento
               )
          
@@ -387,7 +401,7 @@ def checkout_view(request):
 
           # Por fim, envie um email ao administrador com os dados do pedido e com a url para acompanhar situação do pagamento no stripe
           global msg
-          msg = str(f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID {user.id}.\n\n\n Dados do pedido: \n\n\n - Email: {user.email}\n - Data: {data_pedido}\n - Total: {total}\n - Produtos comprados: {produtos_comprados} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do stripe, através do ID do pedido, apenas acessando sua página de pedidos do stripe, ou através da aba de pedidos da administração da sua loja virtual!")
+          msg = str(f"Um novo pedido foi feito pelo usuário {user.username} de nome {nome} {sobrenome}, com o ID de usuário {user.id}.\n\n Dados do pedido: \n\n - ID do pedido: {parsed_res['id']}\n - Email: {user.email}\n - Data: {data_pedido}\n - Total: {total}\n - Produtos comprados: {produtos_comprados} \n\n\nTelefones de contato:\n\n - Telefone 1: {telefone_1}\n - Telefone 2: {telefone_2}\n \n\nEndereço de entrega:\n\n - Estado: {estado}\n - Cidade: {cidade}\n - Bairro: {bairro}\n - Rua: {rua}\n - Número da rua: {numero_rua}\n - Número da casa: {numero_casa} \n - Complemento: {complemento}. \n\n\nLembre-se, você pode ver os dados do pedido pesquisando na sua página do mercado pago, através do ID do pedido, apenas acessando sua página de pedidos ou transações do mercado pago, ou através da aba de pedidos da administração da sua loja virtual!")
 
          # return redirect(checkout_session.url)
          # Passando o template com o pref_id da response

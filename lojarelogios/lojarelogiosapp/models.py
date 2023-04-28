@@ -20,7 +20,7 @@ class Pedido(models.Model):
         ('despachado', 'despachado')
     ]
     # Esse aqui é o ID encontrado na página de pedidos do stripe
-    id_pedido = models.AutoField(primary_key=True)
+    id_pedido = models.CharField(max_length=900, primary_key=True)
     fk_carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE, editable=False)
     nome = models.CharField(max_length=50, null=True)
     sobrenome = models.CharField(max_length=50, null=True)
@@ -33,6 +33,7 @@ class Pedido(models.Model):
     bairro = models.CharField(max_length=150, null=True)
     rua = models.CharField(max_length=150, null=True)
     numero_rua = models.CharField(max_length=150, null=True)
+    numero_casa = models.CharField(max_length=150, null=True)
     complemento = models.CharField(null=True, max_length=150)
     cep = models.CharField(max_length=20, null=True)
     status = models.CharField(choices=STATUS_OPTIONS, default=STATUS_OPTIONS[0][1], max_length=25)
