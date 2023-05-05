@@ -19,6 +19,7 @@ from django.template import loader
 from uuid import uuid4
 import requests
 from datetime import datetime
+from django.core.exceptions import ObjectDoesNotExist
 
 # SDK do Mercado Pago
 import mercadopago
@@ -468,7 +469,7 @@ def switch_password(request):
                     # Depois eu verifico se existe o token e se sim, eu dou acesso à url de troca (confirm-pass) e redireciono
                     current_token = get_object_or_404(password_token, pk=new_token.id_token)
                     
-                    link = f"Este token é válido por 5 minutos! \nhttp://localhost:8000/lojarelogiosapp/user/switch-pass/{current_token.id_token}/confirm-pass"
+                    link = f"Link para troca de senha: \nhttp://localhost:8000/lojarelogiosapp/user/switch-pass/{current_token.id_token}/confirm-pass"
                     send_mail(
                          "Link para troca de senha",
                          link,
@@ -488,7 +489,11 @@ def switch_password(request):
                except (KeyError, password_token.DoesNotExist):
                     erro_msg = 'Ops, algo de errado ocorreu, por favor, entre em contato com a administração!'
                     return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
- 
+
+               except ObjectDoesNotExist:
+                    erro_msg = 'Ops, algo de errado ocorreu, por favor, entre em contato com a administração!'
+                    return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
+
           else:
                erro_msg = 'Email não cadastrado no site!'
                return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
