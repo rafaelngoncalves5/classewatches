@@ -20,11 +20,12 @@ from uuid import uuid4
 import requests
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
+from . import env
 
 # SDK do Mercado Pago
 import mercadopago
 # Adicione as credenciais
-sdk = mercadopago.SDK("TEST-6033284383326765-042517-f71f881b0fdb00736ff2f02a4c8360ac-472353305")
+sdk = mercadopago.SDK(env.mp_sdk)
 
 # Create your views here.
 def check_available(request, produtos):

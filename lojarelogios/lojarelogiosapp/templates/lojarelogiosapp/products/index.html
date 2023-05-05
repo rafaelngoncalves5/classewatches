@@ -72,15 +72,7 @@
             </div>
         </div>
 </main>
-<script async>
-    var successDiv = document.getElementById('success-div')
-
-    setTimeout(() => successDiv.style.display = 'none', 3000)
-
-    var errorDiv = document.getElementById('error-div')
-
-    setTimeout(() => errorDiv.style.display = 'none', 3000)
-</script>
+<script async src="{% static '/lojarelogiosapp/scripts/products.js' %}"></script>
 {% include 'footer.html' %}
 
 {% endblock content %}
