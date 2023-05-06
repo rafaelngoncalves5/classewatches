@@ -1,2 +1,3 @@
 sass
 mercadopago
+stripe
