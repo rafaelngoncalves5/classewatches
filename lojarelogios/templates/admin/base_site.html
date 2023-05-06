@@ -1,7 +1,11 @@
-{% extends "admin/base.html" %}
+{% extends "admin/base_site.html" %}
+
+{% load static %}
 
 {% block title %}Loja de Relógios: Administração{% endblock %}
-
+{% block extrahead %}
+<link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
+{% endblock %}
 {% block branding %}
 <style>
     :root {
@@ -34,43 +38,62 @@
     }
 
     nav,
-    #header, #nav-sidebar {
+    #header,
+    #nav-sidebar {
         background-color: var(--accent-color);
     }
+
     a:first-child {
         color: snow;
     }
-    #searchbar, #nav-filter {
+
+    #searchbar,
+    #nav-filter {
         background-color: snow;
     }
-    th, td, caption, input, input.default {
+
+    th,
+    td,
+    caption,
+    input,
+    input.default {
         background-color: var(--accent-color) !important;
         color: snow !important;
     }
+
     h2 {
         background-color: var(--accent-color) !important;
         color: snow;
     }
+
     input#nav-filter {
         background-color: black !important;
     }
+
     button {
         background: none;
         border: none;
         color: snow;
         margin-top: 2px;
     }
+
     button:hover {
         text-decoration: underline;
         cursor: pointer;
     }
-    ul, ul li {
+
+    ul,
+    ul li {
         color: snow;
     }
-    html, body.login, div#content.colM {
+
+    html,
+    body.login,
+    div#content.colM {
         background-color: snow;
         color: black;
     }
+
     span {
         color: snow;
     }
