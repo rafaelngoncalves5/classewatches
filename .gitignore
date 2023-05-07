@@ -1,8 +1,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-lojarelogios/lojarelogiosapp/env.py
-lojarelogios/lojarelogios/env.py
+# lojarelogios/lojarelogiosapp/env.py
+# lojarelogios/lojarelogios/env.py
 # C extensions
 *.so
 
