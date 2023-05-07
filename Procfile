@@ -1,1 +1,1 @@
-web: manage.py runserver
+web: lojarelogios.lojarelogiosapp.manage.py runserver
