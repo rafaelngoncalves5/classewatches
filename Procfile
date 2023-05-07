@@ -1,1 +1,1 @@
-web: gunicorn lojarelogios.lojarelogios.wsgi:application
+web: gunicorn lojarelogios.lojarelogios.loja_relogios_wsgi:application
