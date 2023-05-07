@@ -1,1 +1,1 @@
-web: gunicorn --chdir lojarelogios lojarelogios wsgi:app
+web: gunicorn --chdir lojarelogios lojarelogios.wsgi:app
