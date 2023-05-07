@@ -16,7 +16,7 @@ Remove the file from git without deleting the file: git rm --cached projectname/
 Commit the change: git commit -m "remove settings.py"
 '''
 from pathlib import Path
-from lojarelogios.lojarelogiosapp import env
+import env
 import os
 import mimetypes
 import django_heroku
