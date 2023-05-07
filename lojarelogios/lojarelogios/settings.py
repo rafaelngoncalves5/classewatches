@@ -32,9 +32,9 @@ mimetypes.add_type("text/css", ".css", True)
 SECRET_KEY = env.django_skey
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', 'https://loja-relogios.herokuapp.com/', '127.0.0.1']
 
 # Application definition
 
