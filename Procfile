@@ -1,1 +1,1 @@
-web: gunicorn lojarelogios.lojarelogios.wsgi
+web: manage.py runserver
