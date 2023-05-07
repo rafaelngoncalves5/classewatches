@@ -1,1 +1,1 @@
-web: lojarelogios.lojarelogiosapp.manage.py runserver
+web: gunicorn --chdir lojarelogios lojarelogios wsgi:app
