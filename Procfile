@@ -1,1 +1,0 @@
-web gunicorn lojarelogios.lojarelogios.wsgi:application --log-file -
