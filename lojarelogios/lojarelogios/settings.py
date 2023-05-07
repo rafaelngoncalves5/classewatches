@@ -19,6 +19,7 @@ from pathlib import Path
 from lojarelogiosapp import env
 import os
 import mimetypes
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -152,3 +153,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp-mail.outlook.com'
 EMAIL_HOST_USER = env.email_host_user
 EMAIL_HOST_PASSWORD = env.email_host_pass
+
+django_heroku.settings(locals())
