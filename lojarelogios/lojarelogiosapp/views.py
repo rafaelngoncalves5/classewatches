@@ -520,5 +520,8 @@ def confirm_pass(request, pk):
       except(KeyError, password_token.DoesNotExist):
            erro_msg = 'Ops, algo de errado ocorreu, por favor, entre em contato com a administração!'
            return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
+      except ObjectDoesNotExist:
+           erro_msg = 'Ops, algo de errado ocorreu, por favor, entre em contato com a administração!'
+           return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
 
       return render(request, 'lojarelogiosapp/user/confirm-pass.html', {'pk': pk})

@@ -142,7 +142,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles' # os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STRIPE_PUBLIC_KEY = 'pk_test_51MvSb4KY6ADNgA35DTOBFIYem4ERNdNTRyZkOw4xDQH9lADWv7WlsxEvkpRVGEIBaVMuslxRyyVllnO7aqD9qw7t00m3vQcW0b'
+STRIPE_PUBLIC_KEY = "pk_test_51MvSb4KY6ADNgA35DTOBFIYem4ERNdNTRyZkOw4xDQH9lADWv7WlsxEvkpRVGEIBaVMuslxRyyVllnO7aqD9qw7t00m3vQcW0b"
 STRIPE_SECRET_KEY = 'sk_test_51MvSb4KY6ADNgA35uY1XBR6tLuYpAHKBHjti691qRJhFxknWLEJSuQERgbMzNo4sXmERkegLNlOIDsUfXTuw97nV00wpFMR8xe'
 STRIPE_WEBHOOK_SECRET = ""
 
@@ -150,7 +150,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp-mail.outlook.com'
-EMAIL_HOST_USER = "rafaelngoncalves5@outlook.com"
+EMAIL_HOST_USER = 'rafaelngoncalves5@outlook.com'
 EMAIL_HOST_PASSWORD = "topacify10br923"
 
 django_heroku.settings(locals())
