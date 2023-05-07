@@ -16,7 +16,6 @@ Remove the file from git without deleting the file: git rm --cached projectname/
 Commit the change: git commit -m "remove settings.py"
 '''
 from pathlib import Path
-import env
 import os
 import mimetypes
 import django_heroku
@@ -29,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 mimetypes.add_type("text/css", ".css", True)
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.django_skey
+SECRET_KEY = "django-insecure-ltoe#8p)2&tj9xl@#7pv(ghwoc%!qm5(pzr2mp**a*11!&)n#o"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -91,7 +90,7 @@ DATABASES = {
 
         'USER': 'postgres',
 
-        'PASSWORD': env.psql_pass,
+        'PASSWORD': 'birdscooter123',
 
         'HOST': 'localhost',
 
@@ -143,15 +142,15 @@ STATIC_ROOT = BASE_DIR / 'staticfiles' # os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STRIPE_PUBLIC_KEY = env.stripe_webhook
-STRIPE_SECRET_KEY = env.stripe_skey
+STRIPE_PUBLIC_KEY = 'pk_test_51MvSb4KY6ADNgA35DTOBFIYem4ERNdNTRyZkOw4xDQH9lADWv7WlsxEvkpRVGEIBaVMuslxRyyVllnO7aqD9qw7t00m3vQcW0b'
+STRIPE_SECRET_KEY = 'sk_test_51MvSb4KY6ADNgA35uY1XBR6tLuYpAHKBHjti691qRJhFxknWLEJSuQERgbMzNo4sXmERkegLNlOIDsUfXTuw97nV00wpFMR8xe'
 STRIPE_WEBHOOK_SECRET = ""
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp-mail.outlook.com'
-EMAIL_HOST_USER = env.email_host_user
-EMAIL_HOST_PASSWORD = env.email_host_pass
+EMAIL_HOST_USER = "rafaelngoncalves5@outlook.com"
+EMAIL_HOST_PASSWORD = "topacify10br923"
 
 django_heroku.settings(locals())
