@@ -2,3 +2,4 @@ sass
 mercadopago
 stripe
 psycopg2
+django-heroku
