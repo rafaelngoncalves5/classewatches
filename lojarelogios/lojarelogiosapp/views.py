@@ -435,7 +435,7 @@ def success_view(request):
           "NOVO PEDIDO NA LOJA VIRTUAL!",
           local_msg,
           "rafaelngoncalves5@outlook.com",
-          ["rafaelngoncalves5@outlook.com"],
+          ["rafaelngoncalves5@outlook.com"], # Trocar pro email do Yude
           fail_silently=False,
           )
 
@@ -475,7 +475,7 @@ def switch_password(request):
                          "Link para troca de senha",
                          link,
                          "rafaelngoncalves5@outlook.com",
-                         ["rafaelngoncalves5@outlook.com"],
+                         [request.user.email],
                          fail_silently=False,
                          )
                     
