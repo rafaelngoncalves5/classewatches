@@ -1,1 +1,1 @@
-web gunicorn --pythonpath lojarelogios lojarelogios.wsgi --log-file -
+web: gunicorn --pythonpath lojarelogios lojarelogios.wsgi --log-file -

@@ -2,9 +2,7 @@
 __pycache__/
 *.py[cod]
 
-/lojarelogios/lojarelogiosapp/env.py
-/lojarelogios/lojarelogios/env.py
-/lojarelogios/lojarelogios/settings.py
+
 
 # C extensions
 *.so
