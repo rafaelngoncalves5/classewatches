@@ -1,6 +1,9 @@
+from django.conf import settings
 from django.urls import path
 from . import views
 from django.contrib.auth.decorators import login_required
+from django.conf.urls.static import static
+from django.conf import settings
 
 app_name='lojarelogiosapp'
 urlpatterns = [
@@ -27,3 +30,7 @@ urlpatterns = [
     path('user/switch-pass', views.switch_password, name='switch_pass'),
     path('user/switch-pass/<slug:pk>/confirm-pass', views.confirm_pass, name='confirm_pass'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
