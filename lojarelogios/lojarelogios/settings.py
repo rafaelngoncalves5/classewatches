@@ -135,7 +135,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'lojarelogiosapp/static'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'lojarelogiosapp/static'),)
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',     # finds files stored in the `STATICFILES_DIRS` setting.
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder', # finds files stored in the 'static' subdirectory of each app.
+]
 
 STORAGES = {
     # ...
