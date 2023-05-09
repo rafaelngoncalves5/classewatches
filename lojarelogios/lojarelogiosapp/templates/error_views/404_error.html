@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section style="background-color: #11142e;">
+    <a href="{% url 'lojarelogiosapp:products' %}" class="return">
+        <img src="{% static 'lojarelogiosapp/images/icon-arrow.svg' %}" alt="Return" /></a>
+
+    <main style="position: relative; top: 15vh;" class="">
+        <div class="">
+            <img class="img-fluid mx-auto d-block my-5"
+                src="{% static 'lojarelogios/images/iconwhite.png' %}" alt="logo" />
+        </div>
+
+        <div class="text-center text-white">
+            <span class="display-3 fw-bold">Erro 404</span>
+            <p class="lead px-5 my-2">Recurso não encontrado!</p>
+        </div>
+    </main>
+</section>
+{% endblock content %}

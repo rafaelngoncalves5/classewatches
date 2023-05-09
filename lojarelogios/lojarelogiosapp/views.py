@@ -525,3 +525,17 @@ def confirm_pass(request, pk):
            return render(request, 'lojarelogiosapp/user/switch-pass.html', {'erro_msg': erro_msg})
 
       return render(request, 'lojarelogiosapp/user/confirm-pass.html', {'pk': pk})
+
+# Custom error views
+def error_400(request, exception):
+     return render(request, 'error_views/400_error.html')
+
+def error_403(request, exception):
+     return render(request, 'error_views/403_error.html')
+
+def error_404(request, exception):
+     return render(request, 'error_views/404_error.html')
+
+def error_500(request,  exception=None):
+     return render(request, 'error_views/500_error.html')
+

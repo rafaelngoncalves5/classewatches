@@ -19,6 +19,11 @@ from lojarelogiosapp import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+handler400 = 'lojarelogiosapp.views.error_400'
+handler403 = 'lojarelogiosapp.views.error_403'
+handler404 = 'lojarelogiosapp.views.error_404'
+handler500 = 'lojarelogiosapp.views.error_500'
+
 urlpatterns = [
     path('', views.index_view, name='index'),
     path('lojarelogiosapp/', include('lojarelogiosapp.urls')),
