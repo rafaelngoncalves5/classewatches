@@ -30,7 +30,3 @@ urlpatterns = [
     path('user/switch-pass', views.switch_password, name='switch_pass'),
     path('user/switch-pass/<slug:pk>/confirm-pass', views.confirm_pass, name='confirm_pass'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
