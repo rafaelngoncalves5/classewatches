@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
 <div id="root"></div>
 <main>
     <div class="content">
@@ -30,5 +32,5 @@
         </div>
     </div>
 </main>
-<script async src="{% static '/lojarelogiosapp/scripts/index.js' %}"></script>
+<script async src="{% static 'lojarelogiosapp/scripts/index.js' %}"></script>
 {% endblock content %}
