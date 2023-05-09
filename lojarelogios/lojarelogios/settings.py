@@ -17,7 +17,7 @@ Commit the change: git commit -m "remove settings.py"
 '''
 from pathlib import Path
 import os
-import mimetypes
+# import mimetypes
 import django_heroku
 # import django.contrib.staticfiles.storage
 
@@ -77,7 +77,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'lojarelogios.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
