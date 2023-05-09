@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 
-/lojarelogios/lojarelogios/settings.py
+lojarelogios/lojarelogios/settings.py
 
 # C extensions
 *.so
