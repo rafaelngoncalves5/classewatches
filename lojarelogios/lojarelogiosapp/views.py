@@ -435,7 +435,7 @@ def success_view(request):
           "NOVO PEDIDO NA LOJA VIRTUAL!",
           local_msg,
           "rafaelngoncalves5@outlook.com",
-          ["rafaelngoncalves5@outlook.com"], # Trocar pro email do Yude
+          ["wellingtonyheudesilva@gmail.com"], # Trocar pro email do Yude
           fail_silently=False,
           )
 
