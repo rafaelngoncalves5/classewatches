@@ -30,7 +30,7 @@ A hospedagem do projeto foi feita na **Heroku**
 
 usando o [Whitenoise](https://whitenoise.readthedocs.io/) para fazer o gerenciamento de arquivos estáticos, em um Dyno básico com um add-on para utilização com **PostgreSQL** da **Amazon AWS**
 
-![deploy](https://github.com/rafaelngoncalves5/loja-relogios/assets/62622905/934aed06-0958-4c5c-880f-80ee353022bd)
+![deploy](https://github.com/rafaelngoncalves5/loja-relogios/assets/62622905/cd2afdb6-4c86-4cde-ab66-7415fe230d70)
 
 ## Documentação
 
