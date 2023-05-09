@@ -2,8 +2,8 @@
 __pycache__/
 *.py[cod]
 
-lojarelogios/lojarelogios/settings.py
-lojarelogios/lojarelogiosapp/env.py
+# lojarelogios/lojarelogios/settings.py
+# lojarelogios/lojarelogiosapp/env.py
 
 # C extensions
 *.so
