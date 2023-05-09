@@ -97,13 +97,6 @@ DATABASES = {
     }
 }
 
-STORAGES = {
-    # ...
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -159,3 +152,5 @@ EMAIL_HOST_USER = 'rafaelngoncalves5@outlook.com'
 EMAIL_HOST_PASSWORD = "topacify10br923"
 
 django_heroku.settings(locals())
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
