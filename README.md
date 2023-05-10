@@ -8,7 +8,7 @@
 
 <br />
 
-![banner](https://github.com/rafaelngoncalves5/loja-relogios/blob/master/docs/banner.PNG)
+![banner](https://github.com/rafaelngoncalves5/classewatches/assets/62622905/65dc882e-1010-4aed-a1fd-fe371c266e32)
 
 ## Introdução
 
@@ -18,11 +18,12 @@ Projeto do tipo E-Commerce, fortemente centralizado na página de administraçã
 
 O pagamento é mediado utilizando o checkout pro do **mercado pago**
 
-![mercadopagogif](https://github.com/rafaelngoncalves5/loja-relogios/blob/master/docs/mercadopago.gif)
+![mercadopago](https://github.com/rafaelngoncalves5/classewatches/assets/62622905/0095ed46-92b9-4e8b-89a5-88ff721e3bf7)
+
 
 Foram feitos testes usando a SDK pra Python do [stripe](https://stripe.com/docs) também:
 
-![stripe](https://github.com/rafaelngoncalves5/loja-relogios/blob/master/docs/stripe.PNG)
+![stripe](https://github.com/rafaelngoncalves5/classewatches/assets/62622905/86486b37-b318-45a7-a226-fd8b4714d2cd)
 
 ## Hospedagem
 
@@ -30,7 +31,7 @@ A hospedagem do projeto foi feita na **Heroku**
 
 usando o [Whitenoise](https://whitenoise.readthedocs.io/) para fazer o gerenciamento de arquivos estáticos, em um Dyno básico com um add-on para utilização com **PostgreSQL** da **Amazon AWS**
 
-![deploy](https://github.com/rafaelngoncalves5/loja-relogios/assets/62622905/cd2afdb6-4c86-4cde-ab66-7415fe230d70)
+![deploy](https://github.com/rafaelngoncalves5/classewatches/assets/62622905/e244191c-1987-4166-90d1-623429395c10)
 
 <br />
 
@@ -46,7 +47,7 @@ __Para rodar o app, é necessário rodarmos o collectstatic toda vez que alterar
 
 <br />
 
-![der](https://github.com/rafaelngoncalves5/loja-relogios/blob/master/docs/DER.jpg?raw=true)
+![DER](https://github.com/rafaelngoncalves5/classewatches/assets/62622905/c5f9bad4-506e-41cb-9507-e0694f94acf1)
 
 Feito com ajuda do [diagrams.net](https://www.diagrams.net/)
 
@@ -54,6 +55,6 @@ Feito com ajuda do [diagrams.net](https://www.diagrams.net/)
 
 <br />
 
-![requisitos funcionais](https://github.com/rafaelngoncalves5/loja-relogios/blob/master/docs/RFs.PNG?raw=true)
+![RFs](https://github.com/rafaelngoncalves5/classewatches/assets/62622905/a93cc58a-32ce-4378-9328-aa282367f89e)
 
 Os requisitos foram trabalhados aqui no GitHub, e podem ser encontrados nas abas [projects](https://github.com/rafaelngoncalves5/loja-relogios/projects?query=is%3Aopen) e [issues](https://github.com/rafaelngoncalves5/loja-relogios/issues)
